@@ -1,7 +1,7 @@
 package controller
 
 type Ret struct {
-	Code    int    `json:"code" example:"400"`
+	Code    int    `json:"code" example:"-1"`
 	Message string `json:"message" example:"status bad request"`
 }
 

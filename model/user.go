@@ -1,7 +1,7 @@
 package model
 
 type User struct {
-	Model `json:",inline"`
+	Model `xorm:"extends" json:",inline"`
 	Name  string `json:"name"`
 }
 
