@@ -3,6 +3,7 @@ package model
 import (
 	"github.com/godcong/go-auth-manager/config"
 	"github.com/google/uuid"
+	"github.com/json-iterator/go"
 	"github.com/xormplus/xorm"
 	"log"
 )
@@ -78,7 +79,31 @@ func modelerTables() []Modeler {
 	}
 }
 
+// TokenSub ...
+type TokenSub struct {
+	ID string
+}
+
 // FindByID ...
 func FindByID(id string, model interface{}) error {
 	return DB().Where("id = ?", id).Find(model)
+}
+
+// DecodeUser ...
+func DecodeUser(token string) (*User, error) {
+	t := TokenSub{}
+	sub, err := util.DecryptJWT([]byte(globalDB.config.General.TokenKey), token)
+	log.Println("sub", sub)
+	if err != nil {
+		return nil, err
+	}
+
+	err = jsoniter.Unmarshal([]byte(sub), &t)
+	if err != nil {
+		if err != nil {
+			return nil, err
+		}
+	}
+	return &t, nil
+	return &User{}, nil
 }

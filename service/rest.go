@@ -3,7 +3,6 @@ package service
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/go-auth-manager/config"
-
 	"log"
 	"net/http"
 	"strings"
@@ -29,7 +28,6 @@ func NewRestServer(cfg *config.Configure) *RestServer {
 
 // Start ...
 func (s *RestServer) Start() {
-
 	router(s.Engine)
 
 	s.server = &http.Server{

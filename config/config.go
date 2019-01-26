@@ -29,13 +29,13 @@ type REST struct {
 
 // Database ...
 type Database struct {
-	Type     string `json:"type"`
-	Addr     string `json:"addr"`
-	Port     string `json:"port"`
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Schema   string `json:"schema"`
-	Location string `json:"location"`
+	Type     string `toml:"type"`
+	Addr     string `toml:"addr"`
+	Port     string `toml:"port"`
+	Username string `toml:"username"`
+	Password string `toml:"password"`
+	Schema   string `toml:"schema"`
+	Location string `toml:"location"`
 }
 
 // Source ...
@@ -44,10 +44,16 @@ func (d *Database) Source() string {
 		d.Username, d.Password, d.Addr, d.Port, d.Schema, d.Location)
 }
 
+// General ...
+type General struct {
+	TokenKey string `toml:"token_key"`
+}
+
 // Configure ...
 type Configure struct {
-	Database Database `json:"database"`
-	REST     REST     `json:"rest"`
+	General  General  `toml:"general"`
+	Database Database `toml:"database"`
+	REST     REST     `toml:"rest"`
 }
 
 func initLoader(path string) *Configure {
