@@ -1,6 +1,21 @@
 package config
 
-import "github.com/pelletier/go-toml"
+import (
+	"fmt"
+	"github.com/pelletier/go-toml"
+)
+
+var globalConfig *Configure
+
+// Config ...
+func Config() *Configure {
+	return globalConfig
+}
+
+// InitConfig ...
+func InitConfig(path string) {
+	globalConfig = initLoader(path)
+}
 
 // REST ...
 type REST struct {
@@ -14,8 +29,15 @@ type REST struct {
 type Database struct {
 	Type     string `json:"type"`
 	Addr     string `json:"addr"`
+	Port     string `json:"port"`
+	DB       string `json:"db"`
 	Username string `json:"username"`
 	Password string `json:"password"`
+}
+
+// Source ...
+func (d *Database) Source() string {
+	return fmt.Sprintf("%s:%s@%s:%s/%s?charset=utf8", d.Username, d.Password, d.Addr, d.Port, d.DB)
 }
 
 // Configure ...
@@ -24,8 +46,7 @@ type Configure struct {
 	REST     REST     `json:"rest"`
 }
 
-// InitLoader ...
-func InitLoader(path string) *Configure {
+func initLoader(path string) *Configure {
 	var cfg Configure
 	tree, err := toml.LoadFile(path)
 	if err != nil {

@@ -8,7 +8,7 @@ type Service struct {
 	rest   *RestServer
 }
 
-var global *Service
+var globalService *Service
 
 // New ...
 func New(cfg *config.Configure) *Service {
@@ -20,11 +20,11 @@ func New(cfg *config.Configure) *Service {
 
 // Start ...
 func Start(cfg *config.Configure) {
-	global := New(cfg)
-	global.rest.Start()
+	globalService = New(cfg)
+	globalService.rest.Start()
 }
 
 // Stop ...
 func Stop() {
-	global.rest.Stop()
+	globalService.rest.Stop()
 }

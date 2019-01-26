@@ -43,7 +43,7 @@ func main() {
 	done := make(chan bool, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
-	cfg := config.InitLoader(*configPath)
+	config.InitConfig(*configPath)
 
 	//start
 	service.Start(cfg)
