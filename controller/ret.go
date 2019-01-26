@@ -15,22 +15,22 @@ const ContentTypeXML = "application/xml"
 // ContentType ...
 const ContentType = "Accept"
 
-// Ret ...
-type Ret struct {
+// RetDetail ...
+type RetDetail struct {
 	Code    int    `json:"code" example:"-1"`
 	Message string `json:"message" example:"status bad request"`
 }
 
-// RetDetail ...
-type RetDetail struct {
-	Ret    `json:",inline"`
-	Detail interface{}
+// Ret ...
+type Ret struct {
+	RetDetail `json:",inline"`
+	Detail    interface{}
 }
 
 func resultJSON(ctx *gin.Context, code int, msg string, detail interface{}) {
 	if detail != nil {
-		ctx.JSON(http.StatusOK, &RetDetail{
-			Ret: Ret{
+		ctx.JSON(http.StatusOK, &Ret{
+			RetDetail: RetDetail{
 				Code:    code,
 				Message: msg,
 			},
@@ -38,7 +38,7 @@ func resultJSON(ctx *gin.Context, code int, msg string, detail interface{}) {
 		})
 		return
 	}
-	ctx.JSON(http.StatusOK, &Ret{
+	ctx.JSON(http.StatusOK, &RetDetail{
 		Code:    code,
 		Message: msg,
 	})
@@ -46,8 +46,8 @@ func resultJSON(ctx *gin.Context, code int, msg string, detail interface{}) {
 
 func resultXML(ctx *gin.Context, code int, msg string, detail interface{}) {
 	if detail != nil {
-		ctx.XML(http.StatusOK, &RetDetail{
-			Ret: Ret{
+		ctx.XML(http.StatusOK, &Ret{
+			RetDetail: RetDetail{
 				Code:    code,
 				Message: msg,
 			},
@@ -55,7 +55,7 @@ func resultXML(ctx *gin.Context, code int, msg string, detail interface{}) {
 		})
 		return
 	}
-	ctx.XML(http.StatusOK, &Ret{
+	ctx.XML(http.StatusOK, &RetDetail{
 		Code:    code,
 		Message: msg,
 	})

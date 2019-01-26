@@ -13,4 +13,5 @@ func router(eng *gin.Engine) {
 
 	r0 := eng.Group(version)
 	r0.GET("user", controller.UserList(version))
+	r0.POST("user/:id", controller.UserUpdate(version))
 }
