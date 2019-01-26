@@ -16,11 +16,14 @@ import (
 // @success 200 {array} model.User
 // @Failure 200 {object} controller.Ret
 // @Router /user [get]
-func UserList(ctx *gin.Context) {
-	users, err := model.Users()
-	if err != nil {
-		NewError(ctx, err.Error())
-		return
+func UserList(ver string) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		users, err := model.Users()
+		if err != nil {
+			NewError(ctx, err.Error())
+			return
+		}
+		detail(ctx, users)
 	}
-	detail(ctx, users)
+
 }
