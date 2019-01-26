@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"github.com/pelletier/go-toml"
+	"net/url"
 )
 
 var globalConfig *Configure
@@ -13,8 +14,9 @@ func Config() *Configure {
 }
 
 // InitConfig ...
-func InitConfig(path string) {
+func InitConfig(path string) *Configure {
 	globalConfig = initLoader(path)
+	return globalConfig
 }
 
 // REST ...
@@ -30,14 +32,16 @@ type Database struct {
 	Type     string `json:"type"`
 	Addr     string `json:"addr"`
 	Port     string `json:"port"`
-	DB       string `json:"db"`
 	Username string `json:"username"`
 	Password string `json:"password"`
+	Schema   string `json:"schema"`
+	Location string `json:"location"`
 }
 
 // Source ...
 func (d *Database) Source() string {
-	return fmt.Sprintf("%s:%s@%s:%s/%s?charset=utf8", d.Username, d.Password, d.Addr, d.Port, d.DB)
+	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?loc=%s&charset=utf8&parseTime=true",
+		d.Username, d.Password, d.Addr, d.Port, d.Schema, d.Location)
 }
 
 // Configure ...
@@ -61,7 +65,18 @@ func initLoader(path string) *Configure {
 
 // DefaultConfig ...
 func DefaultConfig() *Configure {
-	return &Configure{}
+	return &Configure{
+		Database: Database{
+			Type:     "mysql",
+			Addr:     "localhost",
+			Port:     "3306",
+			Username: "root",
+			Password: "111111",
+			Schema:   "auth",
+			Location: url.QueryEscape("Asia/Shanghai"),
+		},
+		REST: REST{},
+	}
 }
 
 // MustString ...
