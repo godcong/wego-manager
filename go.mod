@@ -6,18 +6,15 @@ require (
 	github.com/gin-gonic/gin v1.3.0
 	github.com/go-openapi/jsonreference v0.18.0 // indirect
 	github.com/go-openapi/spec v0.18.0 // indirect
-	github.com/golang/protobuf v1.2.0 // indirect
+	github.com/godcong/role-manager-server v0.0.0-20190124183956-8e6d168eb61f
 	github.com/google/uuid v1.1.0
 	github.com/kr/pretty v0.1.0 // indirect
-	github.com/mattn/go-isatty v0.0.4 // indirect
+	github.com/pelletier/go-toml v1.2.0
 	github.com/pkg/errors v0.8.1 // indirect
-	github.com/satori/go.uuid v1.2.0
-	github.com/swaggo/gin-swagger v1.0.0 // indirect
+	github.com/swaggo/gin-swagger v1.0.0
 	github.com/swaggo/swag v1.4.0
-	github.com/ugorji/go/codec v0.0.0-20181209151446-772ced7fd4c2 // indirect
 	golang.org/x/net v0.0.0-20190125091013-d26f9f9a57f3 // indirect
+	golang.org/x/sys v0.0.0-20190124100055-b90733256f2e // indirect
 	golang.org/x/tools v0.0.0-20190124215303-cc6a436ffe6b // indirect
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
-	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
-	gopkg.in/yaml.v2 v2.2.2 // indirect
 )
