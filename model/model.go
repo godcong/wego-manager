@@ -1,7 +1,6 @@
 package model
 
 import (
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/godcong/go-auth-manager/config"
 	"github.com/google/uuid"
 	"github.com/xormplus/xorm"
@@ -45,14 +44,14 @@ type Modeler interface {
 
 // Model ...
 type Model struct {
-	ID        uuid.UUID `json:"id"`
+	ID        uuid.UUID `json:"id" xorm:"id uuid pk comment(默认主键)"`
 	CreatedAt int64     `json:"created_at" xorm:"created"`
 	UpdatedAt int64     `json:"deleted_at" xorm:"updated"`
 	DeletedAt *int64    `json:"deleted_at" xorm:"deleted"`
 	Version   int       `json:"version" xorm:"version"`
 }
 
-// ID ...
+// GetID ...
 func (m *Model) GetID() string {
 	return m.ID.String()
 }
