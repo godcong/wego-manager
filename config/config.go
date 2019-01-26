@@ -44,12 +44,6 @@ func (d *Database) Source() string {
 		d.Username, d.Password, d.Addr, d.Port, d.Schema, d.Location)
 }
 
-// SourceForCreate ...
-func (d *Database) SourceForCreate() string {
-	return fmt.Sprintf("%s:%s@tcp(%s:%s)/?loc=%s&charset=utf8&parseTime=true",
-		d.Username, d.Password, d.Addr, d.Port, d.Location)
-}
-
 // Configure ...
 type Configure struct {
 	Database Database `json:"database"`
