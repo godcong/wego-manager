@@ -2,13 +2,13 @@ package model
 
 import (
 	"github.com/google/uuid"
-	"time"
 )
 
+// Model ...
 type Model struct {
-	ID        uuid.UUID   `json:"id"`
-	CreatedAt time.Timer  `json:"created_at" xorm:"created"`
-	DeletedAt *time.Timer `json:"deleted_at" xorm:"deleted"`
-	UpdatedAt *time.Timer `json:"deleted_at" xorm:"updated"`
-	Version   int         `json:"version" xorm:"version"`
+	ID        uuid.UUID `json:"id"`
+	CreatedAt int64     `json:"created_at" xorm:"created"`
+	UpdatedAt int64     `json:"deleted_at" xorm:"updated"`
+	DeletedAt *int64    `json:"deleted_at" xorm:"deleted"`
+	Version   int       `json:"version" xorm:"version"`
 }
