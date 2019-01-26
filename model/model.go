@@ -2,6 +2,7 @@ package model
 
 import (
 	"github.com/godcong/go-auth-manager/config"
+	"github.com/godcong/go-auth-manager/util"
 	"github.com/google/uuid"
 	"github.com/json-iterator/go"
 	"github.com/xormplus/xorm"
@@ -104,6 +105,5 @@ func DecodeUser(token string) (*User, error) {
 			return nil, err
 		}
 	}
-	return &t, nil
 	return &User{}, nil
 }

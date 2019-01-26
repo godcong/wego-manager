@@ -28,6 +28,8 @@ var sync = flag.Bool("sync", false, "open to sync the model")
 // @contact.url http://www.swagger.io/support
 // @contact.email support@swagger.io
 
+// @schemes https http
+
 // @license.name MIT
 // @license.url https://github.com/godcong/go-auth-manager/blob/master/LICENSE
 
