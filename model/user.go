@@ -1,6 +1,9 @@
 package model
 
-import "net/url"
+import (
+	"golang.org/x/exp/xerrors"
+	"net/url"
+)
 
 // User ...
 type User struct {
@@ -19,16 +22,22 @@ type User struct {
 	Token         string `xorm:"token"`
 }
 
-// PaginateUsers ...
-func PaginateUsers(val url.Values) (*Paginate, error) {
-	var users []*User
-	paginate := ParsePaginate(val)
-	err := paginate.Engine().Find(&users)
-	paginate.Detail = users
-	return paginate, err
+// Count ...
+func (m *User) Count() (int64, error) {
+	return Count(nil, m)
+}
+
+// Paginate ...
+func (m *User) Paginate(v url.Values) (*Paginate, error) {
+	return &Paginate{}, nil
 }
 
 // Users ...
-func (m *User) Users() []*User {
-	return nil
+func (m *User) Users() ([]*User, error) {
+	var users []*User
+	err := DB().Table(m).Find(&users)
+	if err != nil {
+		return nil, xerrors.Opaque(err)
+	}
+	return users, nil
 }

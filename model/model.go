@@ -42,6 +42,15 @@ func Sync() error {
 // Modeler ...
 type Modeler interface {
 	GetID() string
+	Count() (int64, error)
+}
+
+// Count ...
+func Count(session *xorm.Session, obj interface{}) (int64, error) {
+	if session == nil {
+		session = DB().NewSession()
+	}
+	return session.Count(obj)
 }
 
 // Model ...
@@ -51,6 +60,11 @@ type Model struct {
 	UpdatedAt int64     `json:"deleted_at" xorm:"updated"`
 	DeletedAt *int64    `json:"deleted_at" xorm:"deleted"`
 	Version   int       `json:"version" xorm:"version"`
+}
+
+// Count ...
+func (m *Model) Count() (int64, error) {
+	return Count(nil, m)
 }
 
 // GetID ...

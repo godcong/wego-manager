@@ -2,9 +2,14 @@ package model
 
 import (
 	"github.com/godcong/go-auth-manager/config"
-	"github.com/xormplus/xorm"
 	"net/url"
 )
+
+// Paginator ...
+type Paginator interface {
+	Paginate(values url.Values) (*Paginate, error)
+	Object() interface{}
+}
 
 // Paginate ...
 type Paginate struct {
@@ -16,18 +21,16 @@ type Paginate struct {
 	Detail    interface{}
 }
 
-// ParsePaginate ...
-func ParsePaginate(v url.Values) *Paginate {
+func parsePaginate(v url.Values) *Paginate {
+	order := v.Get("order")
+	if order != "asc" {
+		order = "desc"
+	}
 
 	return &Paginate{
 		Current: config.MustInt(v.Get("current"), 0),
 		Limit:   config.MustInt(v.Get("limit"), 50),
-		Order:   config.MustString(v.Get("order"), "desc"),
+		Order:   order,
 		Detail:  nil,
 	}
-}
-
-// Engine ...
-func (p *Paginate) Engine() *xorm.Session {
-	return DB().Limit(p.Limit, p.Current*p.Limit).OrderBy(p.Order)
 }
