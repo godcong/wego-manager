@@ -10,6 +10,6 @@ type Role struct {
 }
 
 // Count ...
-func (Role) Count() (int64, error) {
-	return Count(nil, m)
+func (obj *Role) Count() (int64, error) {
+	return Count(nil, obj)
 }

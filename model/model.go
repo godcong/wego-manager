@@ -56,10 +56,10 @@ func Count(session *xorm.Session, obj interface{}) (int64, error) {
 // Model ...
 type Model struct {
 	ID        uuid.UUID `json:"id" xorm:"id uuid pk comment(默认主键)"`
-	CreatedAt int64     `json:"created_at" xorm:"created"`
-	UpdatedAt int64     `json:"deleted_at" xorm:"updated"`
-	DeletedAt *int64    `json:"deleted_at" xorm:"deleted"`
-	Version   int       `json:"version" xorm:"version"`
+	CreatedAt int64     `json:"created_at" xorm:"created comment(创建时间)"`
+	UpdatedAt int64     `json:"deleted_at" xorm:"updated comment(更新时间)"`
+	DeletedAt *int64    `json:"deleted_at" xorm:"deleted comment(删除时间)"`
+	Version   int       `json:"version" xorm:"version comment(版本)"`
 }
 
 // Count ...

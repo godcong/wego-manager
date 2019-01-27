@@ -23,19 +23,19 @@ type User struct {
 }
 
 // Count ...
-func (m *User) Count() (int64, error) {
-	return Count(nil, m)
+func (obj *User) Count() (int64, error) {
+	return Count(nil, obj)
 }
 
 // Paginate ...
-func (m *User) Paginate(v url.Values) (*Paginate, error) {
+func (obj *User) Paginate(v url.Values) (*Paginate, error) {
 	return &Paginate{}, nil
 }
 
 // Users ...
-func (m *User) Users() ([]*User, error) {
+func (obj *User) Users() ([]*User, error) {
 	var users []*User
-	err := DB().Table(m).Find(&users)
+	err := DB().Table(obj).Find(&users)
 	if err != nil {
 		return nil, xerrors.Opaque(err)
 	}

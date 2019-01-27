@@ -14,7 +14,7 @@ import (
 // @Param current query string false "paginate:current"
 // @Param limit query string false "paginate:limit"
 // @Param order query string false "paginate:order"
-// @success 200 {array} model.User
+// @success 200 {array} model.Paginate
 // @Failure 400 {object} controller.CodeMessage
 // @Router /user [get]
 func UserList(ver string) gin.HandlerFunc {
@@ -42,14 +42,7 @@ func UserList(ver string) gin.HandlerFunc {
 // @Router /user [post]
 func UserAdd(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		val := ctx.Request.URL.Query()
-		model.ParsePaginate(val)
-		users, err := model.Users()
-		if err != nil {
-			Error(ctx, err)
-			return
-		}
-		Success(ctx, users)
+
 	}
 }
 
@@ -66,17 +59,7 @@ func UserAdd(ver string) gin.HandlerFunc {
 // @Router /user/{id} [post]
 func UserUpdate(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		id := ctx.Param("id")
-		var user model.User
-		var err error
-		err = model.FindByID(id, &user)
 
-		users, err := model.Users()
-		if err != nil {
-			Error(ctx, err)
-			return
-		}
-		Success(ctx, users)
 	}
 }
 
@@ -108,17 +91,7 @@ func UserShow(ver string) gin.HandlerFunc {
 // @Router /user/{id} [delete]
 func UserDelete(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		id := ctx.Param("id")
-		var user model.User
-		var err error
-		err = model.FindByID(id, &user)
 
-		users, err := model.Users()
-		if err != nil {
-			Error(ctx, err)
-			return
-		}
-		Success(ctx, users)
 	}
 }
 
