@@ -77,6 +77,8 @@ func modelerTables() []Modeler {
 		&User{},
 		&Permission{},
 		&Role{},
+		&PermissionRole{},
+		&PermissionUser{},
 	}
 }
 

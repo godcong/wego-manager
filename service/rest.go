@@ -5,7 +5,6 @@ import (
 	"github.com/godcong/go-auth-manager/config"
 	"log"
 	"net/http"
-	"strings"
 )
 
 // RestServer ...
@@ -48,12 +47,4 @@ func (s *RestServer) Stop() {
 	if err := s.server.Shutdown(nil); err != nil {
 		panic(err) // failure/timeout shutting down the server gracefully
 	}
-}
-
-// CheckPrefix ...
-func CheckPrefix(url string) string {
-	if strings.Index(url, "http") != 0 {
-		return "http://" + url
-	}
-	return url
 }

@@ -15,6 +15,7 @@ func router(eng *gin.Engine) {
 
 	r0 := eng.Group(version)
 	r0.Use(middleware.AuthCheck(version))
+	r0.POST("user", controller.UserAdd(version))
 	r0.GET("user", controller.UserList(version))
 	r0.POST("user/:id", controller.UserUpdate(version))
 	r0.GET("user/:id", controller.UserShow(version))
