@@ -19,9 +19,8 @@ import (
 // @Router /user [get]
 func UserList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		val := ctx.Request.URL.Query()
-		model.ParsePaginate(val)
-		users, err := model.Users()
+		var user model.User
+		users, err := user.Users()
 		if err != nil {
 			Error(ctx, err)
 			return
