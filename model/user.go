@@ -9,7 +9,7 @@ import (
 type User struct {
 	Model         `xorm:"extends" json:",inline"`
 	Block         bool   `xorm:"block"`           //禁止访问
-	Name          string `xorm:"name"`            //名称
+	Nickname      string `xorm:"nickname"`        //名称
 	Username      string `xorm:"username"`        //用户名
 	Email         string `xorm:"email"`           //邮件
 	Mobile        string `xorm:"mobile"`          //移动电话

@@ -13,5 +13,6 @@ type CodeMessage struct {
 
 // Error ...
 func Error(ctx *gin.Context, err error) {
+	log.Println(err)
 	log.Println(ctx.Accepted)
 }
