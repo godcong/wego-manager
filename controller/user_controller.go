@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/go-auth-manager/model"
+	"log"
 )
 
 // UserList godoc
@@ -25,6 +26,7 @@ func UserList(ver string) gin.HandlerFunc {
 			Error(ctx, err)
 			return
 		}
+		log.Println(users)
 		Success(ctx, users)
 	}
 }
@@ -42,7 +44,18 @@ func UserList(ver string) gin.HandlerFunc {
 // @Router /user [post]
 func UserAdd(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-
+		var user model.User
+		err := ctx.BindJSON(&user)
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		_, err = model.Insert(nil, &user)
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		Success(ctx, user)
 	}
 }
 

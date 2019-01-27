@@ -41,16 +41,25 @@ func Sync() error {
 
 // Modeler ...
 type Modeler interface {
+	BeforeInsert()
 	GetID() string
 	Count() (int64, error)
 }
 
 // Count ...
-func Count(session *xorm.Session, obj interface{}) (int64, error) {
+func Count(session *xorm.Session, obj Modeler) (int64, error) {
 	if session == nil {
 		session = DB().NewSession()
 	}
 	return session.Count(obj)
+}
+
+// Insert ...
+func Insert(session *xorm.Session, obj Modeler) (int64, error) {
+	if session == nil {
+		session = DB().NewSession()
+	}
+	return session.InsertOne(obj)
 }
 
 // Model ...
@@ -60,6 +69,11 @@ type Model struct {
 	UpdatedAt int64     `json:"deleted_at" xorm:"updated comment(更新时间)"`
 	DeletedAt *int64    `json:"deleted_at" xorm:"deleted comment(删除时间)"`
 	Version   int       `json:"version" xorm:"version comment(版本)"`
+}
+
+// BeforeInsert ...
+func (m *Model) BeforeInsert() {
+	m.ID = uuid.Must(uuid.NewRandom())
 }
 
 // Count ...
