@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/pelletier/go-toml"
 	"net/url"
+	"strconv"
 )
 
 var globalConfig *Configure
@@ -91,4 +92,13 @@ func MustString(v, def string) string {
 		return def
 	}
 	return v
+}
+
+// MustString ...
+func MustInt(v string, def int) int {
+	i, err := strconv.Atoi(v)
+	if err == nil {
+		return i
+	}
+	return def
 }

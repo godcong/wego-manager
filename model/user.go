@@ -1,5 +1,7 @@
 package model
 
+import "net/url"
+
 // User ...
 type User struct {
 	Model         `xorm:"extends" json:",inline"`
@@ -17,9 +19,13 @@ type User struct {
 	Token         string `xorm:"token"`
 }
 
-// Users ...
-func Users() ([]*User, error) {
-	return nil, nil
+// PaginateUsers ...
+func PaginateUsers(val url.Values) (*Paginate, error) {
+	var users []*User
+	paginate := ParsePaginate(val)
+	err := paginate.Engine().Find(&users)
+	paginate.Detail = users
+	return paginate, err
 }
 
 // Users ...
