@@ -8,6 +8,7 @@ import (
 // UserList godoc
 // @Summary List users
 // @Description List users
+// @Tags user
 // @Accept  json
 // @Produce  json
 // @Param current query string false "paginate:current"
@@ -32,6 +33,7 @@ func UserList(ver string) gin.HandlerFunc {
 // UserAdd godoc
 // @Summary Add user
 // @Description Add user
+// @Tags user2
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
@@ -118,5 +120,12 @@ func UserDelete(ver string) gin.HandlerFunc {
 			return
 		}
 		Success(ctx, users)
+	}
+}
+
+// UserPermissionList ...
+func UserPermissionList(ver string) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
 	}
 }

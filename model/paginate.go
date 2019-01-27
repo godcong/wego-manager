@@ -7,11 +7,12 @@ import (
 
 // Paginate ...
 type Paginate struct {
-	Current string
-	Total   string
-	Limit   string
-	Order   string
-	Detail  interface{}
+	Current   string
+	Total     string
+	TotalPage string
+	Limit     string
+	Order     string
+	Detail    interface{}
 }
 
 // ParsePaginate ...
