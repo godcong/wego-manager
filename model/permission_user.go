@@ -19,18 +19,27 @@ type PermissionUserDetail struct {
 }
 
 // Relate ...
-func (obj *PermissionUser) Relate(detail *PermissionUserDetail) error {
-	pud := new([]PermissionUserDetail)
-	err := DB().Table(&detail.Permission).Select("permission.*, user.*").
+func (obj *PermissionUser) Relate() (*Permission, *User, error) {
+	var info = new([]struct {
+		Permission Permission `xorm:"extends"`
+		User       User       `xorm:"extends"`
+	})
+	session := DB().Table(&Permission{}).Select("permission.*, user.*").
 		Join("left", obj, "permission_user.permission_id = permission.id").
-		Join("left", &detail.User, "permission_user.user_id = user.id").
-		Where("user.id = ? and permission.id = ?", obj.UserID, obj.PermissionID).Find(pud)
+		Join("left", &User{}, "permission_user.user_id = user.id")
+
+	if obj.UserID != "" {
+		session = session.Where("user.id = ? ", obj.UserID)
+	}
+	if obj.PermissionID != "" {
+		session = session.Where("permission.id = ? ", obj.PermissionID)
+	}
+	i, err := session.FindAndCount(info)
 	if err != nil {
-		return xerrors.Errorf("relate:%w", err)
+		return nil, nil, xerrors.Errorf("relate: %w", err)
 	}
-	if pud == nil || len(*pud) == 0 {
-		return xerrors.New("null permission user detail")
+	if i > 1 {
+		return nil, nil, xerrors.Errorf("count %d > 1 ", i)
 	}
-	*detail = (*pud)[0]
-	return nil
+	return &(*info)[0].Permission, &(*info)[0].User, nil
 }
