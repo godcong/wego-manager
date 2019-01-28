@@ -8,8 +8,3 @@ type Role struct {
 	Description string `xorm:"description"`
 	Level       int    `xorm:"level"`
 }
-
-// Count ...
-func (obj *Role) Count() (int64, error) {
-	return Count(nil, obj)
-}

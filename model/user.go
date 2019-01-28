@@ -22,11 +22,6 @@ type User struct {
 	Token         string `xorm:"token"`
 }
 
-// Count ...
-func (obj *User) Count() (int64, error) {
-	return Count(nil, obj)
-}
-
 // Paginate ...
 func (obj *User) Paginate(v url.Values) (*Paginate, error) {
 	return &Paginate{}, nil
@@ -37,7 +32,7 @@ func (obj *User) Users() ([]*User, error) {
 	var users []*User
 	err := DB().Table(obj).Find(&users)
 	if err != nil {
-		return nil, xerrors.Opaque(err)
+		return nil, xerrors.Errorf("find: %w", err)
 	}
 	return users, nil
 }

@@ -48,18 +48,20 @@ type Modeler interface {
 
 // Count ...
 func Count(session *xorm.Session, obj Modeler) (int64, error) {
-	if session == nil {
-		session = DB().NewSession()
-	}
-	return session.Count(obj)
+	return MustSession(session).Count(obj)
 }
 
 // Insert ...
 func Insert(session *xorm.Session, obj Modeler) (int64, error) {
+	return MustSession(session).InsertOne(obj)
+}
+
+// MustSession ...
+func MustSession(session *xorm.Session) *xorm.Session {
 	if session == nil {
 		session = DB().NewSession()
 	}
-	return session.InsertOne(obj)
+	return session
 }
 
 // Model ...
