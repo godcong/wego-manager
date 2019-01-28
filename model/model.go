@@ -1,11 +1,11 @@
 package model
 
 import (
+	"github.com/go-xorm/xorm"
 	"github.com/godcong/go-auth-manager/config"
 	"github.com/godcong/go-auth-manager/util"
 	"github.com/google/uuid"
 	"github.com/json-iterator/go"
-	"github.com/xormplus/xorm"
 	"log"
 )
 
@@ -66,16 +66,16 @@ func MustSession(session *xorm.Session) *xorm.Session {
 
 // Model ...
 type Model struct {
-	ID        uuid.UUID `json:"id" xorm:"id uuid pk comment(默认主键)"`
-	CreatedAt int64     `json:"created_at" xorm:"created comment(创建时间)"`
-	UpdatedAt int64     `json:"deleted_at" xorm:"updated comment(更新时间)"`
-	DeletedAt *int64    `json:"deleted_at" xorm:"deleted comment(删除时间)"`
-	Version   int       `json:"version" xorm:"version comment(版本)"`
+	ID        string `json:"id" xorm:"id uuid pk comment(默认主键)"`
+	CreatedAt int64  `json:"created_at" xorm:"created comment(创建时间)"`
+	UpdatedAt int64  `json:"deleted_at" xorm:"updated comment(更新时间)"`
+	DeletedAt *int64 `json:"deleted_at" xorm:"deleted comment(删除时间)"`
+	Version   int    `json:"version" xorm:"version comment(版本)"`
 }
 
 // BeforeInsert ...
 func (m *Model) BeforeInsert() {
-	m.ID = uuid.Must(uuid.NewRandom())
+	m.ID = uuid.Must(uuid.NewUUID()).String()
 }
 
 // Count ...
@@ -85,7 +85,7 @@ func (m *Model) Count() (int64, error) {
 
 // GetID ...
 func (m *Model) GetID() string {
-	return m.ID.String()
+	return m.ID
 }
 
 // InitDB ...
