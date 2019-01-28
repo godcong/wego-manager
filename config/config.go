@@ -30,6 +30,7 @@ type REST struct {
 
 // Database ...
 type Database struct {
+	ShowSQL  bool   `toml:"show_sql"`
 	Type     string `toml:"type"`
 	Addr     string `toml:"addr"`
 	Port     string `toml:"port"`
@@ -74,6 +75,7 @@ func initLoader(path string) *Configure {
 func DefaultConfig() *Configure {
 	return &Configure{
 		Database: Database{
+			ShowSQL:  true,
 			Type:     "mysql",
 			Addr:     "localhost",
 			Port:     "3306",
@@ -94,7 +96,7 @@ func MustString(v, def string) string {
 	return v
 }
 
-// MustString ...
+// MustInt ...
 func MustInt(v string, def int) int {
 	i, err := strconv.Atoi(v)
 	if err == nil {

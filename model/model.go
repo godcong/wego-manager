@@ -94,6 +94,9 @@ func InitDB(cfg *config.Configure) *DataBase {
 	if err != nil {
 		panic(err)
 	}
+	if cfg.Database.ShowSQL {
+		engine.ShowSQL(true)
+	}
 	globalDB = &DataBase{
 		config:   cfg,
 		modelers: modelerTables(),
