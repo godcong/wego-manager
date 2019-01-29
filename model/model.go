@@ -58,7 +58,7 @@ func Get(session *xorm.Session, obj Modeler) (bool, error) {
 
 // Update ...
 func Update(session *xorm.Session, id string, obj Modeler) (int64, error) {
-	return MustSession(session).Where("id = ?", id).Update(obj)
+	return MustSession(session).ID(id).Update(obj)
 }
 
 // Insert ...
@@ -83,7 +83,7 @@ func MustSession(session *xorm.Session) *xorm.Session {
 type Model struct {
 	ID        string `json:"id" xorm:"id uuid pk comment(默认主键)"`
 	CreatedAt int64  `json:"created_at" xorm:"created comment(创建时间)"`
-	UpdatedAt int64  `json:"deleted_at" xorm:"updated comment(更新时间)"`
+	UpdatedAt int64  `json:"updated_at" xorm:"updated comment(更新时间)"`
 	DeletedAt *int64 `json:"deleted_at" xorm:"deleted comment(删除时间)"`
 	Version   int    `json:"version" xorm:"version comment(版本)"`
 }
