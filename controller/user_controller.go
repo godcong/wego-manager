@@ -72,7 +72,19 @@ func UserAdd(ver string) gin.HandlerFunc {
 // @Router /user/{id} [post]
 func UserUpdate(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-
+		id := ctx.Param("id")
+		user := model.User{}
+		err := ctx.BindJSON(user)
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		_, err := model.Get(nil, user)
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		Success(ctx, user)
 	}
 }
 
@@ -88,7 +100,14 @@ func UserUpdate(ver string) gin.HandlerFunc {
 // @Router /user/{id} [get]
 func UserShow(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-
+		id := ctx.Param("id")
+		user := model.NewUser(id)
+		_, err := model.Get(nil, user)
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		Success(ctx, user)
 	}
 }
 
@@ -104,7 +123,14 @@ func UserShow(ver string) gin.HandlerFunc {
 // @Router /user/{id} [delete]
 func UserDelete(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-
+		id := ctx.Param("id")
+		user := model.NewUser(id)
+		_, err := model.Delete(nil, user)
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		Success(ctx, user)
 	}
 }
 

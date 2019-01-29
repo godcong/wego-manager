@@ -51,9 +51,24 @@ func Count(session *xorm.Session, obj Modeler) (int64, error) {
 	return MustSession(session).Count(obj)
 }
 
+// Get ...
+func Get(session *xorm.Session, obj Modeler) (bool, error) {
+	return MustSession(session).Get(obj)
+}
+
+// Update ...
+func Update(session *xorm.Session, id string, obj Modeler) (int64, error) {
+	return MustSession(session).Where("id = ?", id).Update(obj)
+}
+
 // Insert ...
 func Insert(session *xorm.Session, obj Modeler) (int64, error) {
 	return MustSession(session).InsertOne(obj)
+}
+
+// Delete ...
+func Delete(session *xorm.Session, obj Modeler) (int64, error) {
+	return MustSession(session).Delete(obj)
 }
 
 // MustSession ...
