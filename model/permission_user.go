@@ -11,19 +11,12 @@ type PermissionUser struct {
 	UserID       string `json:"user_id" xorm:"user_id notnull uuid"`
 }
 
-// PermissionUserDetail ...
-type PermissionUserDetail struct {
-	Permission Permission `xorm:"extends"`
-	//PermissionUser PermissionUser `xorm:"extends"`
-	User User `xorm:"extends"`
-}
-
 // Relate ...
 func (obj *PermissionUser) Relate() (*Permission, *User, error) {
-	var info = new([]struct {
-		Permission Permission `xorm:"extends"`
-		User       User       `xorm:"extends"`
-	})
+	var info []struct {
+		Permission *Permission `xorm:"extends"`
+		User       *User       `xorm:"extends"`
+	}
 	session := DB().Table(&Permission{}).Select("permission.*, user.*").
 		Join("left", obj, "permission_user.permission_id = permission.id").
 		Join("left", &User{}, "permission_user.user_id = user.id")
@@ -34,12 +27,12 @@ func (obj *PermissionUser) Relate() (*Permission, *User, error) {
 	if obj.PermissionID != "" {
 		session = session.Where("permission.id = ? ", obj.PermissionID)
 	}
-	i, err := session.FindAndCount(info)
+	i, err := session.FindAndCount(&info)
 	if err != nil {
 		return nil, nil, xerrors.Errorf("relate: %w", err)
 	}
 	if i > 1 {
 		return nil, nil, xerrors.Errorf("count %d > 1 ", i)
 	}
-	return &(*info)[0].Permission, &(*info)[0].User, nil
+	return (info)[0].Permission, (info)[0].User, nil
 }
