@@ -62,3 +62,22 @@ func (obj *User) Permissions() ([]*Permission, error) {
 
 	return permissions, nil
 }
+
+// Roles ...
+func (obj *User) Roles() ([]*Role, error) {
+	var roles []*Role
+	session := DB().Table(&Role{}).Select("role.*").
+		Join("left", &RoleUser{}, "role_user.role_id = role.id").
+		Join("left", obj, "role_user.user_id = user.id")
+
+	if obj.ID != "" {
+		session = session.Where("user.id = ? ", obj.ID)
+	}
+
+	err := session.Find(&roles)
+	if err != nil {
+		return nil, xerrors.Errorf("relate: %w", err)
+	}
+
+	return roles, nil
+}
