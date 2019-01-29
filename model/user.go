@@ -29,6 +29,20 @@ func NewUser(id string) *User {
 	}}
 }
 
+// Get ...
+func (obj *User) Get() (bool, error) {
+	return Get(nil, obj)
+}
+
+// Update ...
+func (obj *User) Update(cols ...string) (int64, error) {
+	//b, err := Get(nil, obj)
+	//if err != nil || !b {
+	//	return 0, xerrors.Errorf("update:%w", err)
+	//}
+	return Update(nil, obj.ID, obj)
+}
+
 // Paginate ...
 func (obj *User) Paginate(v url.Values) (*Paginate, error) {
 	return &Paginate{}, nil

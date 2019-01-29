@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/go-auth-manager/model"
+	"golang.org/x/exp/xerrors"
 	"log"
 )
 
@@ -74,14 +75,19 @@ func UserAdd(ver string) gin.HandlerFunc {
 func UserUpdate(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
-		user := model.User{}
-		err := ctx.BindJSON(&user)
+		user := model.NewUser(id)
+		b, err := user.Get()
+		if err != nil || !b {
+			Error(ctx, xerrors.Errorf("no users:%w", err))
+			return
+		}
+		err = ctx.BindJSON(user)
 		if err != nil {
 			Error(ctx, err)
 			return
 		}
-		i, err := model.Update(nil, id, &user)
-		log.Println(i)
+
+		_, err = model.Update(nil, id, user)
 		if err != nil {
 			Error(ctx, err)
 			return
