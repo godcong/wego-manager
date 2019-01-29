@@ -34,7 +34,7 @@ func UserList(ver string) gin.HandlerFunc {
 // UserAdd godoc
 // @Summary Add user
 // @Description Add user
-// @Tags user2
+// @Tags user
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
@@ -62,6 +62,7 @@ func UserAdd(ver string) gin.HandlerFunc {
 // UserUpdate godoc
 // @Summary Update user
 // @Description Update user
+// @Tags user
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
@@ -74,12 +75,13 @@ func UserUpdate(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
 		user := model.User{}
-		err := ctx.BindJSON(user)
+		err := ctx.BindJSON(&user)
 		if err != nil {
 			Error(ctx, err)
 			return
 		}
-		_, err := model.Get(nil, user)
+		i, err := model.Update(nil, id, &user)
+		log.Println(i)
 		if err != nil {
 			Error(ctx, err)
 			return
@@ -91,6 +93,7 @@ func UserUpdate(ver string) gin.HandlerFunc {
 // UserShow godoc
 // @Summary Show user
 // @Description Show user
+// @Tags user
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
@@ -114,6 +117,7 @@ func UserShow(ver string) gin.HandlerFunc {
 // UserDelete godoc
 // @Summary Delete user
 // @Description Delete user
+// @Tags user
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
@@ -137,6 +141,7 @@ func UserDelete(ver string) gin.HandlerFunc {
 // UserPermissionList godoc
 // @Summary List permission
 // @Description List permission
+// @Tags user
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
