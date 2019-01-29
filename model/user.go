@@ -22,6 +22,13 @@ type User struct {
 	Token         string `xorm:"token"`
 }
 
+// NewUser ...
+func NewUser(id string) *User {
+	return &User{Model: Model{
+		ID: id,
+	}}
+}
+
 // Paginate ...
 func (obj *User) Paginate(v url.Values) (*Paginate, error) {
 	return &Paginate{}, nil
@@ -29,10 +36,29 @@ func (obj *User) Paginate(v url.Values) (*Paginate, error) {
 
 // Users ...
 func (obj *User) Users() ([]*User, error) {
-	var users []*User
-	err := DB().Table(obj).Find(&users)
+	users := new([]*User)
+	err := DB().Table(obj).Find(users)
 	if err != nil {
 		return nil, xerrors.Errorf("find: %w", err)
 	}
-	return users, nil
+	return *users, nil
+}
+
+// Permissions ...
+func (obj *User) Permissions() ([]*Permission, error) {
+	var permissions []*Permission
+	session := DB().Table(&Permission{}).Select("permission.*").
+		Join("left", &PermissionUser{}, "permission_user.permission_id = permission.id").
+		Join("left", obj, "permission_user.user_id = user.id")
+
+	if obj.ID != "" {
+		session = session.Where("user.id = ? ", obj.ID)
+	}
+
+	err := session.Find(&permissions)
+	if err != nil {
+		return nil, xerrors.Errorf("relate: %w", err)
+	}
+
+	return permissions, nil
 }
