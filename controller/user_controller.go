@@ -108,9 +108,25 @@ func UserDelete(ver string) gin.HandlerFunc {
 	}
 }
 
-// UserPermissionList ...
+// UserPermissionList godoc
+// @Summary List permission
+// @Description List permission
+// @Accept  json
+// @Produce  json
+// @Param token header string true "login token"
+// @Param id path string true "User ID"
+// @success 200 {array} model.Permission
+// @Failure 400 {object} controller.CodeMessage
+// @Router /user/{id}/permission [get]
 func UserPermissionList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-
+		id := ctx.Param("id")
+		user := model.NewUser(id)
+		permissions, err := user.Permissions()
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		Success(ctx, permissions)
 	}
 }

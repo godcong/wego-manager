@@ -20,6 +20,7 @@ func router(eng *gin.Engine) {
 	r0.POST("user/:id", controller.UserUpdate(version))
 	r0.GET("user/:id", controller.UserShow(version))
 	r0.DELETE("user/:id", controller.UserDelete(version))
+	r0.GET("user/:id/permission", controller.UserPermissionList(version))
 }
 
 // Router ...
