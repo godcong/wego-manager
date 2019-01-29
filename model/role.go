@@ -8,3 +8,12 @@ type Role struct {
 	Description string `xorm:"description"`
 	Level       int    `xorm:"level"`
 }
+
+// NewRole ...
+func NewRole(id string) *Role {
+	return &Role{
+		Model: Model{
+			ID: id,
+		},
+	}
+}

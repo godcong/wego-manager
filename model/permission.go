@@ -8,3 +8,12 @@ type Permission struct {
 	Description     string `xorm:"description"`
 	PermissionModel string `xorm:"permission_model"`
 }
+
+// NewPermission ...
+func NewPermission(id string) *Permission {
+	return &Permission{
+		Model: Model{
+			ID: id,
+		},
+	}
+}
