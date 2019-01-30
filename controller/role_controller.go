@@ -104,7 +104,7 @@ func RoleUpdate(ver string) gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Role ID"
-// @success 200 {array} model.Role
+// @success 200 {object} model.Role
 // @Failure 400 {object} controller.CodeMessage
 // @Router /role/{id} [get]
 func RoleShow(ver string) gin.HandlerFunc {
@@ -128,7 +128,7 @@ func RoleShow(ver string) gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Role ID"
-// @success 200 {array} model.Role
+// @success 200 {object} model.Role
 // @Failure 400 {object} controller.CodeMessage
 // @Router /role/{id} [delete]
 func RoleDelete(ver string) gin.HandlerFunc {
@@ -176,18 +176,18 @@ func RolePermissionList(ver string) gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Role ID"
-// @success 200 {array} model.Permission
+// @success 200 {array} model.User
 // @Failure 400 {object} controller.CodeMessage
 // @Router /role/{id}/user [get]
 func RoleUserList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
 		role := model.NewRole(id)
-		permissions, err := role.Permissions()
+		users, err := role.Users()
 		if err != nil {
 			Error(ctx, err)
 			return
 		}
-		Success(ctx, permissions)
+		Success(ctx, users)
 	}
 }

@@ -18,7 +18,7 @@ type Paginate struct {
 	TotalPage int
 	Limit     int
 	Order     string
-	Detail    interface{} `json:"detail" example:"model detail"`
+	Detail    interface{} `json:"detail"`
 }
 
 func parsePaginate(v url.Values) *Paginate {

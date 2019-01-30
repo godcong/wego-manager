@@ -40,7 +40,7 @@ func UserList(ver string) gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "login token"
 // @Param account body User true "user update info"
-// @success 200 {array} model.User
+// @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
 // @Router /user [post]
 func UserAdd(ver string) gin.HandlerFunc {
@@ -69,7 +69,7 @@ func UserAdd(ver string) gin.HandlerFunc {
 // @Param token header string true "login token"
 // @Param id path string true "User ID"
 // @Param account body User true "user update info"
-// @success 200 {array} model.User
+// @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
 // @Router /user/{id} [post]
 func UserUpdate(ver string) gin.HandlerFunc {
@@ -104,7 +104,7 @@ func UserUpdate(ver string) gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "User ID"
-// @success 200 {array} model.User
+// @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
 // @Router /user/{id} [get]
 func UserShow(ver string) gin.HandlerFunc {
@@ -128,7 +128,7 @@ func UserShow(ver string) gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "User ID"
-// @success 200 {array} model.User
+// @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
 // @Router /user/{id} [delete]
 func UserDelete(ver string) gin.HandlerFunc {
