@@ -1,4 +1,4 @@
-module github.com/godcong/go-auth-manager
+module github.com/godcong/wego-auth-manager
 
 require (
 	cloud.google.com/go v0.26.0 // indirect

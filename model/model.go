@@ -2,8 +2,8 @@ package model
 
 import (
 	"github.com/go-xorm/xorm"
-	"github.com/godcong/go-auth-manager/config"
-	"github.com/godcong/go-auth-manager/util"
+	"github.com/godcong/wego-auth-manager/config"
+	"github.com/godcong/wego-auth-manager/util"
 	"github.com/google/uuid"
 	"github.com/json-iterator/go"
 	"log"

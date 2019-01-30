@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/godcong/go-auth-manager/config"
+	"github.com/godcong/wego-auth-manager/config"
 	"net/url"
 )
 
