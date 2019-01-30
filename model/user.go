@@ -50,12 +50,12 @@ func (obj *User) Paginate(v url.Values) (*Paginate, error) {
 
 // Users ...
 func (obj *User) Users() ([]*User, error) {
-	users := new([]*User)
-	err := DB().Table(obj).Find(users)
+	var users []*User
+	err := DB().Table(obj).Find(&users)
 	if err != nil {
 		return nil, xerrors.Errorf("find: %w", err)
 	}
-	return *users, nil
+	return users, nil
 }
 
 // Permissions ...

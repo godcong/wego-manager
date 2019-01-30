@@ -1,5 +1,9 @@
 package model
 
+import (
+	"golang.org/x/exp/xerrors"
+)
+
 // Role ...
 type Role struct {
 	Model       `xorm:"extends"`
@@ -16,4 +20,14 @@ func NewRole(id string) *Role {
 			ID: id,
 		},
 	}
+}
+
+// Roles ...
+func (obj *Role) Roles() ([]*Role, error) {
+	var roles []*Role
+	err := DB().Table(obj).Find(&roles)
+	if err != nil {
+		return nil, xerrors.Errorf("find: %w", err)
+	}
+	return roles, nil
 }
