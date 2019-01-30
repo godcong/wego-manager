@@ -36,10 +36,6 @@ func (obj *User) Get() (bool, error) {
 
 // Update ...
 func (obj *User) Update(cols ...string) (int64, error) {
-	//b, err := Get(nil, obj)
-	//if err != nil || !b {
-	//	return 0, xerrors.Errorf("update:%w", err)
-	//}
 	return Update(nil, obj.ID, obj)
 }
 

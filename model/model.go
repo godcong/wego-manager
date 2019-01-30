@@ -43,6 +43,8 @@ func Sync() error {
 type Modeler interface {
 	BeforeInsert()
 	GetID() string
+	Get() (bool, error)
+	Update(cols ...string) (int64, error)
 	Count() (int64, error)
 }
 
@@ -59,6 +61,11 @@ func Get(session *xorm.Session, obj Modeler) (bool, error) {
 // Update ...
 func Update(session *xorm.Session, id string, obj Modeler) (int64, error) {
 	return MustSession(session).ID(id).Update(obj)
+}
+
+// UpdateWithColumn ...
+func UpdateWithColumn(session *xorm.Session, id string, obj Modeler, cols ...string) (int64, error) {
+	return MustSession(session).ID(id).Cols(cols...).Update(obj)
 }
 
 // Insert ...
@@ -86,6 +93,19 @@ type Model struct {
 	UpdatedAt int64  `json:"-" xorm:"updated comment(更新时间)"`
 	DeletedAt *int64 `json:"-" xorm:"deleted comment(删除时间)"`
 	Version   int    `json:"-" xorm:"version comment(版本)"`
+}
+
+// Get ...
+func (m *Model) Get() (bool, error) {
+	return Get(nil, m)
+}
+
+// Update ...
+func (m *Model) Update(cols ...string) (int64, error) {
+	if cols == nil {
+		return Update(nil, m.ID, m)
+	}
+	return UpdateWithColumn(nil, m.ID, m, cols...)
 }
 
 // BeforeInsert ...

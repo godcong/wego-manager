@@ -22,6 +22,16 @@ func NewRole(id string) *Role {
 	}
 }
 
+// Get ...
+func (obj *Role) Get() (bool, error) {
+	return Get(nil, obj)
+}
+
+// Update ...
+func (obj *Role) Update(cols ...string) (int64, error) {
+	return Update(nil, obj.ID, obj)
+}
+
 // Roles ...
 func (obj *Role) Roles() ([]*Role, error) {
 	var roles []*Role
