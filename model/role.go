@@ -46,8 +46,7 @@ func (obj *Role) Roles() ([]*Role, error) {
 func (obj *Role) Permissions() ([]*Permission, error) {
 	var permissions []*Permission
 	session := DB().Table(&Permission{}).Select("permission.*").
-		Join("left", &PermissionUser{}, "permission_role.permission_id = permission.id").
-		Join("left", obj, "permission_role.role_id = role.id")
+		Join("left", &PermissionRole{}, "permission_role.role_id = role.id")
 
 	if obj.ID != "" {
 		session = session.Where("role.id = ? ", obj.ID)
@@ -64,9 +63,8 @@ func (obj *Role) Permissions() ([]*Permission, error) {
 // Users ...
 func (obj *Role) Users() ([]*User, error) {
 	var users []*User
-	session := DB().Table(obj).Select("role.*").
-		Join("left", &RoleUser{}, "role_user.role_id = role.id").
-		Join("left", &User{}, "role_user.user_id = user.id")
+	session := DB().Table(&User{}).Select("user.*").
+		Join("left", &RoleUser{}, "role_user.role_id = role.id")
 
 	if obj.ID != "" {
 		session = session.Where("role.id = ? ", obj.ID)
