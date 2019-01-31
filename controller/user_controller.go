@@ -167,3 +167,27 @@ func UserPermissionList(ver string) gin.HandlerFunc {
 		Success(ctx, permissions)
 	}
 }
+
+// UserRoleList godoc
+// @Summary List role
+// @Description List role
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param token header string true "login token"
+// @Param id path string true "User ID"
+// @success 200 {array} model.Role
+// @Failure 400 {object} controller.CodeMessage
+// @Router /user/{id}/role [get]
+func UserRoleList(ver string) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		id := ctx.Param("id")
+		user := model.NewUser(id)
+		roles, err := user.Roles()
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		Success(ctx, roles)
+	}
+}
