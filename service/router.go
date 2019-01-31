@@ -20,6 +20,7 @@ func router(eng *gin.Engine) {
 	r0.POST("user/:id", controller.UserUpdate(version))
 	r0.GET("user/:id", controller.UserShow(version))
 	r0.DELETE("user/:id", controller.UserDelete(version))
+	r0.GET("user/:id/role", controller.UserRoleList(version))
 	r0.GET("user/:id/permission", controller.UserPermissionList(version))
 
 	r0.POST("role", controller.RoleAdd(version))
@@ -29,6 +30,14 @@ func router(eng *gin.Engine) {
 	r0.DELETE("role/:id", controller.RoleDelete(version))
 	r0.GET("role/:id/permission", controller.RolePermissionList(version))
 	r0.GET("role/:id/user", controller.RoleUserList(version))
+
+	r0.POST("permission", controller.PermissionAdd(version))
+	r0.GET("permission", controller.PermissionList(version))
+	r0.POST("permission/:id", controller.PermissionUpdate(version))
+	r0.GET("permission/:id", controller.PermissionShow(version))
+	r0.DELETE("permission/:id", controller.PermissionDelete(version))
+	r0.GET("permission/:id/role", controller.PermissionRoleList(version))
+	r0.GET("permission/:id/user", controller.PermissionUserList(version))
 
 }
 
