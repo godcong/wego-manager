@@ -11,7 +11,7 @@ type WebToken struct {
 	UID           string `json:"oid"`
 	Username      string `json:"username"`
 	Nickname      string `json:"nickname"`
-	EffectiveTime int64  `json:"effectiveTime"`
+	EffectiveTime int64  `json:"effective_time"`
 }
 
 // NewWebToken ...

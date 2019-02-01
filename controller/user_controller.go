@@ -15,7 +15,7 @@ import (
 // @Tags user
 // @Accept  json
 // @Produce  json
-// @success 200 {object} string
+// @success 200 {object} util.WebToken
 // @Failure 400 {object} controller.CodeMessage
 // @Router /login [post]
 func UserLogin(ver string) gin.HandlerFunc {
@@ -66,6 +66,34 @@ func UserLogin(ver string) gin.HandlerFunc {
 	}
 }
 
+// UserRegister godoc
+// @Summary register user
+// @Description register user
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param account body User true "user update info"
+// @success 200 {object} util.WebToken
+// @Failure 400 {object} controller.CodeMessage
+// @Router /register [post]
+func UserRegister(ver string) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		var user model.User
+		err := ctx.BindJSON(&user)
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		user.Password = util.SHA256(user.Password, config.Config().General.TokenKey, util.GenerateRandomString(16))
+		_, err = model.Insert(nil, &user)
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		Success(ctx, user)
+	}
+}
+
 // UserList godoc
 // @Summary List users
 // @Description List users
@@ -110,6 +138,7 @@ func UserAdd(ver string) gin.HandlerFunc {
 			Error(ctx, err)
 			return
 		}
+		user.Password = util.SHA256(user.Password, config.Config().General.TokenKey, util.GenerateRandomString(16))
 		_, err = model.Insert(nil, &user)
 		if err != nil {
 			Error(ctx, err)
