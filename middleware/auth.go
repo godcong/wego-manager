@@ -42,7 +42,8 @@ func AuthCheck(ver string) gin.HandlerFunc {
 			err = xerrors.New("no users")
 			return
 		}
-		ctx.Set("user", user)
+		log.Printf("%+v", user)
+		ctx.Set("user", &user)
 		ctx.Next()
 	}
 }
@@ -59,6 +60,7 @@ func handleFuncName(ctx *gin.Context) string {
 // PermissionCheck ...
 func PermissionCheck(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
+		var err error
 		user := User(ctx)
 		roles, err := user.Roles()
 		defer func() {

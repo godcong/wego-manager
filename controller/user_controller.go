@@ -15,6 +15,7 @@ import (
 // @Tags user
 // @Accept  json
 // @Produce  json
+// @Param account body UserLogin true "user update info"
 // @success 200 {object} util.WebToken
 // @Failure 400 {object} controller.CodeMessage
 // @Router /login [post]
@@ -84,7 +85,8 @@ func UserRegister(ver string) gin.HandlerFunc {
 			Error(ctx, err)
 			return
 		}
-		user.Password = util.SHA256(user.Password, config.Config().General.TokenKey, util.GenerateRandomString(16))
+		user.Salt = util.GenerateRandomString(16)
+		user.Password = util.SHA256(user.Password, config.Config().General.TokenKey, user.Salt)
 		_, err = model.Insert(nil, &user)
 		if err != nil {
 			Error(ctx, err)
