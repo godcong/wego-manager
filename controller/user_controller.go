@@ -2,7 +2,9 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/godcong/wego-auth-manager/config"
 	"github.com/godcong/wego-auth-manager/model"
+	"github.com/godcong/wego-auth-manager/util"
 	"golang.org/x/exp/xerrors"
 	"log"
 )
@@ -18,6 +20,49 @@ import (
 // @Router /login [post]
 func UserLogin(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
+		var u model.UserLogin
+		err := ctx.BindJSON(&u)
+
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		user := model.User{
+			Username: u.Username,
+		}
+
+		b, err := user.Get()
+		if err != nil {
+			log.Println("get error1")
+			Error(ctx, err)
+			return
+		}
+
+		if !b {
+			log.Println("get error2")
+			Error(ctx, xerrors.New("username password is not correct"))
+			return
+		}
+
+		b = user.Validate(&u, config.Config().General.TokenKey)
+		if !b {
+			log.Println("validate error")
+			Error(ctx, xerrors.New("username password is not correct"))
+			return
+		}
+		token := util.NewWebToken(user.ID)
+		token.Username = user.Username
+		token.Nickname = user.Nickname
+		t, err := util.ToToken(config.Config().General.TokenKey, token)
+		if err != nil {
+			log.Println(err)
+			Error(ctx, xerrors.New("username password is not correct"))
+			return
+		}
+		Success(ctx, gin.H{
+			"token": t,
+		})
+		return
 	}
 }
 
