@@ -1,6 +1,9 @@
 package util
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"fmt"
 	"github.com/json-iterator/go"
 	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/square/go-jose.v2/jwt"
@@ -8,6 +11,7 @@ import (
 	"io/ioutil"
 	"log"
 	"math/rand"
+	"strings"
 	"time"
 )
 
@@ -137,4 +141,13 @@ func EncryptJWT(key []byte, sub []byte) (string, error) {
 
 	raw, err := jwt.Signed(sig).Claims(cl).CompactSerialize()
 	return raw, err
+}
+
+// SHA256 ...
+func SHA256(v, key, salt string) string {
+	m := hmac.New(sha256.New, []byte(key))
+	m.Write([]byte(v))
+	m.Write([]byte("."))
+	m.Write([]byte(salt))
+	return strings.ToUpper(fmt.Sprintf("%x", m.Sum(nil)))
 }
