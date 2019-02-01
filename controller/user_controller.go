@@ -7,6 +7,20 @@ import (
 	"log"
 )
 
+// UserLogin godoc
+// @Summary Login user
+// @Description Login user
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @success 200 {object} string
+// @Failure 400 {object} controller.CodeMessage
+// @Router /login [post]
+func UserLogin(ver string) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+	}
+}
+
 // UserList godoc
 // @Summary List users
 // @Description List users

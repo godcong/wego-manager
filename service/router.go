@@ -38,6 +38,7 @@ func (l *RouteLoader) router(eng *gin.Engine) {
 
 	v0 := eng.Group(l.Version)
 
+	v0.POST("login", controller.UserLogin(l.Version))
 	//超级管理员面板
 	//账号、密码、所属组织、角色权限、邮箱、手机号码、授权证书和授权私钥
 	r0 := v0.Group("dashboard")
