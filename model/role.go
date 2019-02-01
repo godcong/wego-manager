@@ -13,6 +13,12 @@ type Role struct {
 	Level       int    `xorm:"level"`
 }
 
+// RoleSlugAdmin ...
+const RoleSlugAdmin = "admin"
+
+// RoleSlugUser ...
+const RoleSlugUser = "user"
+
 // NewRole ...
 func NewRole(id string) *Role {
 	return &Role{

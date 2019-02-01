@@ -74,6 +74,9 @@ func initLoader(path string) *Configure {
 // DefaultConfig ...
 func DefaultConfig() *Configure {
 	return &Configure{
+		General: General{
+			TokenKey: "im-yeliao-godcong",
+		},
 		Database: Database{
 			ShowSQL:  true,
 			Type:     "mysql",

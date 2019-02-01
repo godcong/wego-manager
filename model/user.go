@@ -72,6 +72,23 @@ func (obj *User) Permissions() ([]*Permission, error) {
 	return permissions, nil
 }
 
+// CheckPermission ...
+func (obj *User) CheckPermission(funcName string) bool {
+	session := DB().Table(&Permission{}).Select("permission.*").
+		Join("left", &PermissionUser{}, "permission_user.user_id = user.id").
+		Where("permission.slug = ?", funcName)
+
+	if obj.ID != "" {
+		session = session.Where("user.id = ? ", obj.ID)
+	}
+
+	b, err := session.Exist()
+	if err != nil || !b {
+		return false
+	}
+	return true
+}
+
 // Roles ...
 func (obj *User) Roles() ([]*Role, error) {
 	var roles []*Role
