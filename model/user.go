@@ -66,10 +66,10 @@ func (obj *User) Users() ([]*User, error) {
 func (obj *User) Permissions() ([]*Permission, error) {
 	var permissions []*Permission
 	session := DB().Table(&Permission{}).Select("permission.*").
-		Join("left", &PermissionUser{}, "permission_user.user_id = user.id")
+		Join("left", &PermissionUser{}, "permission_user.permission_id = permission.id")
 
 	if obj.ID != "" {
-		session = session.Where("user.id = ? ", obj.ID)
+		session = session.Where("permission_user.user_id = ? ", obj.ID)
 	}
 
 	err := session.Find(&permissions)
@@ -82,16 +82,16 @@ func (obj *User) Permissions() ([]*Permission, error) {
 
 // CheckPermission ...
 func (obj *User) CheckPermission(funcName string) bool {
+	var permissions []*Permission
 	session := DB().Table(&Permission{}).Select("permission.*").
-		Join("left", &PermissionUser{}, "permission_user.user_id = user.id").
+		Join("left", &PermissionUser{}, "permission_user.permission_id = permission.id").
 		Where("permission.slug = ?", funcName)
-
 	if obj.ID != "" {
-		session = session.Where("user.id = ? ", obj.ID)
+		session = session.Where("permission_user.user_id = ? ", obj.ID)
 	}
 
-	b, err := session.Exist()
-	if err != nil || !b {
+	i, err := session.FindAndCount(&permissions)
+	if err != nil || i <= 0 {
 		return false
 	}
 	return true
@@ -101,10 +101,10 @@ func (obj *User) CheckPermission(funcName string) bool {
 func (obj *User) Roles() ([]*Role, error) {
 	var roles []*Role
 	session := DB().Table(&Role{}).Select("role.*").
-		Join("left", &RoleUser{}, "role_user.user_id = user.id")
+		Join("left", &RoleUser{}, "role_user.role_id = role.id")
 
 	if obj.ID != "" {
-		session = session.Where("user.id = ? ", obj.ID)
+		session = session.Where("role_user.user_id = ? ", obj.ID)
 	}
 
 	err := session.Find(&roles)

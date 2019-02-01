@@ -42,7 +42,6 @@ func AuthCheck(ver string) gin.HandlerFunc {
 			err = xerrors.New("no users")
 			return
 		}
-		log.Printf("%+v", user)
 		ctx.Set("user", &user)
 		ctx.Next()
 	}
@@ -70,6 +69,7 @@ func PermissionCheck(ver string) gin.HandlerFunc {
 				return
 			}
 		}()
+		log.Printf("%+v", roles)
 		if err == nil {
 			//超级管理员拥有所有权限
 			for _, role := range roles {
