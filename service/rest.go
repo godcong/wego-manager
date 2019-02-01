@@ -10,6 +10,7 @@ import (
 // RestServer ...
 type RestServer struct {
 	*gin.Engine
+	loader *RouteLoader
 	config *config.Configure
 	server *http.Server
 	Port   string
@@ -21,13 +22,14 @@ func NewRestServer(cfg *config.Configure) *RestServer {
 		Engine: gin.Default(),
 		config: cfg,
 		Port:   config.MustString(cfg.REST.Port, ":8080"),
+		loader: NewRouteLoader("v0"),
 	}
 	return s
 }
 
 // Start ...
 func (s *RestServer) Start() {
-	router(s.Engine)
+	s.loader.router(s.Engine)
 
 	s.server = &http.Server{
 		Addr:    s.Port,
