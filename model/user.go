@@ -1,9 +1,16 @@
 package model
 
 import (
+	"github.com/godcong/wego-auth-manager/util"
 	"golang.org/x/exp/xerrors"
 	"net/url"
 )
+
+// UserLogin ...
+type UserLogin struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
 
 // User ...
 type User struct {
@@ -15,11 +22,12 @@ type User struct {
 	Mobile        string `json:"mobile" xorm:"mobile"`                   //移动电话
 	IDCardFacade  string `json:"id_card_facade" xorm:"id_card_facade"`   //身份证(正)
 	IDCardObverse string `json:"id_card_obverse" xorm:"id_card_obverse"` //身份证(反)
-	Password      string `json:"password" xorm:"password"`               //密码
+	Password      string `json:"-" xorm:"password"`                      //密码
 	Certificate   string `json:"certificate" xorm:"certificate"`         //证书
 	PrivateKey    string `json:"private_key" xorm:"private_key"`         //私钥
 	LoginIP       string `json:"login_ip" xorm:"login_ip"`               //本次登录IP
-	Token         string `json:"token" xorm:"token"`
+	Token         string `json:"token" xorm:"token"`                     //Token
+	Salt          string `json:"-" xorm:"slat"`                          //盐值
 }
 
 // NewUser ...
@@ -105,4 +113,16 @@ func (obj *User) Roles() ([]*Role, error) {
 	}
 
 	return roles, nil
+}
+
+// CheckPermission ...
+func (obj *User) Validate(u *UserLogin, key string) bool {
+	u.Password = util.SHA256(u.Password, key, obj.Salt)
+	session := DB().Table(obj).Where("username = ?", u.Username).And("password = ?", u.Password)
+
+	b, err := session.Exist()
+	if err != nil || !b {
+		return false
+	}
+	return true
 }
