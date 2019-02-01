@@ -97,6 +97,7 @@ func PermissionCheck(ver string) gin.HandlerFunc {
 func User(ctx *gin.Context) *model.User {
 	if v, b := ctx.Get("user"); b {
 		if v0, b := v.(*model.User); b {
+			log.Printf("%+v\n", v0)
 			return v0
 		}
 	}
