@@ -36,15 +36,12 @@ func (l *RouteLoader) router(eng *gin.Engine) {
 	eng.Use(middleware.VisitLog(l.Version))
 	eng.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	r0 := eng.Group(l.Version)
-	//v0 := g0.Group("")
-	r0.Use(LogOutput(current), LoginCheck(current), PermissionCheck(current))
+	v0 := eng.Group(l.Version)
 
 	//超级管理员面板
 	//账号、密码、所属组织、角色权限、邮箱、手机号码、授权证书和授权私钥
-	dashboard0 := v0.Group("dashboard")
-	dashboard0.GET("log", DashboardLogList(current))
-	r0.Use(middleware.AuthCheck(l.Version))
+	r0 := v0.Group("dashboard")
+	r0.Use(middleware.AuthCheck(l.Version), middleware.PermissionCheck(l.Version))
 
 	//r0.POST("user", controller.UserAdd(version))
 	//r0.GET("user", controller.UserList(version))
