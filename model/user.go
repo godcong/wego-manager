@@ -115,7 +115,7 @@ func (obj *User) Roles() ([]*Role, error) {
 	return roles, nil
 }
 
-// CheckPermission ...
+// Validate ...
 func (obj *User) Validate(u *UserLogin, key string) bool {
 	u.Password = util.SHA256(u.Password, key, obj.Salt)
 	session := DB().Table(obj).Where("username = ?", u.Username).And("password = ?", u.Password)

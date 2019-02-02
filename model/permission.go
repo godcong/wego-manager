@@ -30,7 +30,7 @@ func (obj *Permission) Update(cols ...string) (int64, error) {
 	return Update(nil, obj.ID, obj)
 }
 
-// Roles ...
+// Permissions ...
 func (obj *Permission) Permissions() ([]*Permission, error) {
 	var permissions []*Permission
 	err := DB().Table(obj).Find(&permissions)
