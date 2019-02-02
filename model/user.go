@@ -3,6 +3,7 @@ package model
 import (
 	"github.com/godcong/wego-auth-manager/util"
 	"golang.org/x/exp/xerrors"
+	"log"
 	"net/url"
 )
 
@@ -125,4 +126,15 @@ func (obj *User) Validate(u *UserLogin, key string) bool {
 		return false
 	}
 	return true
+}
+
+// MustUser ...
+func MustUser(user interface{}, b bool) *User {
+	if b {
+		if v0, b := user.(*User); b {
+			log.Printf("%+v\n", v0)
+			return v0
+		}
+	}
+	return nil
 }
