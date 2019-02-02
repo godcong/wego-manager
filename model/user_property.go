@@ -47,6 +47,7 @@ type MiniProgram struct {
 
 // UserProperty ...
 type UserProperty struct {
-	UserID string `json:"user_id"`
-	Kind   string `json:"kind"`
+	Model  `toml:"extends"`
+	UserID string `toml:"user_id"`
+	Kind   string `toml:"kind"`
 }
