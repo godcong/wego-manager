@@ -48,6 +48,11 @@ func Success(ctx *gin.Context, detail interface{}) {
 
 }
 
+// ServerBack ...
+func ServerBack(ctx *gin.Context) {
+
+}
+
 // fail ...
 func fail(ctx *gin.Context, code int, msg string) {
 	accept := ctx.GetHeader(ContentType)

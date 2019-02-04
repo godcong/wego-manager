@@ -2,11 +2,10 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/godcong/wego"
 	"github.com/godcong/wego-auth-manager/model"
 )
 
-// PermissionUserList godoc
+// MpPaymentBill godoc
 // @Summary List permission
 // @Description List permission
 // @Tags permission
@@ -26,8 +25,6 @@ func MpPaymentBill(ver string) gin.HandlerFunc {
 			Error(ctx, err)
 			return
 		}
-
-		wego.C()
 
 	}
 }

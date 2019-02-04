@@ -36,6 +36,10 @@ func (l *RouteLoader) router(eng *gin.Engine) {
 	eng.Use(middleware.VisitLog(l.Version))
 	eng.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	eng.NoRoute(func(ctx *gin.Context) {
+		controller.ServerBack(ctx)
+	})
+
 	v0 := eng.Group(l.Version)
 
 	v0 = v0.Group("dashboard")
