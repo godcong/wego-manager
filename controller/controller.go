@@ -5,6 +5,7 @@ import (
 	"github.com/godcong/wego-auth-manager/model"
 	"log"
 	"net/http"
+	"strings"
 )
 
 // ContentTypeJSON ...
@@ -58,13 +59,17 @@ func ServerBack(ver string) gin.HandlerFunc {
 	}
 
 	return func(ctx *gin.Context) {
-		for _, val := range backs {
-			log.Println(val)
-		}
 		log.Println(ctx.HandlerName())
 		log.Println(ctx.Request.URL.RawPath)
 		log.Println(ctx.Request.URL.Path)
 		log.Println(ctx.Request.URL.EscapedPath())
+		for _, val := range backs {
+			path := strings.Join([]string{"/api", val.Ver, val.Sign, val.URI}, "/")
+			if path == ctx.Request.URL.Path {
+				log.Println("founded", path)
+			}
+		}
+
 	}
 }
 

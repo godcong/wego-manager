@@ -12,7 +12,8 @@ const (
 // UserCallback ...
 type UserCallback struct {
 	Model    `xorm:"extends"`
-	Ver      string `xorm:"version"`
+	Ver      string `xorm:"ver"`
+	BackURL  string `xorm:"back_url"`
 	Sign     string `xorm:"sign"`
 	URI      string `xorm:"uri"`
 	BackType string `xorm:"back_type"`
