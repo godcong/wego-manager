@@ -20,7 +20,7 @@ func MpPaymentBill(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := model.MustUser(ctx.Get("user"))
 
-		property, err := user.Property()
+		_, err := user.Property()
 		if err != nil {
 			Error(ctx, err)
 			return

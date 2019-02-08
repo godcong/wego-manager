@@ -149,6 +149,7 @@ func modelerTables() []Modeler {
 		&PermissionUser{},
 		&RoleUser{},
 		&UserProperty{},
+		&UserCallback{},
 	}
 }
 

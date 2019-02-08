@@ -42,7 +42,7 @@ type Database struct {
 
 // Source ...
 func (d *Database) Source() string {
-	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?loc=%s&charset=utf8&parseTime=true",
+	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?loc=%s&charset=utf8mb4&parseTime=true",
 		d.Username, d.Password, d.Addr, d.Port, d.Schema, d.Location)
 }
 
@@ -75,7 +75,7 @@ func initLoader(path string) *Configure {
 func DefaultConfig() *Configure {
 	return &Configure{
 		General: General{
-			TokenKey: "im-yeliao-godcong",
+			TokenKey: "im-godcong-yl",
 		},
 		Database: Database{
 			ShowSQL:  true,

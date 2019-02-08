@@ -50,7 +50,10 @@ func Success(ctx *gin.Context, detail interface{}) {
 
 // ServerBack ...
 func ServerBack(ctx *gin.Context) {
-
+	log.Println(ctx.HandlerName())
+	log.Println(ctx.Request.URL.RawPath)
+	log.Println(ctx.Request.URL.Path)
+	log.Println(ctx.Request.URL.EscapedPath())
 }
 
 // fail ...

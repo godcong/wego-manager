@@ -91,7 +91,7 @@ func (l *RouteLoader) router(eng *gin.Engine) {
 	l.Register(r0.POST, "permission/:id", controller.PermissionUpdate)
 	l.Register(r0.GET, "permission/:id", controller.PermissionShow)
 	l.Register(r0.DELETE, "permission/:id", controller.PermissionDelete)
-	l.Register(r0.GET, "permission/:id/permission", controller.PermissionRoleList)
+	l.Register(r0.GET, "permission/:id/role", controller.PermissionRoleList)
 	l.Register(r0.GET, "permission/:id/user", controller.PermissionUserList)
 
 	for _, v := range l.routers {
