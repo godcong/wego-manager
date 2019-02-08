@@ -14,14 +14,18 @@ import (
 
 // Notify ...
 type Notify struct {
-	property  *wego.Property
+	//property  *wego.Property
 	payment   *wego.Payment
 	RefundKey string
 }
 
 // InitNotify ...
-func InitNotify() *Notify {
-	return &Notify{}
+func InitNotify(payment *wego.Payment) *Notify {
+	return &Notify{
+		//property:  payment,
+		payment:   payment,
+		RefundKey: "",
+	}
 }
 
 // HandleRefunded ...
@@ -94,7 +98,7 @@ func (obj *paymentRefunded) ServeHTTP(ctx *gin.Context) {
 		reqInfo := maps.GetString("req_info")
 		maps.Set("reqInfo", obj.DecodeReqInfo(reqInfo))
 		if obj.ServeNotify == nil {
-			log.Error(xerrors.New("error: null notify callback "))
+			log.Error(xerrors.New("null notify callback"))
 			return
 		}
 		_, err = obj.ServeNotify(maps)
@@ -124,27 +128,27 @@ type paymentScanned struct {
 
 // ServeHTTP ...
 func (obj *paymentScanned) ServeHTTP(ctx *gin.Context) {
-	var err error
+	var e error
 	rlt := SUCCESS()
 	defer func() {
-		err = XMLResponse(ctx.Writer, rlt.ToXML())
-		log.Error(err)
+		e = XMLResponse(ctx.Writer, rlt.ToXML())
+		log.Error(e)
 	}()
 	var p util.Map
-	maps, err := core.RequestToMap(ctx.Request)
+	maps, e := core.RequestToMap(ctx.Request)
 
-	if err != nil {
-		log.Error(err)
-		rlt = FailDes(err.Error())
+	if e != nil {
+		log.Error(xerrors.Errorf("paymentScanned RequestToMap:%w", e))
+		rlt = FailDes(e.Error())
 	} else {
 		if util.ValidateSign(maps, obj.payment.GetKey()) {
 			if obj.ServeNotify == nil {
-				log.Error(xerrors.New("error: null notify callback "))
+				log.Error(xerrors.New("null notify callback"))
 				return
 			}
-			p, err = obj.ServeNotify(maps)
-			if err != nil {
-				rlt = FailDes(err.Error())
+			p, e = obj.ServeNotify(maps)
+			if e != nil {
+				rlt = FailDes(e.Error())
 			}
 			if !p.Has("prepay_id") {
 				log.Error("null prepay_id")
@@ -157,8 +161,8 @@ func (obj *paymentScanned) ServeHTTP(ctx *gin.Context) {
 				//业务结果	result_code	String(16)	是	SUCCESS	SUCCESS/FAIL
 				//错误描述	err_code_des	String(128)	否		当result_code为FAIL时，商户展示给用户的错误提
 				//签名	sign	String(32)	是	C380BEC2BFD727A4B6845133519F3AD6	返回数据签名，签名生成算法
-				rlt.Set("appid", obj.Get("app_id"))
-				rlt.Set("mch_id", obj.Get("mch_id"))
+				rlt.Set("appid", obj.payment.AppID)
+				rlt.Set("mch_id", obj.payment.MchID)
 				rlt.Set("nonce_str", util.GenerateNonceStr())
 				rlt.Set("prepay_id", p.Get("prepay_id"))
 				rlt.Set("sign", util.GenSign(maps, obj.payment.GetKey()))
@@ -177,26 +181,27 @@ type paymentPaid struct {
 
 // ServerHttp ...
 func (n *paymentPaid) ServeHTTP(ctx *gin.Context) {
-	var err error
+	var e error
 	rlt := SUCCESS()
 	defer func() {
-		err = XMLResponse(ctx.Writer, rlt.ToXML())
-		log.Error(err)
+		e = XMLResponse(ctx.Writer, rlt.ToXML())
+		log.Error(e)
 	}()
-	maps, err := wego.BuildRequester(ctx.Request).Result()
+	maps, e := wego.BuildRequester(ctx.Request).Result()
 
-	if err != nil {
-		log.Error(err)
-		rlt = FAIL(err.Error())
+	if e != nil {
+		log.Error(e)
+		rlt = FAIL(e.Error())
 	} else {
-		if util.ValidateSign(maps, n.GetKey()) {
+		if util.ValidateSign(maps, n.payment.GetKey()) {
 			if n.ServeNotify == nil {
-				log.Error(ErrNilNotifyCallback)
+				log.Error(xerrors.New("null notify callback "))
 				return
 			}
-			_, err = n.ServeNotify(maps)
-			if err != nil {
-				rlt = FAIL(err.Error())
+			_, e = n.ServeNotify(maps)
+			if e != nil {
+				log.Error(xerrors.Errorf(" paymentPaid ServeNotify error:%w", e))
+				rlt = FAIL(e.Error())
 			}
 		}
 	}
