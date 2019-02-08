@@ -38,12 +38,13 @@ type Database struct {
 	Password string `toml:"password"`
 	Schema   string `toml:"schema"`
 	Location string `toml:"location"`
+	Charset  string `toml:"charset"`
 }
 
 // Source ...
 func (d *Database) Source() string {
-	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?loc=%s&charset=utf8mb4&parseTime=true",
-		d.Username, d.Password, d.Addr, d.Port, d.Schema, d.Location)
+	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?loc=%s&charset=%s&parseTime=true",
+		d.Username, d.Password, d.Addr, d.Port, d.Schema, d.Location, d.Charset)
 }
 
 // General ...
@@ -86,6 +87,7 @@ func DefaultConfig() *Configure {
 			Password: "111111",
 			Schema:   "auth",
 			Location: url.QueryEscape("Asia/Shanghai"),
+			Charset:  "utf8mb4",
 		},
 		REST: REST{},
 	}
