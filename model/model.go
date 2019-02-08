@@ -163,6 +163,11 @@ func FindByID(id string, model interface{}) error {
 	return DB().Where("id = ?", id).Find(model)
 }
 
+// FindWhere ...
+func FindWhere(model interface{}, query interface{}, args ...interface{}) error {
+	return DB().Where(query, args...).Find(model)
+}
+
 // DecodeUser ...
 func DecodeUser(token string) (*User, error) {
 	t := TokenSub{}

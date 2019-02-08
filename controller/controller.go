@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/godcong/wego-auth-manager/model"
 	"log"
 	"net/http"
 )
@@ -49,11 +50,22 @@ func Success(ctx *gin.Context, detail interface{}) {
 }
 
 // ServerBack ...
-func ServerBack(ctx *gin.Context) {
-	log.Println(ctx.HandlerName())
-	log.Println(ctx.Request.URL.RawPath)
-	log.Println(ctx.Request.URL.Path)
-	log.Println(ctx.Request.URL.EscapedPath())
+func ServerBack(ver string) gin.HandlerFunc {
+	var back model.UserCallback
+	backs, e := back.Callbacks()
+	if e != nil {
+		return nil
+	}
+
+	return func(ctx *gin.Context) {
+		for _, val := range backs {
+			log.Println(val)
+		}
+		log.Println(ctx.HandlerName())
+		log.Println(ctx.Request.URL.RawPath)
+		log.Println(ctx.Request.URL.Path)
+		log.Println(ctx.Request.URL.EscapedPath())
+	}
 }
 
 // fail ...

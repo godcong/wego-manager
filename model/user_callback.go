@@ -1,5 +1,7 @@
 package model
 
+import "golang.org/x/exp/xerrors"
+
 // BackTypePaid ...
 const (
 	BackTypePaid    = "paid"
@@ -11,6 +13,24 @@ const (
 type UserCallback struct {
 	Model    `xorm:"extends"`
 	Ver      string `xorm:"version"`
+	Sign     string `xorm:"sign"`
 	URI      string `xorm:"uri"`
 	BackType string `xorm:"back_type"`
+}
+
+// Callbacks ...
+func (obj *UserCallback) Callbacks() ([]*UserCallback, error) {
+	var backs []*UserCallback
+	err := DB().Table(obj).Find(&backs)
+	if err != nil {
+		return nil, xerrors.Errorf("find: %w", err)
+	}
+	return backs, nil
+}
+
+// NewUserCallback ...
+func NewUserCallback(id string) *UserCallback {
+	return &UserCallback{Model: Model{
+		ID: id,
+	}}
 }
