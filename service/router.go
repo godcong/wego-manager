@@ -36,7 +36,9 @@ func (l *RouteLoader) router(eng *gin.Engine) {
 	eng.Use(middleware.VisitLog(l.Version))
 	eng.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	back := controller.ServerBack(l.Version)
+
 	eng.NoRoute(func(ctx *gin.Context) {
+
 		if back != nil {
 			back(ctx)
 			return

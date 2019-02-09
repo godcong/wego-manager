@@ -52,13 +52,23 @@ func Success(ctx *gin.Context, detail interface{}) {
 
 // ServerBack ...
 func ServerBack(ver string) gin.HandlerFunc {
-	var back model.UserCallback
-	backs, e := back.Callbacks()
-	if e != nil {
-		return nil
-	}
+	//var back model.UserCallback
+	//backs, e := back.Callbacks()
+	//if e != nil {
+	//	return nil
+	//}
 
 	return func(ctx *gin.Context) {
+		paths := strings.Split(ctx.Request.URL.Path, "/")
+		var back model.UserCallback
+		back.Ver = paths[2]
+		back.Sign = paths[3]
+		back.URI = paths[4]
+		back.BackType = paths[5]
+		model.FindWhere(back)
+		//p := model.UserProperty{}
+		//
+		//n := notify.NewNotify(wego.NewPayment())
 		log.Println(ctx.HandlerName())
 		log.Println(ctx.Request.URL.RawPath)
 		log.Println(ctx.Request.URL.Path)
