@@ -46,13 +46,16 @@ func (l *RouteLoader) router(eng *gin.Engine) {
 	//	})
 
 	v0 := eng.Group(l.Version)
-	v0.POST("notify/*any", controller.NotifyServerBack(l.Version))
-	v0 = v0.Group("dashboard")
-	v0.POST("login", controller.UserLogin(l.Version))
-	v0.POST("register", controller.UserRegister(l.Version))
+
+	notify := v0.Group("notify")
+	notify.POST("*any", controller.NotifyServerBack(l.Version))
+
+	dashboard := v0.Group("dashboard")
+	dashboard.POST("login", controller.UserLogin(l.Version))
+	dashboard.POST("register", controller.UserRegister(l.Version))
 	//超级管理员面板
 	//账号、密码、所属组织、角色权限、邮箱、手机号码、授权证书和授权私钥
-	r0 := v0.Group("")
+	r0 := dashboard.Group("")
 
 	r0.Use(middleware.AuthCheck(l.Version), middleware.PermissionCheck(l.Version))
 
