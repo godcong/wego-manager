@@ -51,7 +51,7 @@ func (l *RouteLoader) router(eng *gin.Engine) {
 	notify.POST("/:sign/:backType/*uri", controller.NotifyServerBack(l.Version))
 
 	payment := v0.Group("payment")
-	payment.POST("/:sign/:payType", controller.NotifyServerBack(l.Version))
+	payment.POST("/:sign/:payType", controller.PaymentRequest(l.Version))
 
 	v0.POST("login", controller.UserLogin(l.Version))
 	v0.POST("register", controller.UserRegister(l.Version))

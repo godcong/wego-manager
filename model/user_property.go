@@ -1,63 +1,33 @@
 package model
 
-// Payment ...
-type Payment struct {
-	AppID      string `xorm:"app_id" json:"app_id"`
-	MchID      string `xorm:"mch_id" json:"mch_id"`
-	Key        string `xorm:"key" json:"key"`
-	NotifyURL  string `xorm:"notify_url" json:"notify_url"`
-	RefundURL  string `xorm:"refund_url" json:"refund_url"`
-	CertPath   string `xorm:"cert_path" json:"cert_path"`
-	KeyPath    string `xorm:"key_path" json:"key_path"`
-	RootCaPath string `xorm:"root_ca_path" json:"root_ca_path"`
-	PublicKey  string `xorm:"public_key" json:"public_key"`
-	PrivateKey string `xorm:"private_key" json:"private_key"`
-}
-
 // OAuth ...
 type OAuth struct {
-	Scopes      []string `xorm:"scopes"`
-	RedirectURI string   `xorm:"redirect_uri"`
-}
-
-// OpenPlatform ...
-type OpenPlatform struct {
-	AppID  string `xorm:"app_id"`
-	Secret string `xorm:"secret"`
-	Token  string `xorm:"token"`
-	AesKey string `xorm:"aes_key"`
-}
-
-// OfficialAccount ...
-type OfficialAccount struct {
-	AppID  string `xorm:"app_id"`
-	Secret string `xorm:"secret"`
-	Token  string `xorm:"token"`
-	AesKey string `xorm:"aes_key"`
-}
-
-// MiniProgram ...
-type MiniProgram struct {
-	AppID  string `xorm:"app_id"`
-	Secret string `xorm:"secret"`
-	Token  string `xorm:"token"`
-	AesKey string `xorm:"aes_key"`
+	Scopes      []string `xorm:"oauth.scopes"`
+	RedirectURL string   `xorm:"oauth.redirect_url"`
 }
 
 // UserProperty ...
 type UserProperty struct {
-	Model   `xorm:"extends"`
-	UserID  string `xorm:"user_id"`
-	Sign    string `xorm:"sign"`
-	Kind    string `xorm:"kind"`
-	Sandbox bool   `xorm:"sandbox" json:"sandbox"`
-	OAuth   `xorm:"json oauth"`
-	Payment `xorm:"json"`
-
-	AppID  string `xorm:"app_id"`
-	Secret string `xorm:"secret"`
-	Token  string `xorm:"token"`
-	AesKey string `xorm:"aes_key"`
+	Model       `xorm:"extends"`
+	UserID      string   `xorm:"user_id" json:"user_id"`
+	Sign        string   `xorm:"sign" json:"sign"`
+	AppID       string   `xorm:"app_id notnull unique" json:"app_id"`
+	MchID       string   `xorm:"mch_id" json:"mch_id"`
+	MchKey      string   `xorm:"mch_key" json:"mch_key"`
+	Cert        string   `xorm:"cert" json:"cert"`
+	Key         string   `xorm:"key" json:"key"`
+	RootCA      string   `xorm:"root_ca" json:"root_ca"`
+	NotifyURL   string   `xorm:"notify_url" json:"notify_url"`
+	RefundURL   string   `xorm:"refund_url" json:"refund_url"`
+	Kind        string   `xorm:"kind" json:"kind"`
+	Sandbox     bool     `xorm:"sandbox" json:"sandbox" json:"sandbox"`
+	Secret      string   `xorm:"secret" json:"secret"`
+	Token       string   `xorm:"token" json:"token"`
+	AesKey      string   `xorm:"aes_key" json:"aes_key"`
+	PublicKey   string   `xorm:"public_key" json:"public_key"`
+	PrivateKey  string   `xorm:"private_key" json:"private_key"`
+	Scopes      []string `xorm:"oauth.scopes"`
+	RedirectURL string   `xorm:"oauth.redirect_url"`
 }
 
 // NewUserProperty ...
