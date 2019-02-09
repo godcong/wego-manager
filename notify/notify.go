@@ -19,10 +19,9 @@ type Notify struct {
 	RefundKey string
 }
 
-// InitNotify ...
-func InitNotify(payment *wego.Payment) *Notify {
+// NewNotify ...
+func NewNotify(payment *wego.Payment) *Notify {
 	return &Notify{
-		//property:  payment,
 		payment:   payment,
 		RefundKey: "",
 	}

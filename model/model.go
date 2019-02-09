@@ -53,6 +53,16 @@ func Count(session *xorm.Session, obj Modeler) (int64, error) {
 	return MustSession(session).Count(obj)
 }
 
+// FindByID ...
+func FindByID(id string, obj Modeler) error {
+	return DB().Where("id = ?", id).Find(obj)
+}
+
+// Find ...
+func Find(session *xorm.Session, obj Modeler) error {
+	return MustSession(session).Find(obj)
+}
+
 // Get ...
 func Get(session *xorm.Session, obj Modeler) (bool, error) {
 	return MustSession(session).Get(obj)
@@ -156,16 +166,6 @@ func modelerTables() []Modeler {
 // TokenSub ...
 type TokenSub struct {
 	ID string
-}
-
-// FindByID ...
-func FindByID(id string, model interface{}) error {
-	return DB().Where("id = ?", id).Find(model)
-}
-
-// FindWhere ...
-func FindWhere(model interface{}, query interface{}, args ...interface{}) error {
-	return DB().Where(query, args...).Find(model)
 }
 
 // DecodeUser ...

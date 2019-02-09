@@ -15,7 +15,7 @@ type UserCallback struct {
 	UserID   string `xorm:"user_id"`
 	Ver      string `xorm:"ver"`
 	BackURL  string `xorm:"back_url"`
-	Sign     string `xorm:"sign"`
+	Sign     string `xorm:"sign notnull unique"`
 	URI      string `xorm:"uri"`
 	BackType string `xorm:"back_type"`
 }
