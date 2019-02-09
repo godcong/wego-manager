@@ -12,12 +12,12 @@ const (
 // UserCallback ...
 type UserCallback struct {
 	Model    `xorm:"extends"`
-	UserID   string `xorm:"user_id"`
-	Ver      string `xorm:"ver"`
-	BackURL  string `xorm:"back_url"`
-	Sign     string `xorm:"sign notnull unique"`
-	URI      string `xorm:"uri"`
-	BackType string `xorm:"back_type"`
+	UserID   string `json:"user_id" xorm:"user_id"`
+	Ver      string `json:"ver" xorm:"ver"`
+	BackURL  string `json:"back_url" xorm:"back_url"`
+	Sign     string `json:"sign" xorm:"sign notnull unique"`
+	URI      string `json:"uri" xorm:"uri"`
+	BackType string `json:"back_type" xorm:"back_type"`
 }
 
 // Callbacks ...

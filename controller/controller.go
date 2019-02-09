@@ -2,11 +2,8 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/godcong/wego-auth-manager/model"
-	"golang.org/x/exp/xerrors"
 	"log"
 	"net/http"
-	"strings"
 )
 
 // ContentTypeJSON ...
@@ -43,12 +40,14 @@ func resultXML(ctx *gin.Context, detail interface{}) {
 // Success ...
 func Success(ctx *gin.Context, detail interface{}) {
 	switch ctx.NegotiateFormat(ContentTypeJSON, ContentTypeXML) {
-	case ContentTypeJSON:
-		resultJSON(ctx, detail)
+
 	case ContentTypeXML:
 		resultXML(ctx, detail)
+	case ContentTypeJSON:
+		fallthrough
+	default:
+		resultJSON(ctx, detail)
 	}
-
 }
 
 // fail ...
