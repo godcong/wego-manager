@@ -46,15 +46,18 @@ type MiniProgram struct {
 
 // UserProperty ...
 type UserProperty struct {
-	Model           `xorm:"extends"`
-	UserID          string `xorm:"user_id"`
-	Kind            string `xorm:"kind"`
-	Sandbox         bool   `xorm:"sandbox" json:"sandbox"`
-	OAuth           `xorm:"json oauth"`
-	Payment         `xorm:"json"`
-	MiniProgram     `xorm:"json"`
-	OfficialAccount `xorm:"json"`
-	OpenPlatform    `xorm:"json"`
+	Model   `xorm:"extends"`
+	UserID  string `xorm:"user_id"`
+	Sign    string `xorm:"sign"`
+	Kind    string `xorm:"kind"`
+	Sandbox bool   `xorm:"sandbox" json:"sandbox"`
+	OAuth   `xorm:"json oauth"`
+	Payment `xorm:"json"`
+
+	AppID  string `xorm:"app_id"`
+	Secret string `xorm:"secret"`
+	Token  string `xorm:"token"`
+	AesKey string `xorm:"aes_key"`
 }
 
 // NewUserProperty ...

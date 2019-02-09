@@ -11,13 +11,14 @@ import (
 // NotifyServerBack ...
 func NotifyServerBack(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
+		log.Println(ctx.Params)
 		paths := strings.Split(ctx.Request.URL.Path, "/")
 		if len(paths) < 6 {
 			log.Println("path error", paths)
 			Error(ctx, xerrors.New("path error"))
 			return
 		}
-		var back model.UserCallback
+		var back model.UserNotify
 		back.Ver = paths[1]
 		back.Sign = paths[3]
 		back.URI = paths[4]
