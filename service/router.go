@@ -35,7 +35,7 @@ func NewRouteLoader(version string) *RouteLoader {
 func (l *RouteLoader) router(eng *gin.Engine) {
 	eng.Use(middleware.VisitLog(l.Version))
 	eng.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	back := controller.ServerBack(l.Version)
+	back := controller.NotifyServerBack(l.Version)
 
 	eng.NoRoute(func(ctx *gin.Context) {
 
