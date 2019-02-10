@@ -7,9 +7,9 @@ import (
 	"log"
 )
 
-// UserPropertyList godoc
-// @Summary List properties
-// @Description List properties
+// PropertyList godoc
+// @Summary List propertys
+// @Description List propertys
 // @Tags property
 // @Accept  json
 // @Produce  json
@@ -18,8 +18,8 @@ import (
 // @Param order query string false "paginate:order"
 // @success 200 {array} model.Property
 // @Failure 400 {object} controller.CodeMessage
-// @Router /user/{uid}/property [get]
-func UserPropertyList(ver string) gin.HandlerFunc {
+// @Router /property [get]
+func PropertyList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var property model.UserProperty
 		properties, err := property.Properties()
@@ -32,7 +32,7 @@ func UserPropertyList(ver string) gin.HandlerFunc {
 	}
 }
 
-// UserPropertyAdd godoc
+// PropertyAdd godoc
 // @Summary Add property
 // @Description Add property
 // @Tags property
@@ -42,8 +42,8 @@ func UserPropertyList(ver string) gin.HandlerFunc {
 // @Param account body Property true "property update info"
 // @success 200 {object} model.Property
 // @Failure 400 {object} controller.CodeMessage
-// @Router user/{uid}/property [post]
-func UserPropertyAdd(ver string) gin.HandlerFunc {
+// @Router /property [post]
+func PropertyAdd(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var property model.UserProperty
 		err := ctx.BindJSON(&property)
@@ -60,7 +60,7 @@ func UserPropertyAdd(ver string) gin.HandlerFunc {
 	}
 }
 
-// UserPropertyUpdate godoc
+// PropertyUpdate godoc
 // @Summary Update property
 // @Description Update property
 // @Tags property
@@ -71,10 +71,10 @@ func UserPropertyAdd(ver string) gin.HandlerFunc {
 // @Param account body Property true "property update info"
 // @success 200 {object} model.Property
 // @Failure 400 {object} controller.CodeMessage
-// @Router user/{uid}/property/{id} [post]
-func UserPropertyUpdate(ver string) gin.HandlerFunc {
+// @Router /property/{id} [post]
+func PropertyUpdate(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		id := ctx.Param("pid")
+		id := ctx.Param("id")
 		property := model.NewUserProperty(id)
 		b, err := property.Get()
 		if err != nil || !b {
@@ -96,7 +96,7 @@ func UserPropertyUpdate(ver string) gin.HandlerFunc {
 	}
 }
 
-// UserPropertyShow godoc
+// PropertyShow godoc
 // @Summary Show property
 // @Description Show property
 // @Tags property
@@ -106,8 +106,8 @@ func UserPropertyUpdate(ver string) gin.HandlerFunc {
 // @Param id path string true "Property ID"
 // @success 200 {object} model.Property
 // @Failure 400 {object} controller.CodeMessage
-// @Router user/{uid}/property/{id} [get]
-func UserPropertyShow(ver string) gin.HandlerFunc {
+// @Router /property/{id} [get]
+func PropertyShow(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
 		property := model.NewUserProperty(id)
@@ -120,7 +120,7 @@ func UserPropertyShow(ver string) gin.HandlerFunc {
 	}
 }
 
-// UserPropertyDelete godoc
+// PropertyDelete godoc
 // @Summary Delete property
 // @Description Delete property
 // @Tags property
@@ -130,8 +130,8 @@ func UserPropertyShow(ver string) gin.HandlerFunc {
 // @Param id path string true "Property ID"
 // @success 200 {object} model.Property
 // @Failure 400 {object} controller.CodeMessage
-// @Router user/{id}/property/{id} [delete]
-func UserPropertyDelete(ver string) gin.HandlerFunc {
+// @Router /property/{id} [delete]
+func PropertyDelete(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
 		property := model.NewUserProperty(id)
