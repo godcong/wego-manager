@@ -1,5 +1,7 @@
 package model
 
+import "golang.org/x/exp/xerrors"
+
 // OAuth ...
 type OAuth struct {
 	Scopes      []string `xorm:"oauth.scopes"`
@@ -26,8 +28,8 @@ type UserProperty struct {
 	AesKey      string   `xorm:"aes_key" json:"aes_key"`
 	PublicKey   string   `xorm:"public_key" json:"public_key"`
 	PrivateKey  string   `xorm:"private_key" json:"private_key"`
-	Scopes      []string `xorm:"oauth.scopes"`
-	RedirectURL string   `xorm:"oauth.redirect_url"`
+	Scopes      []string `xorm:"scopes" json:"scopes"`
+	RedirectURL string   `xorm:"redirect_url" json:"redirect_url"`
 }
 
 // NewUserProperty ...
@@ -35,4 +37,14 @@ func NewUserProperty(id string) *UserProperty {
 	return &UserProperty{Model: Model{
 		ID: id,
 	}}
+}
+
+// Properties ...
+func (obj *UserProperty) Properties() ([]*UserProperty, error) {
+	var properties []*UserProperty
+	err := DB().Table(obj).Find(&properties)
+	if err != nil {
+		return nil, xerrors.Errorf("find: %w", err)
+	}
+	return properties, nil
 }
