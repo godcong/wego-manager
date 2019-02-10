@@ -35,15 +35,6 @@ func NewRouteLoader(version string) *RouteLoader {
 func (l *RouteLoader) router(eng *gin.Engine) {
 	eng.Use(middleware.VisitLog(l.Version))
 	eng.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	//back :=
-	//
-	//	eng.NoRoute(func(ctx *gin.Context) {
-	//
-	//		if back != nil {
-	//			back(ctx)
-	//			return
-	//		}
-	//	})
 
 	v0 := eng.Group(l.Version)
 
@@ -88,6 +79,10 @@ func (l *RouteLoader) router(eng *gin.Engine) {
 	l.Register(dashboard.DELETE, "user/:id", controller.UserDelete)
 	l.Register(dashboard.GET, "user/:id/role", controller.UserRoleList)
 	l.Register(dashboard.GET, "user/:id/permission", controller.UserPermissionList)
+	l.Register(dashboard.GET, "user/:id/property", controller.UserPropertyList)
+	l.Register(dashboard.POST, "user/:uid/property", controller.UserPropertyAdd)
+	l.Register(dashboard.POST, "user/:uid/property/:id", controller.UserPropertyUpdate)
+	l.Register(dashboard.DELETE, "user/:uid/property/:id", controller.UserPropertyDelete)
 	l.Register(dashboard.POST, "role", controller.RoleAdd)
 	l.Register(dashboard.GET, "role", controller.RoleList)
 	l.Register(dashboard.POST, "role/:id", controller.RoleUpdate)
