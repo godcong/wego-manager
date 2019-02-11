@@ -59,6 +59,7 @@ func handleFuncName(ctx *gin.Context) string {
 // PermissionCheck ...
 func PermissionCheck(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
+		log.Println(strings.Split(ctx.Request.URL.Path, "/"))
 		var err error
 		user := User(ctx)
 		roles, err := user.Roles()
