@@ -80,10 +80,7 @@ func (l *RouteLoader) router(eng *gin.Engine) {
 	l.Register(dashboard.DELETE, "user/:id", controller.UserDelete)
 	l.Register(dashboard.GET, "user/:id/role", controller.UserRoleList)
 	l.Register(dashboard.GET, "user/:id/permission", controller.UserPermissionList)
-	l.Register(dashboard.GET, "user/:id/property", controller.UserPropertyList)
-	l.Register(dashboard.POST, "user/:id/property", controller.UserPropertyAdd)
-	l.Register(dashboard.POST, "user/:id/property/:pid", controller.UserPropertyUpdate)
-	l.Register(dashboard.DELETE, "user/:id/property/:pid", controller.UserPropertyDelete)
+
 	l.Register(dashboard.POST, "role", controller.RoleAdd)
 	l.Register(dashboard.GET, "role", controller.RoleList)
 	l.Register(dashboard.POST, "role/:id", controller.RoleUpdate)
@@ -99,6 +96,11 @@ func (l *RouteLoader) router(eng *gin.Engine) {
 	l.Register(dashboard.GET, "permission/:id/role", controller.PermissionRoleList)
 	l.Register(dashboard.GET, "permission/:id/user", controller.PermissionUserList)
 
+	user := v0.Group("user", middleware.AuthCheck(l.Version), middleware.PermissionCheck(l.Version))
+	l.Register(user.GET, "property", controller.UserPropertyList)
+	l.Register(user.POST, "property", controller.UserPropertyAdd)
+	l.Register(user.POST, "property/:pid", controller.UserPropertyUpdate)
+	l.Register(user.DELETE, "property/:pid", controller.UserPropertyDelete)
 	for _, v := range l.routers {
 		v.Handle(v.Name, v.HandleFunc(l.Version))
 	}

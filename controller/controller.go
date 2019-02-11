@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/godcong/wego-auth-manager/model"
 	"log"
 	"net/http"
 )
@@ -66,4 +67,15 @@ func fail(ctx *gin.Context, code int, msg string) {
 			Message: msg,
 		})
 	}
+}
+
+// User ...
+func User(ctx *gin.Context) *model.User {
+	if v, b := ctx.Get("user"); b {
+		if v0, b := v.(*model.User); b {
+			log.Printf("%+v\n", v0)
+			return v0
+		}
+	}
+	return nil
 }
