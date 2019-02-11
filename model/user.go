@@ -29,7 +29,7 @@ type User struct {
 	LoginIP       string `json:"login_ip" xorm:"login_ip"`                //本次登录IP
 	Token         string `json:"token" xorm:"token"`                      //Token
 	Salt          string `json:"-" xorm:"slat"`                           //盐值
-	Sign          string `json:"sign" xorm:"sign"`                        //外调值
+	Sign          string `json:"-" xorm:"sign"`                           //外调值
 }
 
 // NewUser ...
