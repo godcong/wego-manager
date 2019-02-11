@@ -34,7 +34,7 @@ var sync = flag.Bool("sync", false, "open to sync the model")
 // @license.url https://github.com/godcong/wego-auth-manager/blob/master/LICENSE
 
 // @host localhost:8080
-// @BasePath /v0/dashboard
+// @BasePath /v0
 func main() {
 	flag.Parse()
 	file, err := os.OpenFile(*logPath, os.O_SYNC|os.O_RDWR|os.O_CREATE|os.O_APPEND, os.ModePerm)

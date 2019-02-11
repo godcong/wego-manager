@@ -16,7 +16,7 @@ import (
 // @Param current query string false "paginate:current"
 // @Param limit query string false "paginate:limit"
 // @Param order query string false "paginate:order"
-// @success 200 {array} model.Property
+// @success 200 {array} model.UserProperty
 // @Failure 400 {object} controller.CodeMessage
 // @Router /user/{id}/property [get]
 func UserPropertyList(ver string) gin.HandlerFunc {
@@ -40,7 +40,7 @@ func UserPropertyList(ver string) gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "login token"
 // @Param account body Property true "property update info"
-// @success 200 {object} model.Property
+// @success 200 {object} model.UserProperty
 // @Failure 400 {object} controller.CodeMessage
 // @Router user/{id}/property [post]
 func UserPropertyAdd(ver string) gin.HandlerFunc {
@@ -69,7 +69,7 @@ func UserPropertyAdd(ver string) gin.HandlerFunc {
 // @Param token header string true "login token"
 // @Param id path string true "Property ID"
 // @Param account body Property true "property update info"
-// @success 200 {object} model.Property
+// @success 200 {object} model.UserProperty
 // @Failure 400 {object} controller.CodeMessage
 // @Router user/{id}/property/{pid} [post]
 func UserPropertyUpdate(ver string) gin.HandlerFunc {
@@ -106,7 +106,7 @@ func UserPropertyUpdate(ver string) gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Property ID"
-// @success 200 {object} model.Property
+// @success 200 {object} model.UserProperty
 // @Failure 400 {object} controller.CodeMessage
 // @Router user/{id}/property/{pid} [get]
 func UserPropertyShow(ver string) gin.HandlerFunc {
@@ -132,7 +132,7 @@ func UserPropertyShow(ver string) gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Property ID"
-// @success 200 {object} model.Property
+// @success 200 {object} model.UserProperty
 // @Failure 400 {object} controller.CodeMessage
 // @Router user/{id}/property/{pid} [delete]
 func UserPropertyDelete(ver string) gin.HandlerFunc {

@@ -131,7 +131,7 @@ func UserList(ver string) gin.HandlerFunc {
 // @Param account body User true "user update info"
 // @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
-// @Router /user [post]
+// @Router dashboard/user [post]
 func UserAdd(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var user model.User
@@ -161,7 +161,7 @@ func UserAdd(ver string) gin.HandlerFunc {
 // @Param account body User true "user update info"
 // @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
-// @Router /user/{id} [post]
+// @Router dashboard/user/{id} [post]
 func UserUpdate(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -196,7 +196,7 @@ func UserUpdate(ver string) gin.HandlerFunc {
 // @Param id path string true "User ID"
 // @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
-// @Router /user/{id} [get]
+// @Router dashboard/user/{id} [get]
 func UserShow(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -220,7 +220,7 @@ func UserShow(ver string) gin.HandlerFunc {
 // @Param id path string true "User ID"
 // @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
-// @Router /user/{id} [delete]
+// @Router dashboard/user/{id} [delete]
 func UserDelete(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -244,7 +244,7 @@ func UserDelete(ver string) gin.HandlerFunc {
 // @Param id path string true "User ID"
 // @success 200 {array} model.Permission
 // @Failure 400 {object} controller.CodeMessage
-// @Router /user/{id}/permission [get]
+// @Router dashboard/user/{id}/permission [get]
 func UserPermissionList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -268,7 +268,7 @@ func UserPermissionList(ver string) gin.HandlerFunc {
 // @Param id path string true "User ID"
 // @success 200 {array} model.Role
 // @Failure 400 {object} controller.CodeMessage
-// @Router /user/{id}/role [get]
+// @Router dashboard/user/{id}/role [get]
 func UserRoleList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")

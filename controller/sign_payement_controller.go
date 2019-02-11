@@ -15,8 +15,8 @@ import (
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
-// @Param sign path string true "sign"
-// @Param sign payType string true "payType"
+// @Param path query string true "sign"
+// @Param payType query string true "payType"
 // @success 200 {array} model.User
 // @Failure 400 {object} controller.CodeMessage
 // @Router /payment/{sign}/{payType} [post]
