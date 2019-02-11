@@ -11,7 +11,7 @@ import (
 // PaymentUnify godoc
 // @Summary List permission
 // @Description List permission
-// @Tags permission
+// @Tags payment
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"

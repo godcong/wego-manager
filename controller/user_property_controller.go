@@ -8,8 +8,8 @@ import (
 )
 
 // UserPropertyList godoc
-// @Summary List properties
-// @Description List properties
+// @Summary List user properties
+// @Description List user properties
 // @Tags property
 // @Accept  json
 // @Produce  json
@@ -33,8 +33,8 @@ func UserPropertyList(ver string) gin.HandlerFunc {
 }
 
 // UserPropertyAdd godoc
-// @Summary Add property
-// @Description Add property
+// @Summary Add user property
+// @Description Add user property
 // @Tags property
 // @Accept  json
 // @Produce  json
@@ -61,8 +61,8 @@ func UserPropertyAdd(ver string) gin.HandlerFunc {
 }
 
 // UserPropertyUpdate godoc
-// @Summary Update property
-// @Description Update property
+// @Summary Update user property
+// @Description Update user property
 // @Tags property
 // @Accept  json
 // @Produce  json
@@ -99,8 +99,8 @@ func UserPropertyUpdate(ver string) gin.HandlerFunc {
 }
 
 // UserPropertyShow godoc
-// @Summary Show property
-// @Description Show property
+// @Summary Show user property
+// @Description Show user property
 // @Tags property
 // @Accept  json
 // @Produce  json
@@ -125,8 +125,8 @@ func UserPropertyShow(ver string) gin.HandlerFunc {
 }
 
 // UserPropertyDelete godoc
-// @Summary Delete property
-// @Description Delete property
+// @Summary Delete user property
+// @Description Delete user property
 // @Tags property
 // @Accept  json
 // @Produce  json
