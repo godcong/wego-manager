@@ -27,7 +27,7 @@ type User struct {
 	Certificate   string `json:"certificate" xorm:"certificate"`          //证书
 	PrivateKey    string `json:"private_key" xorm:"private_key"`          //私钥
 	LoginIP       string `json:"login_ip" xorm:"login_ip"`                //本次登录IP
-	Token         string `json:"token" xorm:"token"`                      //Token
+	Token         string `json:"-" xorm:"varchar(1024) token"`            //Token
 	Salt          string `json:"-" xorm:"slat"`                           //盐值
 	Sign          string `json:"-" xorm:"sign"`                           //外调值
 }

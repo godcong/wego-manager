@@ -22,20 +22,20 @@ import (
 func UserLogin(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var u model.UserLogin
-		err := ctx.BindJSON(&u)
+		e := ctx.BindJSON(&u)
 
-		if err != nil {
-			Error(ctx, err)
+		if e != nil {
+			Error(ctx, e)
 			return
 		}
 		user := model.User{
 			Username: u.Username,
 		}
 
-		b, err := user.Get()
-		if err != nil {
+		b, e := user.Get()
+		if e != nil {
 			log.Println("get error1")
-			Error(ctx, err)
+			Error(ctx, e)
 			return
 		}
 
@@ -54,10 +54,18 @@ func UserLogin(ver string) gin.HandlerFunc {
 		token := util.NewWebToken(user.ID)
 		token.Username = user.Username
 		token.Nickname = user.Nickname
-		t, err := util.ToToken(config.Config().General.TokenKey, token)
-		if err != nil {
-			log.Println(err)
+		t, e := util.ToToken(config.Config().General.TokenKey, token)
+		if e != nil {
+			log.Println(e)
 			Error(ctx, xerrors.New("username password is not correct"))
+			return
+		}
+
+		user.Token = t
+		i, e := user.Update("token")
+		if e != nil || i != 1 {
+			log.Println(e, i)
+			Error(ctx, xerrors.New("unknown login error"))
 			return
 		}
 		Success(ctx, gin.H{
@@ -102,9 +110,7 @@ func UserRegister(ver string) gin.HandlerFunc {
 // @Tags dashboard
 // @Accept  json
 // @Produce  json
-// @Param current query string false "paginate:current"
-// @Param limit query string false "paginate:limit"
-// @Param order query string false "paginate:order"
+// @Param token header string true "login token"
 // @success 200 {array} model.Paginate
 // @Failure 400 {object} controller.CodeMessage
 // @Router /dashboard/user [get]

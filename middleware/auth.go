@@ -42,6 +42,12 @@ func AuthCheck(ver string) gin.HandlerFunc {
 			err = xerrors.New("no users")
 			return
 		}
+
+		if user.Token != token {
+			err = xerrors.New("login expired")
+			return
+		}
+
 		ctx.Set("user", &user)
 		ctx.Next()
 	}
