@@ -96,6 +96,11 @@ func MustSession(session *xorm.Session) *xorm.Session {
 	return session
 }
 
+// CSRF ...
+type CSRF struct {
+	CSRFToken string `json:"csrf_token"`
+}
+
 // Model ...
 type Model struct {
 	ID        string `json:"id" xorm:"id uuid pk comment(默认主键)"`

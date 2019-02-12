@@ -2,10 +2,10 @@ module github.com/godcong/wego-auth-manager
 
 require (
 	cloud.google.com/go v0.26.0 // indirect
-	github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc
 	github.com/denisenkom/go-mssqldb v0.0.0-20190121005146-b04fd42d9952 // indirect
 	github.com/gin-contrib/sse v0.0.0-20190125020943-a7658810eb74 // indirect
 	github.com/gin-gonic/gin v1.3.0
+	github.com/gin-gonic/nosurf v0.0.0-20150415101651-45adcfcaf706
 	github.com/go-openapi/jsonreference v0.18.0 // indirect
 	github.com/go-openapi/spec v0.18.0 // indirect
 	github.com/go-sql-driver/mysql v1.4.1
@@ -20,7 +20,7 @@ require (
 	github.com/pelletier/go-toml v1.2.0
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/swaggo/gin-swagger v1.0.0
-	github.com/swaggo/swag v1.4.0
+	github.com/swaggo/swag v1.4.0 // indirect
 	github.com/ugorji/go/codec v0.0.0-20181209151446-772ced7fd4c2 // indirect
 	golang.org/x/crypto v0.0.0-20190102171810-8d7daa0c54b3 // indirect
 	golang.org/x/exp/xerrors v0.0.0-20190125153040-c74c464bbbf2
