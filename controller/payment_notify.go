@@ -22,7 +22,6 @@ import (
 // @Router /payment/{sign}/{payType} [post]
 func NotifyPaymentUnify(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-
 		log.Println(ctx.Params)
 		paths := strings.Split(ctx.Request.URL.Path, "/")
 		if len(paths) < 6 {

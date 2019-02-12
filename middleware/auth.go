@@ -7,6 +7,7 @@ import (
 	"github.com/godcong/wego-auth-manager/util"
 	"golang.org/x/xerrors"
 	"log"
+	"strings"
 )
 
 // AuthCheck ...
@@ -42,6 +43,7 @@ func AuthCheck(ver string) gin.HandlerFunc {
 			return
 		}
 
+		log.Println(strings.Split(token, "."))
 		if user.Token != token {
 			err = xerrors.New("login expired")
 			return

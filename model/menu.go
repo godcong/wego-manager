@@ -1,5 +1,7 @@
 package model
 
+import "golang.org/x/xerrors"
+
 // Menu ...
 type Menu struct {
 	Model       `xorm:"extends"`
@@ -20,4 +22,14 @@ func NewMenu(id string) *Menu {
 			ID: id,
 		},
 	}
+}
+
+// Menus ...
+func (obj *Menu) Menus() ([]*Menu, error) {
+	var menus []*Menu
+	err := DB().Table(obj).Find(&menus)
+	if err != nil {
+		return nil, xerrors.Errorf("find: %w", err)
+	}
+	return menus, nil
 }
