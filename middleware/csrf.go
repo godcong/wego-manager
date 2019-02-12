@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// CSRF ...
 func CSRF(ver string) {
 	//TODO:
 	//csrf := nosurf.New(gin.Default())

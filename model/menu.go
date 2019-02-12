@@ -1,5 +1,6 @@
 package model
 
+// Menu ...
 type Menu struct {
 	Model       `xorm:"extends"`
 	PID         string `xorm:"pid"` //parent id
@@ -10,4 +11,13 @@ type Menu struct {
 	Active      string `xorm:"active"`
 	Description string `xorm:"description"`
 	Sort        int    `xorm:"sort"`
+}
+
+// NewMenu ...
+func NewMenu(id string) *Menu {
+	return &Menu{
+		Model: Model{
+			ID: id,
+		},
+	}
 }

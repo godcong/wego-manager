@@ -71,10 +71,10 @@ func UserPropertyAdd(ver string) gin.HandlerFunc {
 // @Param account body Property true "property update info"
 // @success 200 {object} model.UserProperty
 // @Failure 400 {object} controller.CodeMessage
-// @Router /user/property/{pid} [post]
+// @Router /user/property/{id} [post]
 func UserPropertyUpdate(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		id := ctx.Param("pid")
+		id := ctx.Param("id")
 		property := model.NewUserProperty(id)
 		property.UserID = User(ctx).ID
 		b, err := property.Get()
@@ -107,7 +107,7 @@ func UserPropertyUpdate(ver string) gin.HandlerFunc {
 // @Param id path string true "Property ID"
 // @success 200 {object} model.UserProperty
 // @Failure 400 {object} controller.CodeMessage
-// @Router /user/property/{pid} [get]
+// @Router /user/property/{id} [get]
 func UserPropertyShow(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -132,10 +132,10 @@ func UserPropertyShow(ver string) gin.HandlerFunc {
 // @Param id path string true "Property ID"
 // @success 200 {object} model.UserProperty
 // @Failure 400 {object} controller.CodeMessage
-// @Router /user/property/{pid} [delete]
+// @Router /user/property/{id} [delete]
 func UserPropertyDelete(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		id := ctx.Param("pid")
+		id := ctx.Param("id")
 		property := model.NewUserProperty(id)
 		property.UserID = User(ctx).ID
 		_, err := model.Delete(nil, property)
