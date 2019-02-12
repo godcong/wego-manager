@@ -16,12 +16,12 @@ import (
 // @Param current query string false "paginate:current"
 // @Param limit query string false "paginate:limit"
 // @Param order query string false "paginate:order"
-// @success 200 {array} model.UserProperty
+// @success 200 {array} model.Property
 // @Failure 400 {object} controller.CodeMessage
 // @Router /dashboard/property [get]
 func PropertyList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		var property model.UserProperty
+		var property model.Property
 		properties, err := property.Properties()
 		if err != nil {
 			Error(ctx, err)
@@ -40,12 +40,12 @@ func PropertyList(ver string) gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "login token"
 // @Param account body Property true "property update info"
-// @success 200 {object} model.UserProperty
+// @success 200 {object} model.Property
 // @Failure 400 {object} controller.CodeMessage
 // @Router /dashboard/property [post]
 func PropertyAdd(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		var property model.UserProperty
+		var property model.Property
 		err := ctx.BindJSON(&property)
 		if err != nil {
 			Error(ctx, err)
@@ -69,13 +69,13 @@ func PropertyAdd(ver string) gin.HandlerFunc {
 // @Param token header string true "login token"
 // @Param id path string true "Property ID"
 // @Param account body Property true "property update info"
-// @success 200 {object} model.UserProperty
+// @success 200 {object} model.Property
 // @Failure 400 {object} controller.CodeMessage
 // @Router /dashboard/property/{id} [post]
 func PropertyUpdate(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
-		property := model.NewUserProperty(id)
+		property := model.NewProperty(id)
 		b, err := property.Get()
 		if err != nil || !b {
 			Error(ctx, xerrors.Errorf("no property:%w", err))
@@ -104,13 +104,13 @@ func PropertyUpdate(ver string) gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Property ID"
-// @success 200 {object} model.UserProperty
+// @success 200 {object} model.Property
 // @Failure 400 {object} controller.CodeMessage
 // @Router /dashboard/property/{id} [get]
 func PropertyShow(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
-		property := model.NewUserProperty(id)
+		property := model.NewProperty(id)
 		_, err := model.Get(nil, property)
 		if err != nil {
 			Error(ctx, err)
@@ -128,13 +128,13 @@ func PropertyShow(ver string) gin.HandlerFunc {
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Property ID"
-// @success 200 {object} model.UserProperty
+// @success 200 {object} model.Property
 // @Failure 400 {object} controller.CodeMessage
 // @Router /dashboard/property/{id} [delete]
 func PropertyDelete(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
-		property := model.NewUserProperty(id)
+		property := model.NewProperty(id)
 		_, err := model.Delete(nil, property)
 		if err != nil {
 			Error(ctx, err)

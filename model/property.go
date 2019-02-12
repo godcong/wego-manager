@@ -8,8 +8,8 @@ type OAuth struct {
 	RedirectURL string   `xorm:"oauth.redirect_url"`
 }
 
-// UserProperty ...
-type UserProperty struct {
+// Property ...
+type Property struct {
 	Model       `xorm:"extends"`
 	UserID      string   `xorm:"user_id" json:"user_id"`
 	Sign        string   `xorm:"sign" json:"sign"`
@@ -32,16 +32,16 @@ type UserProperty struct {
 	RedirectURL string   `xorm:"redirect_url" json:"redirect_url"`
 }
 
-// NewUserProperty ...
-func NewUserProperty(id string) *UserProperty {
-	return &UserProperty{Model: Model{
+// NewProperty ...
+func NewProperty(id string) *Property {
+	return &Property{Model: Model{
 		ID: id,
 	}}
 }
 
 // Properties ...
-func (obj *UserProperty) Properties() ([]*UserProperty, error) {
-	var properties []*UserProperty
+func (obj *Property) Properties() ([]*Property, error) {
+	var properties []*Property
 	err := DB().Table(obj).Find(&properties)
 	if err != nil {
 		return nil, xerrors.Errorf("find: %w", err)

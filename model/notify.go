@@ -9,8 +9,8 @@ const (
 	BackTypeRefuned = "refund"
 )
 
-// UserNotify ...
-type UserNotify struct {
+// Notify ...
+type Notify struct {
 	Model    `xorm:"extends"`
 	UserID   string `json:"user_id" xorm:"user_id"`
 	Sign     string `json:"sign" xorm:"sign notnull unique"`
@@ -20,19 +20,19 @@ type UserNotify struct {
 	BackType string `json:"back_type" xorm:"back_type"`
 }
 
-// Callbacks ...
-func (obj *UserNotify) Callbacks() ([]*UserNotify, error) {
-	var backs []*UserNotify
+// NewNotify ...
+func NewNotify(id string) *Notify {
+	return &Notify{Model: Model{
+		ID: id,
+	}}
+}
+
+// Notifies ...
+func (obj *Notify) Notifies() ([]*Notify, error) {
+	var backs []*Notify
 	err := DB().Table(obj).Find(&backs)
 	if err != nil {
 		return nil, xerrors.Errorf("find: %w", err)
 	}
 	return backs, nil
-}
-
-// NewUserCallback ...
-func NewUserCallback(id string) *UserNotify {
-	return &UserNotify{Model: Model{
-		ID: id,
-	}}
 }

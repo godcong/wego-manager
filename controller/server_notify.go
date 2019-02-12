@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-// NotifyServerBack ...
-func NotifyServerBack(ver string) gin.HandlerFunc {
+// NotifyServer ...
+func NotifyServer(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		log.Println(ctx.Params)
 		paths := strings.Split(ctx.Request.URL.Path, "/")
@@ -18,7 +18,7 @@ func NotifyServerBack(ver string) gin.HandlerFunc {
 			Error(ctx, xerrors.New("path error"))
 			return
 		}
-		var back model.UserNotify
+		var back model.Notify
 		back.Ver = paths[1]
 		back.Sign = paths[3]
 		back.URI = paths[4]

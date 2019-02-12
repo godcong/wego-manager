@@ -163,8 +163,8 @@ func modelerTables() []Modeler {
 		&PermissionRole{},
 		&PermissionUser{},
 		&RoleUser{},
-		&UserProperty{},
-		&UserNotify{},
+		&Property{},
+		&Notify{},
 	}
 }
 

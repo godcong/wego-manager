@@ -1,4 +1,4 @@
-package notify
+package controller
 
 import (
 	"encoding/xml"

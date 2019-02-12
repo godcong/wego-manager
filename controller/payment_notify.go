@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-// PaymentUnify godoc
+// NotifyPaymentUnify godoc
 // @Summary List permission
 // @Description List permission
 // @Tags payment
@@ -20,7 +20,7 @@ import (
 // @success 200 {array} model.User
 // @Failure 400 {object} controller.CodeMessage
 // @Router /payment/{sign}/{payType} [post]
-func PaymentUnify(ver string) gin.HandlerFunc {
+func NotifyPaymentUnify(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
 		log.Println(ctx.Params)
@@ -30,7 +30,7 @@ func PaymentUnify(ver string) gin.HandlerFunc {
 			Error(ctx, xerrors.New("path error"))
 			return
 		}
-		var back model.UserNotify
+		var back model.Notify
 		back.Ver = paths[1]
 		back.Sign = paths[3]
 		back.URI = paths[4]

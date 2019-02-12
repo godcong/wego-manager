@@ -130,8 +130,8 @@ func (obj *User) Validate(u *UserLogin, key string) bool {
 }
 
 // Property ...
-func (obj *User) Property() (*UserProperty, error) {
-	var property UserProperty
+func (obj *User) Property() (*Property, error) {
+	var property Property
 	b, err := DB().Where("user_property.user_id = ?", obj.ID).Get(&property)
 	if err != nil {
 		return nil, xerrors.Errorf("find user property error : %w", err)
