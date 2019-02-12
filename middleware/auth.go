@@ -7,7 +7,6 @@ import (
 	"github.com/godcong/wego-auth-manager/util"
 	"golang.org/x/xerrors"
 	"log"
-	"strings"
 )
 
 // AuthCheck ...
@@ -49,55 +48,6 @@ func AuthCheck(ver string) gin.HandlerFunc {
 		}
 
 		ctx.Set("user", &user)
-		ctx.Next()
-	}
-}
-
-func handleFuncName(ctx *gin.Context) string {
-	hn := strings.Split(ctx.HandlerName(), ".")
-	size := len(hn)
-	if size < 2 {
-		return ""
-	}
-	return hn[size-2]
-}
-
-// PermissionCheck ...
-func PermissionCheck(ver string) gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		log.Println(strings.Split(ctx.Request.URL.Path, "/"))
-		var err error
-		user := User(ctx)
-		roles, err := user.Roles()
-		defer func() {
-			if err != nil {
-				Error(ctx, err)
-				ctx.Abort()
-				return
-			}
-		}()
-		log.Printf("%+v", roles)
-		if err == nil {
-			//超级管理员拥有所有权限
-			for _, role := range roles {
-				if role.Slug == model.RoleSlugAdmin {
-					ctx.Next()
-					return
-				}
-			}
-
-		}
-
-		if user.Block {
-			err = xerrors.New("this account has been blocked")
-			return
-		}
-
-		b := user.CheckPermission(handleFuncName(ctx))
-		if !b {
-			err = xerrors.New("no permission")
-			return
-		}
 		ctx.Next()
 	}
 }
