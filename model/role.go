@@ -1,7 +1,7 @@
 package model
 
 import (
-	"golang.org/x/exp/xerrors"
+	"golang.org/x/xerrors"
 )
 
 // Role ...

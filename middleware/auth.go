@@ -5,7 +5,7 @@ import (
 	"github.com/godcong/wego-auth-manager/config"
 	"github.com/godcong/wego-auth-manager/model"
 	"github.com/godcong/wego-auth-manager/util"
-	"golang.org/x/exp/xerrors"
+	"golang.org/x/xerrors"
 	"log"
 	"strings"
 )

@@ -2,7 +2,7 @@ package model
 
 import (
 	"github.com/godcong/wego-auth-manager/util"
-	"golang.org/x/exp/xerrors"
+	"golang.org/x/xerrors"
 	"log"
 	"net/url"
 )

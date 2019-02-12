@@ -3,7 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-auth-manager/model"
-	"golang.org/x/exp/xerrors"
+	"golang.org/x/xerrors"
 	"log"
 )
 

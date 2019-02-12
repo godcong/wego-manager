@@ -23,11 +23,11 @@ require (
 	github.com/swaggo/swag v1.4.0 // indirect
 	github.com/ugorji/go/codec v0.0.0-20181209151446-772ced7fd4c2 // indirect
 	golang.org/x/crypto v0.0.0-20190102171810-8d7daa0c54b3 // indirect
-	golang.org/x/exp/xerrors v0.0.0-20190125153040-c74c464bbbf2
 	golang.org/x/net v0.0.0-20190125091013-d26f9f9a57f3 // indirect
 	golang.org/x/sync v0.0.0-20181221193216-37e7f081c4d4 // indirect
 	golang.org/x/sys v0.0.0-20190124100055-b90733256f2e // indirect
 	golang.org/x/tools v0.0.0-20190124215303-cc6a436ffe6b // indirect
+	golang.org/x/xerrors v0.0.0-20190208160001-334af843aad9
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
 	gopkg.in/square/go-jose.v2 v2.2.2

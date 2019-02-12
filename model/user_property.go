@@ -1,6 +1,6 @@
 package model
 
-import "golang.org/x/exp/xerrors"
+import "golang.org/x/xerrors"
 
 // OAuth ...
 type OAuth struct {
