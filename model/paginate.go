@@ -8,7 +8,6 @@ import (
 // Paginator ...
 type Paginator interface {
 	Paginate(values url.Values) (*Paginate, error)
-	Object() interface{}
 }
 
 // Paginate ...
@@ -18,7 +17,6 @@ type Paginate struct {
 	TotalPage int
 	Limit     int
 	Order     string
-	Detail    interface{} `json:"detail"`
 }
 
 func parsePaginate(v url.Values) *Paginate {
@@ -31,6 +29,5 @@ func parsePaginate(v url.Values) *Paginate {
 		Current: config.MustInt(v.Get("current"), 0),
 		Limit:   config.MustInt(v.Get("limit"), 50),
 		Order:   order,
-		Detail:  nil,
 	}
 }
