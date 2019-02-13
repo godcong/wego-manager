@@ -3,8 +3,8 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-auth-manager/model"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
-	"log"
 )
 
 // UserPropertyList godoc
@@ -27,7 +27,7 @@ func UserPropertyList(ver string) gin.HandlerFunc {
 			Error(ctx, err)
 			return
 		}
-		log.Println(properties)
+		log.Info(properties)
 		Success(ctx, properties)
 	}
 }

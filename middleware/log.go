@@ -2,19 +2,19 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
+	log "github.com/sirupsen/logrus"
 )
 
 // VisitLog ...
 func VisitLog(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		//log.Println(ctx.Request.Header)
-		//log.Println(ctx.Accepted)
+		//log.Info(ctx.Request.Header)
+		//log.Info(ctx.Accepted)
 		//l.Permission = handleFuncName(ctx)
 		//l.Method = ctx.Request.Method
 		//l.URL = ctx.Request.URL.String()
 		//token := ctx.GetHeader("token")
-		//log.Println(token)
+		//log.Info(token)
 		//
 		//user, err := decodeUser(ctx)
 		//if err != nil {
@@ -32,5 +32,5 @@ func RemoteIP(ctx *gin.Context) {
 	if host == "" {
 		host = ctx.Request.RemoteAddr
 	}
-	log.Println("host:", host)
+	log.Info("host:", host)
 }

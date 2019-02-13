@@ -3,18 +3,18 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-auth-manager/model"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
-	"log"
 	"strings"
 )
 
 // NotifyServer ...
 func NotifyServer(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		log.Println(ctx.Params)
+		log.Info(ctx.Params)
 		paths := strings.Split(ctx.Request.URL.Path, "/")
 		if len(paths) < 6 {
-			log.Println("path error", paths)
+			log.Info("path error", paths)
 			Error(ctx, xerrors.New("path error"))
 			return
 		}
@@ -25,17 +25,17 @@ func NotifyServer(ver string) gin.HandlerFunc {
 		back.BackType = paths[5]
 		b, e := model.Get(nil, &back)
 		if e != nil || !b {
-			log.Println("wrong back address", paths)
+			log.Info("wrong back address", paths)
 			Error(ctx, xerrors.New("wrong back address"))
 			return
 		}
-		log.Println(ctx.HandlerName())
-		log.Println(ctx.Request.URL.RawPath)
-		log.Println(ctx.Request.URL.Path)
-		log.Println(ctx.Request.URL.EscapedPath())
+		log.Info(ctx.HandlerName())
+		log.Info(ctx.Request.URL.RawPath)
+		log.Info(ctx.Request.URL.Path)
+		log.Info(ctx.Request.URL.EscapedPath())
 
 		Success(ctx, back)
-		log.Println(back)
+		log.Info(back)
 		return
 	}
 }

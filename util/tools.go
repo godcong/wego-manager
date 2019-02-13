@@ -5,11 +5,11 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"github.com/json-iterator/go"
+	log "github.com/sirupsen/logrus"
 	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/square/go-jose.v2/jwt"
 	"io"
 	"io/ioutil"
-	"log"
 	"math/rand"
 	"strings"
 	"time"
@@ -75,7 +75,7 @@ func GenerateRandomString(size int, kind ...RandomKind) string {
 // UnmarshalJSON ...
 func UnmarshalJSON(reader io.Reader, v interface{}) error {
 	bytes, err := ioutil.ReadAll(reader)
-	log.Println(string(bytes))
+	log.Info(string(bytes))
 	if err != nil {
 		return err
 	}

@@ -2,15 +2,15 @@ package model
 
 import (
 	"github.com/godcong/wego-auth-manager/util"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
-	"log"
 	"net/url"
 )
 
-// UserLogin ...
-type UserLogin struct {
-	Username string `json:"username" xorm:"username notnull unique"` //用户名
-	Password string `json:"password" xorm:"password"`                //密码
+// Login ...
+type Login struct {
+	Username string `json:"username" ` //用户名
+	Password string `json:"password" ` //密码
 }
 
 // User ...
@@ -19,18 +19,17 @@ type User struct {
 	Block         bool   `json:"block" xorm:"block"`                      //禁止访问
 	Nickname      string `json:"nickname" xorm:"nickname"`                //名称
 	Username      string `json:"username" xorm:"username notnull unique"` //用户名
-	UserLogin     `xorm:"extends" json:",inline"`
-	Email         string `json:"email" xorm:"email"`                     //邮件
-	Mobile        string `json:"mobile" xorm:"mobile"`                   //移动电话
-	IDCardFacade  string `json:"id_card_facade" xorm:"id_card_facade"`   //身份证(正)
-	IDCardObverse string `json:"id_card_obverse" xorm:"id_card_obverse"` //身份证(反)
-	Password      string `json:"password" xorm:"password"`               //密码
-	Certificate   string `json:"certificate" xorm:"certificate"`         //证书
-	PrivateKey    string `json:"private_key" xorm:"private_key"`         //私钥
-	LoginIP       string `json:"login_ip" xorm:"login_ip"`               //本次登录IP
-	Token         string `json:"-" xorm:"varchar(1024) token"`           //Token
-	Salt          string `json:"-" xorm:"slat"`                          //盐值
-	Sign          string `json:"-" xorm:"sign"`                          //外调值
+	Email         string `json:"email" xorm:"email"`                      //邮件
+	Mobile        string `json:"mobile" xorm:"mobile"`                    //移动电话
+	IDCardFacade  string `json:"id_card_facade" xorm:"id_card_facade"`    //身份证(正)
+	IDCardObverse string `json:"id_card_obverse" xorm:"id_card_obverse"`  //身份证(反)
+	Password      string `json:"password" xorm:"password"`                //密码
+	Certificate   string `json:"certificate" xorm:"certificate"`          //证书
+	PrivateKey    string `json:"private_key" xorm:"private_key"`          //私钥
+	LoginIP       string `json:"login_ip" xorm:"login_ip"`                //本次登录IP
+	Token         string `json:"-" xorm:"varchar(1024) token"`            //Token
+	Salt          string `json:"-" xorm:"slat"`                           //盐值
+	Sign          string `json:"-" xorm:"sign"`                           //外调值
 }
 
 // NewUser ...
@@ -119,7 +118,7 @@ func (obj *User) Roles() ([]*Role, error) {
 }
 
 // Validate ...
-func (obj *User) Validate(u *UserLogin, key string) bool {
+func (obj *User) Validate(u *Login, key string) bool {
 	u.Password = util.SHA256(u.Password, key, obj.Salt)
 	session := DB().Table(obj).Where("username = ?", u.Username).And("password = ?", u.Password)
 

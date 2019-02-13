@@ -6,13 +6,13 @@ import (
 	"github.com/godcong/wego-auth-manager/util"
 	"github.com/google/uuid"
 	"github.com/json-iterator/go"
-	"log"
+	log "github.com/sirupsen/logrus"
 )
 
 // DataBase ...
 type DataBase struct {
-	config   *config.Configure
-	modelers []Modeler
+	config *config.Configure
+	//modelers []Modeler
 	*xorm.Engine
 }
 
@@ -135,9 +135,9 @@ func InitDB(cfg *config.Configure) *DataBase {
 		engine.ShowSQL(true)
 	}
 	globalDB = &DataBase{
-		config:   cfg,
-		modelers: modelerTables(),
-		Engine:   engine,
+		config: cfg,
+		//modelers: modelerTables(),
+		Engine: engine,
 	}
 	return globalDB
 }
@@ -151,7 +151,7 @@ type TokenSub struct {
 func DecodeUser(token string) (*User, error) {
 	t := TokenSub{}
 	sub, err := util.DecryptJWT([]byte(globalDB.config.General.TokenKey), token)
-	log.Println("sub", sub)
+	log.Info("sub", sub)
 	if err != nil {
 		return nil, err
 	}

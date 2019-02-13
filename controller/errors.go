@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -14,7 +14,7 @@ type CodeMessage struct {
 
 // Error ...
 func Error(ctx *gin.Context, err error) {
-	log.Println(err)
+	log.Info(err)
 	ctx.JSON(http.StatusBadRequest, CodeMessage{
 		Code:    -1,
 		Message: err.Error(),

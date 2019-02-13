@@ -3,7 +3,7 @@ package service
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-auth-manager/config"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 

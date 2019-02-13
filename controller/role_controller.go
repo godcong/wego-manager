@@ -3,8 +3,8 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-auth-manager/model"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
-	"log"
 )
 
 // RoleList godoc
@@ -25,7 +25,7 @@ func RoleList(ver string) gin.HandlerFunc {
 			Error(ctx, err)
 			return
 		}
-		log.Println(roles)
+		log.Info(roles)
 		Success(ctx, roles)
 	}
 }

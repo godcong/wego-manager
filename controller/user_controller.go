@@ -5,23 +5,23 @@ import (
 	"github.com/godcong/wego-auth-manager/config"
 	"github.com/godcong/wego-auth-manager/model"
 	"github.com/godcong/wego-auth-manager/util"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
-	"log"
 )
 
-// UserLogin godoc
+// Login godoc
 // @Summary Login user
 // @Description Login user
 // @Tags default
 // @Accept  json
 // @Produce  json
-// @Param account body UserLogin true "user update info"
+// @Param account body Login true "user update info"
 // @success 200 {object} util.WebToken
 // @Failure 400 {object} controller.CodeMessage
 // @Router /login [post]
 func UserLogin(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		var u model.UserLogin
+		var u model.Login
 		e := ctx.BindJSON(&u)
 
 		if e != nil {
@@ -34,20 +34,20 @@ func UserLogin(ver string) gin.HandlerFunc {
 
 		b, e := user.Get()
 		if e != nil {
-			log.Println("get error1")
+			log.Info("get error1")
 			Error(ctx, e)
 			return
 		}
 
 		if !b {
-			log.Println("get error2")
+			log.Info("get error2")
 			Error(ctx, xerrors.New("username password is not correct"))
 			return
 		}
 
 		b = user.Validate(&u, config.Config().General.TokenKey)
 		if !b {
-			log.Println("validate error")
+			log.Info("validate error")
 			Error(ctx, xerrors.New("username password is not correct"))
 			return
 		}
@@ -56,7 +56,7 @@ func UserLogin(ver string) gin.HandlerFunc {
 		token.Nickname = user.Nickname
 		t, e := util.ToToken(config.Config().General.TokenKey, token)
 		if e != nil {
-			log.Println(e)
+			log.Info(e)
 			Error(ctx, xerrors.New("username password is not correct"))
 			return
 		}
@@ -64,7 +64,7 @@ func UserLogin(ver string) gin.HandlerFunc {
 		user.Token = t
 		i, e := user.Update("token")
 		if e != nil || i != 1 {
-			log.Println(e, i)
+			log.Info(e, i)
 			Error(ctx, xerrors.New("unknown login error"))
 			return
 		}
@@ -122,7 +122,7 @@ func UserList(ver string) gin.HandlerFunc {
 			Error(ctx, err)
 			return
 		}
-		log.Println(users)
+		log.Info(users)
 		Success(ctx, users)
 	}
 }

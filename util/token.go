@@ -2,7 +2,7 @@ package util
 
 import (
 	"github.com/json-iterator/go"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"time"
 )
 
@@ -36,7 +36,7 @@ func ToToken(key string, token *WebToken) (string, error) {
 func FromToken(key, token string) (*WebToken, error) {
 	t := WebToken{}
 	sub, err := DecryptJWT([]byte(key), token)
-	log.Println("sub", sub)
+	log.Info("sub", sub)
 	if err != nil {
 		return nil, err
 	}

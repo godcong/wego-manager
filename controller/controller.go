@@ -3,7 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-auth-manager/model"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -54,7 +54,7 @@ func Success(ctx *gin.Context, detail interface{}) {
 // fail ...
 func fail(ctx *gin.Context, code int, msg string) {
 	accept := ctx.GetHeader(ContentType)
-	log.Println(accept)
+	log.Info(accept)
 	switch accept {
 	case ContentTypeJSON:
 		ctx.JSON(http.StatusBadRequest, &CodeMessage{
