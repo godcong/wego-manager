@@ -201,7 +201,7 @@ func RolePermissionAdd(ver string) gin.HandlerFunc {
 			PermissionID: permission.ID,
 			RoleID:       role.ID,
 		}
-		i, e := model.Insert(nil, &ru)
+		i, e := model.Insert(nil, &pr)
 		if e != nil || i == 0 {
 			log.Error(e, i)
 			Error(ctx, xerrors.New("insert permission error"))
