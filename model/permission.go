@@ -4,7 +4,7 @@ import "golang.org/x/xerrors"
 
 // Permission ...
 type Permission struct {
-	Model           `xorm:"extends"`
+	Model           `xorm:"extends" json:",inline"`
 	Name            string `xorm:"name"`
 	Slug            string `xorm:"slug"`
 	Description     string `xorm:"description"`

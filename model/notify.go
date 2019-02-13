@@ -11,7 +11,7 @@ const (
 
 // Notify ...
 type Notify struct {
-	Model    `xorm:"extends"`
+	Model    `xorm:"extends" json:",inline"`
 	UserID   string `json:"user_id" xorm:"user_id"`
 	Sign     string `json:"sign" xorm:"sign notnull unique"`
 	Ver      string `json:"ver" xorm:"ver"`

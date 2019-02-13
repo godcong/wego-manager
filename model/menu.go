@@ -4,7 +4,7 @@ import "golang.org/x/xerrors"
 
 // Menu ...
 type Menu struct {
-	Model       `xorm:"extends"`
+	Model       `xorm:"extends" json:",inline"`
 	PID         string `xorm:"pid"` //parent id
 	Name        string `xorm:"name"`
 	Icon        string `xorm:"icon"`

@@ -10,7 +10,7 @@ type OAuth struct {
 
 // Property ...
 type Property struct {
-	Model       `xorm:"extends"`
+	Model       `xorm:"extends" json:",inline"`
 	UserID      string   `xorm:"user_id" json:"user_id"`
 	Sign        string   `xorm:"sign" json:"sign"`
 	AppID       string   `xorm:"app_id notnull unique" json:"app_id"`
