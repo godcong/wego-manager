@@ -7,10 +7,11 @@ import (
 // Role ...
 type Role struct {
 	Model       `xorm:"extends" json:",inline"`
-	Name        string `xorm:"name"`
-	Slug        string `xorm:"slug"`
-	Description string `xorm:"description"`
-	Level       int    `xorm:"level"`
+	Enable      bool   `xorm:"enable" json:"enable"`
+	Name        string `xorm:"name" json:"name"`
+	Slug        string `xorm:"slug" json:"slug"`
+	Description string `xorm:"description" json:"description"`
+	Level       int    `xorm:"level" json:"level"`
 }
 
 // RoleSlugAdmin ...

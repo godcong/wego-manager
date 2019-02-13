@@ -16,7 +16,7 @@ type Login struct {
 // User ...
 type User struct {
 	Model         `xorm:"extends" json:",inline"`
-	Block         bool   `json:"block" xorm:"block"`                      //禁止访问
+	Enable        bool   `json:"enable" xorm:"enable"`                    //是否启用
 	Nickname      string `json:"nickname" xorm:"nickname"`                //名称
 	Username      string `json:"username" xorm:"username notnull unique"` //用户名
 	Email         string `json:"email" xorm:"email"`                      //邮件
