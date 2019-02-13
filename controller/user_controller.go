@@ -9,7 +9,7 @@ import (
 	"golang.org/x/xerrors"
 )
 
-// Login godoc
+// UserLogin godoc
 // @Summary Login user
 // @Description Login user
 // @Tags default
@@ -192,6 +192,47 @@ func UserUpdate(ver string) gin.HandlerFunc {
 	}
 }
 
+// UserReset godoc
+// @Summary reset user password
+// @Description reset user password
+// @Tags dashboard
+// @Accept  json
+// @Produce  json
+// @Param token header string true "login token"
+// @Param id path string true "User ID"
+// @Param account body User true "user update info"
+// @success 200 {object} model.User
+// @Failure 400 {object} controller.CodeMessage
+// @Router /dashboard/user/{id}/reset [post]
+func UserReset(ver string) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		id := ctx.Param("id")
+		user := model.NewUser(id)
+		b, err := user.Get()
+		if err != nil || !b {
+			Error(ctx, xerrors.Errorf("no users:%w", err))
+			return
+		}
+		login := model.Login{}
+		err = ctx.BindJSON(&login)
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		if login.Password == "" {
+			login.Password = "123456"
+		}
+
+		user.Password = util.SHA256(login.Password, config.Config().General.TokenKey, user.Salt)
+		_, err = model.UpdateWithColumn(nil, id, user, "password")
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		Success(ctx, user)
+	}
+}
+
 // UserShow godoc
 // @Summary Show user
 // @Description Show user
@@ -285,5 +326,51 @@ func UserRoleList(ver string) gin.HandlerFunc {
 			return
 		}
 		Success(ctx, roles)
+	}
+}
+
+// UserRoleAdd godoc
+// @Summary List role
+// @Description List role
+// @Tags dashboard
+// @Accept  json
+// @Produce  json
+// @Param token header string true "login token"
+// @Param id path string true "User ID"
+// @success 200 {array} model.RoleUser
+// @Failure 400 {object} controller.CodeMessage
+// @Router /dashboard/user/{id}/role/{rid} [post]
+func UserRoleAdd(ver string) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		id := ctx.Param("id")
+		rid := ctx.Param("rid")
+		user := model.NewUser(id)
+		role := model.NewRole(rid)
+		b, e := user.Get()
+		if e != nil || !b {
+			log.Error(e, b)
+			Error(ctx, xerrors.New("no user"))
+			return
+		}
+		b, e = role.Get()
+		if e != nil || !b {
+			log.Error(e, b)
+			Error(ctx, xerrors.New("no role"))
+			return
+		}
+
+		ru := model.RoleUser{
+			RoleID: role.ID,
+			UserID: user.ID,
+		}
+		i, e := model.Insert(nil, &ru)
+		if e != nil || i == 0 {
+			log.Error(e, i)
+			Error(ctx, xerrors.New("insert role error"))
+			return
+		}
+		ru.User = user
+		ru.Role = role
+		Success(ctx, &ru)
 	}
 }

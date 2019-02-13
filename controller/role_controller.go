@@ -166,6 +166,53 @@ func RolePermissionList(ver string) gin.HandlerFunc {
 	}
 }
 
+// RolePermissionAdd godoc
+// @Summary add permission
+// @Description add permission
+// @Tags dashboard
+// @Accept  json
+// @Produce  json
+// @Param token header string true "login token"
+// @Param id path string true "Role ID"
+// @Param pid path string true "Permission ID"
+// @success 200 {array} model.PermissionRole
+// @Failure 400 {object} controller.CodeMessage
+// @Router /dashboard/role/{id}/permission/{pid} [get]
+func RolePermissionAdd(ver string) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		id := ctx.Param("id")
+		pid := ctx.Param("pid")
+		role := model.NewRole(id)
+		permission := model.NewPermission(pid)
+		b, e := role.Get()
+		if e != nil || !b {
+			log.Error(e, b)
+			Error(ctx, xerrors.New("no roleser"))
+			return
+		}
+		b, e = permission.Get()
+		if e != nil || !b {
+			log.Error(e, b)
+			Error(ctx, xerrors.New("no permission"))
+			return
+		}
+
+		pr := model.PermissionRole{
+			PermissionID: permission.ID,
+			RoleID:       role.ID,
+		}
+		i, e := model.Insert(nil, &ru)
+		if e != nil || i == 0 {
+			log.Error(e, i)
+			Error(ctx, xerrors.New("insert permission error"))
+			return
+		}
+		pr.Permission = permission
+		pr.Role = role
+		Success(ctx, &pr)
+	}
+}
+
 // RoleUserList godoc
 // @Summary List permission
 // @Description List permission
