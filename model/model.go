@@ -26,19 +26,6 @@ func DB() *DataBase {
 	return globalDB
 }
 
-// Sync ...
-func Sync() error {
-	var err error
-	for _, m := range DB().modelers {
-		log.Println("syncing")
-		err = DB().Sync2(m)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
 // Modeler ...
 type Modeler interface {
 	BeforeInsert()
@@ -153,19 +140,6 @@ func InitDB(cfg *config.Configure) *DataBase {
 		Engine:   engine,
 	}
 	return globalDB
-}
-
-func modelerTables() []Modeler {
-	return []Modeler{
-		&User{},
-		&Permission{},
-		&Role{},
-		&PermissionRole{},
-		&PermissionUser{},
-		&RoleUser{},
-		&Property{},
-		&Notify{},
-	}
 }
 
 // TokenSub ...

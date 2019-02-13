@@ -20,6 +20,7 @@ require (
 	github.com/mattn/go-isatty v0.0.4 // indirect
 	github.com/pelletier/go-toml v1.2.0
 	github.com/pkg/errors v0.8.1 // indirect
+	github.com/sirupsen/logrus v1.3.0
 	github.com/swaggo/gin-swagger v1.0.0
 	github.com/swaggo/swag v1.4.0
 	github.com/ugorji/go/codec v0.0.0-20181209151446-772ced7fd4c2 // indirect
