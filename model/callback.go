@@ -1,0 +1,17 @@
+package model
+
+type Callback struct {
+	Model    `xorm:"extends"`
+	Type     string
+	BackType string
+	Address  string
+	Port     string
+}
+
+func NewCallback(id string) *Callback {
+	return &Callback{
+		Model: Model{
+			ID: id,
+		},
+	}
+}
