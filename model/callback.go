@@ -1,5 +1,6 @@
 package model
 
+// Callback ...
 type Callback struct {
 	Model    `xorm:"extends"`
 	Type     string
@@ -8,6 +9,7 @@ type Callback struct {
 	Port     string
 }
 
+// NewCallback ...
 func NewCallback(id string) *Callback {
 	return &Callback{
 		Model: Model{

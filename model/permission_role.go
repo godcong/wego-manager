@@ -5,9 +5,9 @@ import "golang.org/x/xerrors"
 // PermissionRole ...
 type PermissionRole struct {
 	Model        `xorm:"-"`
-	PermissionID string      `json:"permission_id" xorm:"permission_id notnull uuid"`
+	PermissionID string      `json:"-" xorm:"permission_id notnull uuid"`
 	Permission   *Permission `xorm:"-"`
-	RoleID       string      `json:"role_id" xorm:"role_id notnull uuid"`
+	RoleID       string      `json:"-" xorm:"role_id notnull uuid"`
 	Role         *Role       `xorm:"-"`
 }
 
