@@ -2,6 +2,7 @@ package database
 
 import (
 	"github.com/godcong/wego-auth-manager/model"
+	"github.com/godcong/wego-auth-manager/util"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -20,7 +21,7 @@ var migrateionTable = []model.Modeler{
 func Migrate() error {
 	var err error
 	for _, m := range migrateionTable {
-		log.Info("syncing")
+		log.WithField("name", util.StructureName(m)).Info("syncing")
 		err = model.DB().Sync2(m)
 		if err != nil {
 			return err

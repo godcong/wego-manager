@@ -11,6 +11,7 @@ import (
 	"io"
 	"io/ioutil"
 	"math/rand"
+	"reflect"
 	"strings"
 	"time"
 )
@@ -150,4 +151,9 @@ func SHA256(v, key, salt string) string {
 	m.Write([]byte("."))
 	m.Write([]byte(salt))
 	return strings.ToUpper(fmt.Sprintf("%x", m.Sum(nil)))
+}
+
+// StructureName ...
+func StructureName(s interface{}) string {
+	return reflect.Indirect(reflect.ValueOf(s)).Type().Name()
 }

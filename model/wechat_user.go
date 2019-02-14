@@ -3,7 +3,7 @@ package model
 // WechatUser ...
 type WechatUser struct {
 	Model      `xorm:"extends" json:",inline"`
-	Block      bool   `xorm:"block"`                                                          //禁止访问
+	Block      bool   `xorm:"notnull default(false) comment(禁止访问)"`                           //禁止访问
 	AppID      string `xorm:"notnull default('') comment(appid)" json:"appid,omitempty"`      //appid
 	OpenID     string `xorm:"notnull default('') comment(用户ID)" json:"openid,omitempty"`      //"openid": "oLVPpjqs9BhvzwPj5A-vTYAX
 	UnionID    string `xorm:"notnull default('') comment(唯一ID)" json:"unionid,omitempty"`     //unionid
