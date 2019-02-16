@@ -10,13 +10,13 @@ import (
 // RoleList godoc
 // @Summary List roles
 // @Description List roles
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @success 200 {array} model.Role
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/role [get]
+// @Router /admin/role [get]
 func RoleList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var role model.Role
@@ -33,14 +33,14 @@ func RoleList(ver string) gin.HandlerFunc {
 // RoleAdd godoc
 // @Summary Add role
 // @Description Add role
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param account body Role true "role update info"
 // @success 200 {object} model.Role
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/role [post]
+// @Router /admin/role [post]
 func RoleAdd(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var role model.Role
@@ -61,7 +61,7 @@ func RoleAdd(ver string) gin.HandlerFunc {
 // RoleUpdate godoc
 // @Summary Update role
 // @Description Update role
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
@@ -69,7 +69,7 @@ func RoleAdd(ver string) gin.HandlerFunc {
 // @Param account body Role true "role update info"
 // @success 200 {object} model.Role
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/role/{id} [post]
+// @Router /admin/role/{id} [post]
 func RoleUpdate(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -97,14 +97,14 @@ func RoleUpdate(ver string) gin.HandlerFunc {
 // RoleShow godoc
 // @Summary Show role
 // @Description Show role
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Role ID"
 // @success 200 {object} model.Role
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/role/{id} [get]
+// @Router /admin/role/{id} [get]
 func RoleShow(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -121,14 +121,14 @@ func RoleShow(ver string) gin.HandlerFunc {
 // RoleDelete godoc
 // @Summary Delete role
 // @Description Delete role
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Role ID"
 // @success 200 {object} model.Role
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/role/{id} [delete]
+// @Router /admin/role/{id} [delete]
 func RoleDelete(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -145,14 +145,14 @@ func RoleDelete(ver string) gin.HandlerFunc {
 // RolePermissionList godoc
 // @Summary List permission
 // @Description List permission
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Role ID"
 // @success 200 {array} model.Permission
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/role/{id}/permission [get]
+// @Router /admin/role/{id}/permission [get]
 func RolePermissionList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -169,7 +169,7 @@ func RolePermissionList(ver string) gin.HandlerFunc {
 // RolePermissionAdd godoc
 // @Summary add permission
 // @Description add permission
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
@@ -177,7 +177,7 @@ func RolePermissionList(ver string) gin.HandlerFunc {
 // @Param pid path string true "Permission ID"
 // @success 200 {array} model.PermissionRole
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/role/{id}/permission/{pid} [get]
+// @Router /admin/role/{id}/permission/{pid} [get]
 func RolePermissionAdd(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -216,14 +216,14 @@ func RolePermissionAdd(ver string) gin.HandlerFunc {
 // RoleUserList godoc
 // @Summary List permission
 // @Description List permission
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Role ID"
 // @success 200 {array} model.User
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/role/{id}/user [get]
+// @Router /admin/role/{id}/user [get]
 func RoleUserList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")

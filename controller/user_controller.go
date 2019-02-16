@@ -107,13 +107,13 @@ func UserRegister(ver string) gin.HandlerFunc {
 // UserList godoc
 // @Summary List users
 // @Description List users
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @success 200 {array} model.Paginate
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/user [get]
+// @Router /admin/user [get]
 func UserList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var user model.User
@@ -130,14 +130,14 @@ func UserList(ver string) gin.HandlerFunc {
 // UserAdd godoc
 // @Summary Add user
 // @Description Add user
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param account body User true "user update info"
 // @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/user [post]
+// @Router /admin/user [post]
 func UserAdd(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var user model.User
@@ -159,7 +159,7 @@ func UserAdd(ver string) gin.HandlerFunc {
 // UserUpdate godoc
 // @Summary Update user
 // @Description Update user
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
@@ -167,7 +167,7 @@ func UserAdd(ver string) gin.HandlerFunc {
 // @Param account body User true "user update info"
 // @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/user/{id} [post]
+// @Router /admin/user/{id} [post]
 func UserUpdate(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -195,7 +195,7 @@ func UserUpdate(ver string) gin.HandlerFunc {
 // UserReset godoc
 // @Summary reset user password
 // @Description reset user password
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
@@ -203,7 +203,7 @@ func UserUpdate(ver string) gin.HandlerFunc {
 // @Param account body User true "user update info"
 // @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/user/{id}/reset [post]
+// @Router /admin/user/{id}/reset [post]
 func UserReset(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -236,14 +236,14 @@ func UserReset(ver string) gin.HandlerFunc {
 // UserShow godoc
 // @Summary Show user
 // @Description Show user
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "User ID"
 // @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/user/{id} [get]
+// @Router /admin/user/{id} [get]
 func UserShow(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -260,14 +260,14 @@ func UserShow(ver string) gin.HandlerFunc {
 // UserDelete godoc
 // @Summary Delete user
 // @Description Delete user
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "User ID"
 // @success 200 {object} model.User
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/user/{id} [delete]
+// @Router /admin/user/{id} [delete]
 func UserDelete(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -284,14 +284,14 @@ func UserDelete(ver string) gin.HandlerFunc {
 // UserPermissionList godoc
 // @Summary List permission
 // @Description List permission
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "User ID"
 // @success 200 {array} model.Permission
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/user/{id}/permission [get]
+// @Router /admin/user/{id}/permission [get]
 func UserPermissionList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -308,14 +308,14 @@ func UserPermissionList(ver string) gin.HandlerFunc {
 // UserRoleList godoc
 // @Summary List role
 // @Description List role
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "User ID"
 // @success 200 {array} model.Role
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/user/{id}/role [get]
+// @Router /admin/user/{id}/role [get]
 func UserRoleList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -332,14 +332,14 @@ func UserRoleList(ver string) gin.HandlerFunc {
 // UserRoleAdd godoc
 // @Summary List role
 // @Description List role
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "User ID"
 // @success 200 {array} model.RoleUser
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/user/{id}/role/{rid} [post]
+// @Router /admin/user/{id}/role/{rid} [post]
 func UserRoleAdd(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")

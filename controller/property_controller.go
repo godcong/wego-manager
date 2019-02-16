@@ -10,7 +10,7 @@ import (
 // PropertyList godoc
 // @Summary List propertys
 // @Description List propertys
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param current query string false "paginate:current"
@@ -18,7 +18,7 @@ import (
 // @Param order query string false "paginate:order"
 // @success 200 {array} model.Property
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/property [get]
+// @Router /admin/property [get]
 func PropertyList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var property model.Property
@@ -35,14 +35,14 @@ func PropertyList(ver string) gin.HandlerFunc {
 // PropertyAdd godoc
 // @Summary Add property
 // @Description Add property
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param account body Property true "property update info"
 // @success 200 {object} model.Property
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/property [post]
+// @Router /admin/property [post]
 func PropertyAdd(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var property model.Property
@@ -63,7 +63,7 @@ func PropertyAdd(ver string) gin.HandlerFunc {
 // PropertyUpdate godoc
 // @Summary Update property
 // @Description Update property
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
@@ -71,7 +71,7 @@ func PropertyAdd(ver string) gin.HandlerFunc {
 // @Param account body Property true "property update info"
 // @success 200 {object} model.Property
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/property/{id} [post]
+// @Router /admin/property/{id} [post]
 func PropertyUpdate(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -99,14 +99,14 @@ func PropertyUpdate(ver string) gin.HandlerFunc {
 // PropertyShow godoc
 // @Summary Show property
 // @Description Show property
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Property ID"
 // @success 200 {object} model.Property
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/property/{id} [get]
+// @Router /admin/property/{id} [get]
 func PropertyShow(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -123,14 +123,14 @@ func PropertyShow(ver string) gin.HandlerFunc {
 // PropertyDelete godoc
 // @Summary Delete property
 // @Description Delete property
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Property ID"
 // @success 200 {object} model.Property
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/property/{id} [delete]
+// @Router /admin/property/{id} [delete]
 func PropertyDelete(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")

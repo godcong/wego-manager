@@ -10,13 +10,13 @@ import (
 // PermissionList godoc
 // @Summary List permissions
 // @Description List permissions
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @success 200 {array} model.Permission
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/permission [get]
+// @Router /admin/permission [get]
 func PermissionList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var permission model.Permission
@@ -33,14 +33,14 @@ func PermissionList(ver string) gin.HandlerFunc {
 // PermissionAdd godoc
 // @Summary Add permission
 // @Description Add permission
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param account body Permission true "permission update info"
 // @success 200 {object} model.Permission
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/permission [post]
+// @Router /admin/permission [post]
 func PermissionAdd(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var permission model.Permission
@@ -61,7 +61,7 @@ func PermissionAdd(ver string) gin.HandlerFunc {
 // PermissionUpdate godoc
 // @Summary Update permission
 // @Description Update permission
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
@@ -69,7 +69,7 @@ func PermissionAdd(ver string) gin.HandlerFunc {
 // @Param account body Permission true "permission update info"
 // @success 200 {object} model.Permission
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/permission/{id} [post]
+// @Router /admin/permission/{id} [post]
 func PermissionUpdate(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -97,14 +97,14 @@ func PermissionUpdate(ver string) gin.HandlerFunc {
 // PermissionShow godoc
 // @Summary Show permission
 // @Description Show permission
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Permission ID"
 // @success 200 {object} model.Permission
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/permission/{id} [get]
+// @Router /admin/permission/{id} [get]
 func PermissionShow(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -121,14 +121,14 @@ func PermissionShow(ver string) gin.HandlerFunc {
 // PermissionDelete godoc
 // @Summary Delete permission
 // @Description Delete permission
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Permission ID"
 // @success 200 {object} model.Permission
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/permission/{id} [delete]
+// @Router /admin/permission/{id} [delete]
 func PermissionDelete(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -145,14 +145,14 @@ func PermissionDelete(ver string) gin.HandlerFunc {
 // PermissionRoleList godoc
 // @Summary List role
 // @Description List role
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Permission ID"
 // @success 200 {array} model.Role
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/permission/{id}/role [get]
+// @Router /admin/permission/{id}/role [get]
 func PermissionRoleList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
@@ -169,14 +169,14 @@ func PermissionRoleList(ver string) gin.HandlerFunc {
 // PermissionUserList godoc
 // @Summary List permission
 // @Description List permission
-// @Tags dashboard
+// @Tags admin
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
 // @Param id path string true "Permission ID"
 // @success 200 {array} model.User
 // @Failure 400 {object} controller.CodeMessage
-// @Router /dashboard/permission/{id}/user [get]
+// @Router /admin/permission/{id}/user [get]
 func PermissionUserList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
