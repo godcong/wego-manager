@@ -16,6 +16,7 @@ type Login struct {
 // User ...
 type User struct {
 	Model         `xorm:"extends" json:",inline"`
+	WechatUserID  string `json:"wechat_user_id" xorm:"wechat_user_id comment(微信用户ID)"`
 	Enable        bool   `json:"enable" xorm:"enable"`                    //是否启用
 	Nickname      string `json:"nickname" xorm:"nickname"`                //名称
 	Username      string `json:"username" xorm:"username notnull unique"` //用户名

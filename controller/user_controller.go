@@ -7,6 +7,7 @@ import (
 	"github.com/godcong/wego-auth-manager/util"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
+	"strings"
 )
 
 // UserLogin godoc
@@ -61,7 +62,8 @@ func UserLogin(ver string) gin.HandlerFunc {
 			return
 		}
 
-		user.Token = t
+		ts := strings.Split(t, ".")
+		user.Token = ts[2]
 		i, e := user.Update("token")
 		if e != nil || i != 1 {
 			log.Info(e, i)

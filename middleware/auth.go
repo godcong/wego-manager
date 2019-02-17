@@ -43,8 +43,8 @@ func AuthCheck(ver string) gin.HandlerFunc {
 			return
 		}
 
-		log.Info(strings.Split(token, "."))
-		if user.Token != token {
+		ts := strings.Split(token, ".")
+		if user.Token != ts[2] {
 			err = xerrors.New("login expired")
 			return
 		}
