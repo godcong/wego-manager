@@ -16,9 +16,9 @@ type Property struct {
 	AppID       string   `xorm:"app_id notnull unique" json:"app_id"`
 	MchID       string   `xorm:"mch_id" json:"mch_id"`
 	MchKey      string   `xorm:"mch_key" json:"mch_key"`
-	Cert        string   `xorm:"cert" json:"cert"`
-	Key         string   `xorm:"key" json:"key"`
-	RootCA      string   `xorm:"root_ca" json:"root_ca"`
+	Cert        string   `xorm:"varchar(2048) cert" json:"cert"`
+	Key         string   `xorm:"varchar(2048) key" json:"key"`
+	RootCA      string   `xorm:"varchar(2048) root_ca" json:"root_ca"`
 	NotifyURL   string   `xorm:"notify_url" json:"notify_url"`
 	RefundURL   string   `xorm:"refund_url" json:"refund_url"`
 	Kind        string   `xorm:"kind" json:"kind"`
