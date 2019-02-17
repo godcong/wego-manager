@@ -13,14 +13,14 @@ type OAuth struct {
 // Property ...
 type Property struct {
 	Model       `xorm:"extends" json:",inline"`
-	UserID      string   `xorm:"user_id" json:"user_id"`
-	Sign        string   `xorm:"sign" json:"sign"`
-	AppID       string   `xorm:"unique app_id " json:"app_id"`
+	UserID      string   `xorm:"notnull unique user_id" json:"user_id"`
+	Sign        string   `xorm:"notnull unique sign" json:"sign"`
+	AppID       string   `xorm:"notnull unique app_id " json:"app_id"`
 	MchID       string   `xorm:"mch_id" json:"mch_id"`
 	MchKey      string   `xorm:"mch_key" json:"mch_key"`
-	PemCert     string   `xorm:"pem_cert" json:"pem_cert"`
-	PemKEY      string   `xorm:"pem_key" json:"pem_key"`
-	RootCA      string   `xorm:"root_ca" json:"root_ca"`
+	PemCert     string   `xorm:"varchar(2048) pem_cert" json:"pem_cert"`
+	PemKEY      string   `xorm:"varchar(2048) pem_key" json:"pem_key"`
+	RootCA      string   `xorm:"varchar(2048) root_ca" json:"root_ca"`
 	NotifyURL   string   `xorm:"notify_url" json:"notify_url"`
 	RefundURL   string   `xorm:"refund_url" json:"refund_url"`
 	Kind        string   `xorm:"kind" json:"kind"`
@@ -31,7 +31,7 @@ type Property struct {
 	PublicKey   string   `xorm:"public_key" json:"public_key"`
 	PrivateKey  string   `xorm:"private_key" json:"private_key"`
 	Scopes      []string `xorm:"scopes" json:"scopes"`
-	RedirectURI string   `xorm:"redirect_url" json:"redirect_url"`
+	RedirectURI string   `xorm:"redirect_uri" json:"redirect_uri"`
 }
 
 // NewProperty ...
