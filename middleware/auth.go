@@ -26,7 +26,7 @@ func AuthCheck(ver string) gin.HandlerFunc {
 			err = xerrors.New("token is null")
 			return
 		}
-		t, err := util.FromToken(config.Config().General.TokenKey, token)
+		t, err := util.FromToken(config.Config().WebToken.Key, token)
 		if err != nil {
 			return
 		}

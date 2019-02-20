@@ -43,7 +43,7 @@ func PermissionCheck(ver string) gin.HandlerFunc {
 
 		}
 
-		if user.Enable {
+		if user.Block {
 			err = xerrors.New("this account is not enable")
 			return
 		}
