@@ -46,7 +46,7 @@ func UserLogin(ver string) gin.HandlerFunc {
 			return
 		}
 
-		b = user.Validate(&u, config.Config().General.TokenKey)
+		b = user.Validate(&u, config.Config().WebToken.Key)
 		if !b {
 			log.Info("validate error")
 			Error(ctx, xerrors.New("username password is not correct"))
@@ -55,7 +55,7 @@ func UserLogin(ver string) gin.HandlerFunc {
 		token := util.NewWebToken(user.ID)
 		token.Username = user.Username
 		token.Nickname = user.Nickname
-		t, e := util.ToToken(config.Config().General.TokenKey, token)
+		t, e := util.ToToken(config.Config().WebToken.Key, token)
 		if e != nil {
 			log.Info(e)
 			Error(ctx, xerrors.New("username password is not correct"))
@@ -96,7 +96,7 @@ func UserRegister(ver string) gin.HandlerFunc {
 			return
 		}
 		user.Salt = util.GenerateRandomString(16)
-		user.Password = util.SHA256(user.Password, config.Config().General.TokenKey, user.Salt)
+		user.Password = util.SHA256(user.Password, config.Config().WebToken.Key, user.Salt)
 		_, err = model.Insert(nil, &user)
 		if err != nil {
 			Error(ctx, err)
@@ -148,7 +148,7 @@ func UserAdd(ver string) gin.HandlerFunc {
 			Error(ctx, err)
 			return
 		}
-		user.Password = util.SHA256(user.Password, config.Config().General.TokenKey, util.GenerateRandomString(16))
+		user.Password = util.SHA256(user.Password, config.Config().WebToken.Key, util.GenerateRandomString(16))
 		_, err = model.Insert(nil, &user)
 		if err != nil {
 			Error(ctx, err)
@@ -225,7 +225,7 @@ func UserReset(ver string) gin.HandlerFunc {
 			login.Password = "123456"
 		}
 
-		user.Password = util.SHA256(login.Password, config.Config().General.TokenKey, user.Salt)
+		user.Password = util.SHA256(login.Password, config.Config().WebToken.Key, user.Salt)
 		_, err = model.UpdateWithColumn(nil, id, user, "password")
 		if err != nil {
 			Error(ctx, err)
