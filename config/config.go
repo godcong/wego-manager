@@ -9,19 +9,16 @@ import (
 
 var globalConfig *Configure
 
-// Config ...
-func Config() *Configure {
-	return globalConfig
-}
-
-// InitConfig ...
-func InitConfig(path string) *Configure {
-	globalConfig = initLoader(path)
-	return globalConfig
-}
-
 // REST ...
 type REST struct {
+	Enable bool   `toml:"enable"`
+	Type   string `toml:"type"`
+	Path   string `toml:"path"`
+	Port   string `toml:"port"`
+}
+
+// HTTP ...
+type HTTP struct {
 	Enable bool   `toml:"enable"`
 	Type   string `toml:"type"`
 	Path   string `toml:"path"`
@@ -41,42 +38,54 @@ type Database struct {
 	Charset  string `toml:"charset"`
 }
 
+// Config ...
+func Config() *Configure {
+	return globalConfig
+}
+
+// InitConfig ...
+func InitConfig(path string) *Configure {
+	globalConfig = initLoader(path)
+	return globalConfig
+}
+
 // Source ...
 func (d *Database) Source() string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?loc=%s&charset=%s&parseTime=true",
 		d.Username, d.Password, d.Addr, d.Port, d.Schema, d.Location, d.Charset)
 }
 
-// General ...
-type General struct {
-	TokenKey string `toml:"token_key"`
+// WebToken ...
+type WebToken struct {
+	Key string `toml:"key"`
 }
 
 // Configure ...
 type Configure struct {
-	General  General  `toml:"general"`
+	WebToken WebToken `toml:"web_token"`
 	Database Database `toml:"database"`
 	REST     REST     `toml:"rest"`
+	HTTP     HTTP     `toml:"rest"`
 }
 
-func initLoader(path string) *Configure {
-	var cfg Configure
+func initLoader(path string) (cfg *Configure) {
+	cfg = DefaultConfig()
 	tree, err := toml.LoadFile(path)
 	if err != nil {
-		return DefaultConfig()
+		return
 	}
-	err = tree.Unmarshal(&cfg)
+	err = tree.Unmarshal(cfg)
 	if err != nil {
-		return DefaultConfig()
+		return
 	}
-	return &cfg
+	return
 }
 
 // DefaultConfig ...
 func DefaultConfig() *Configure {
 	return &Configure{
-		General: General{
-			TokenKey: "im-godcong-yl",
+		WebToken: WebToken{
+			Key: "im-godcong-yelion",
 		},
 		Database: Database{
 			ShowSQL:  true,
