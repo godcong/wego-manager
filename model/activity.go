@@ -38,3 +38,13 @@ func (obj *Activity) CodeProperty() (*Property, error) {
 	}
 	return info.Property, nil
 }
+
+// Activities ...
+func (obj *Activity) Activities() ([]*Activity, error) {
+	return nil, nil
+}
+
+// User ...
+func (obj *Activity) User() (*User, error) {
+	return nil, nil
+}
