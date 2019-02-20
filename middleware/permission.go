@@ -17,6 +17,12 @@ func handleFuncName(ctx *gin.Context) string {
 	return hn[size-2]
 }
 
+// Permission ...
+type Permission struct {
+	Version string
+	Menu    string
+}
+
 // PermissionCheck ...
 func PermissionCheck(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {

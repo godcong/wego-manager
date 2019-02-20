@@ -13,13 +13,13 @@ type PermissionUser struct {
 
 // Relate ...
 func (obj *PermissionUser) Relate() (*Permission, *User, error) {
-	var info []struct {
-		Permission *Permission `xorm:"extends"`
-		User       *User       `xorm:"extends"`
+	var info struct {
+		Permission Permission `xorm:"extends"`
+		User       User       `xorm:"extends"`
 	}
-	session := DB().Table(&Permission{}).Select("permission.*, user.*").
+	session := DB().Table(&info.Permission).Select("permission.*, user.*").
 		Join("left", obj, "permission_user.permission_id = permission.id").
-		Join("left", &User{}, "permission_user.user_id = user.id")
+		Join("left", &info.User, "permission_user.user_id = user.id")
 
 	if obj.UserID != "" {
 		session = session.Where("user.id = ? ", obj.UserID)
@@ -27,12 +27,12 @@ func (obj *PermissionUser) Relate() (*Permission, *User, error) {
 	if obj.PermissionID != "" {
 		session = session.Where("permission.id = ? ", obj.PermissionID)
 	}
-	i, err := session.FindAndCount(&info)
+	b, err := session.Get(&info)
 	if err != nil {
 		return nil, nil, xerrors.Errorf("relate: %w", err)
 	}
-	if i > 1 {
-		return nil, nil, xerrors.Errorf("count %d > 1 ", i)
+	if !b {
+		return nil, nil, xerrors.Errorf("permission user not found")
 	}
-	return (info)[0].Permission, (info)[0].User, nil
+	return &info.Permission, &info.User, nil
 }

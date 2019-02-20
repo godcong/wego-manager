@@ -14,8 +14,8 @@ type UserActivity struct {
 // CodeSpread ...
 func (obj *UserActivity) CodeSpread() (*Spread, error) {
 	var info struct {
-		UserActivity *UserActivity `xorm:"extends"`
-		Spread       *Spread       `xorm:"extends"`
+		UserActivity UserActivity `xorm:"extends"`
+		Spread       Spread       `xorm:"extends"`
 	}
 	b, e := DB().Table(obj).Join("left", info.Spread, "user_activity.user_id = spread_code.user_id").
 		Where("user_activity.spread_code = ?", obj.SpreadCode).Get(&info)
@@ -26,5 +26,6 @@ func (obj *UserActivity) CodeSpread() (*Spread, error) {
 		e = xerrors.New("property not found")
 		return nil, e
 	}
-	return info.Spread, nil
+	*obj = info.UserActivity
+	return &info.Spread, nil
 }

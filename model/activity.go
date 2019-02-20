@@ -24,8 +24,8 @@ func NewActivity(id string) *Activity {
 // CodeProperty ...
 func (obj *Activity) CodeProperty() (*Property, error) {
 	var info struct {
-		Activity *Activity `xorm:"extends"`
-		Property *Property `xorm:"extends"`
+		Activity Activity `xorm:"extends"`
+		Property Property `xorm:"extends"`
 	}
 	b, e := DB().Table(obj).Join("left", info.Property, "activity.property_id = property.id").
 		Where("activity.code = ?", obj.Code).Get(&info)
@@ -36,7 +36,8 @@ func (obj *Activity) CodeProperty() (*Property, error) {
 		e = xerrors.New("property not found")
 		return nil, e
 	}
-	return info.Property, nil
+	*obj = info.Activity
+	return &info.Property, nil
 }
 
 // Activities ...
