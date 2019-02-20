@@ -1,6 +1,7 @@
 package model
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-auth-manager/util"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
@@ -98,6 +99,17 @@ func (obj *User) Property() (*Property, error) {
 func MustUser(user interface{}, b bool) *User {
 	if b {
 		if v0, b := user.(*User); b {
+			log.Printf("%+v\n", v0)
+			return v0
+		}
+	}
+	return nil
+}
+
+// GetUser ...
+func GetUser(ctx *gin.Context) *User {
+	if v, b := ctx.Get("user"); b {
+		if v0, b := v.(*User); b {
 			log.Printf("%+v\n", v0)
 			return v0
 		}
