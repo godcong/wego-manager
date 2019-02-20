@@ -22,10 +22,9 @@ require (
 	github.com/swaggo/gin-swagger v1.0.0
 	github.com/swaggo/swag v1.4.0
 	github.com/ugorji/go/codec v0.0.0-20190204201341-e444a5086c43 // indirect
-	golang.org/x/crypto v0.0.0-20190102171810-8d7daa0c54b3 // indirect
-	golang.org/x/net v0.0.0-20190213061140-3a22650c66bd // indirect
 	golang.org/x/sync v0.0.0-20181221193216-37e7f081c4d4 // indirect
 	golang.org/x/sys v0.0.0-20190124100055-b90733256f2e // indirect
+	golang.org/x/tools v0.0.0-20190220150158-e8c45e043328 // indirect
 	golang.org/x/xerrors v0.0.0-20190212162355-a5947ffaace3
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
