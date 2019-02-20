@@ -6,8 +6,8 @@ import (
 	"github.com/godcong/wego"
 	"github.com/godcong/wego/cipher"
 	"github.com/godcong/wego/core"
-	"github.com/godcong/wego/log"
 	"github.com/godcong/wego/util"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
 	"net/http"
 )

@@ -1,6 +1,8 @@
 package model
 
 import (
+	"github.com/godcong/wego"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
 )
 
@@ -14,7 +16,7 @@ type OAuth struct {
 type Property struct {
 	Model       `xorm:"extends" json:",inline"`
 	UserID      string   `xorm:"notnull unique user_id" json:"user_id"`
-	Sign        string   `xorm:"notnull unique sign" json:"sign"`
+	Sign        string   `xorm:"notnull unique sign" json:"sign"` //配置唯一识别码
 	AppID       string   `xorm:"notnull unique app_id " json:"app_id"`
 	MchID       string   `xorm:"mch_id" json:"mch_id"`
 	MchKey      string   `xorm:"mch_key" json:"mch_key"`
@@ -49,4 +51,34 @@ func (obj *Property) Properties() ([]*Property, error) {
 		return nil, xerrors.Errorf("find: %w", err)
 	}
 	return properties, nil
+}
+
+// Config ...
+func (obj *Property) Config() *wego.Config {
+	log.Debug(*obj)
+	var config wego.Config
+	config.Payment = &wego.PaymentConfig{
+		AppID:     obj.AppID,
+		AppSecret: obj.AppSecret,
+		MchID:     obj.MchID,
+		Key:       obj.MchKey,
+		SafeCert: &wego.SafeCertConfig{
+			Cert:   []byte(obj.PemCert),
+			Key:    []byte(obj.PemKEY),
+			RootCA: []byte(obj.RootCA),
+		},
+	}
+	config.OAuth = &wego.OAuthConfig{
+		Scopes:      obj.Scopes,
+		RedirectURI: obj.RedirectURI,
+	}
+	config.OfficialAccount = &wego.OfficialAccountConfig{
+		AppID:       obj.AppID,
+		AppSecret:   obj.AppSecret,
+		Token:       obj.Token,
+		AesKey:      obj.AesKey,
+		AccessToken: nil,
+		OAuth:       config.OAuth,
+	}
+	return &config
 }

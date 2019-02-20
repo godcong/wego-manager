@@ -3,7 +3,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-auth-manager/model"
-	"github.com/godcong/wego/log"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
 	"strings"
 )

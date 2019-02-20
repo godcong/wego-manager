@@ -12,7 +12,6 @@ import (
 // DataBase ...
 type DataBase struct {
 	config *config.Configure
-	//modelers []Modeler
 	*xorm.Engine
 }
 
@@ -28,7 +27,6 @@ func DB() *DataBase {
 
 // Modeler ...
 type Modeler interface {
-	BeforeInsert()
 	GetID() string
 	Get() (bool, error)
 	Update(cols ...string) (int64, error)
@@ -83,11 +81,6 @@ func MustSession(session *xorm.Session) *xorm.Session {
 	return session
 }
 
-// CSRF ...
-type CSRF struct {
-	CSRFToken string `json:"csrf_token"`
-}
-
 // Model ...
 type Model struct {
 	ID        string `json:"id" xorm:"id uuid pk comment(默认主键)"`
@@ -131,6 +124,10 @@ func InitDB(cfg *config.Configure) *DataBase {
 	if err != nil {
 		panic(err)
 	}
+	//use lru cache
+	cacher := xorm.NewLRUCacher(xorm.NewMemoryStore(), 2048)
+	engine.SetDefaultCacher(cacher)
+
 	if cfg.Database.ShowSQL {
 		engine.ShowSQL(true)
 	}
@@ -148,9 +145,9 @@ type TokenSub struct {
 }
 
 // DecodeUser ...
-func DecodeUser(token string) (*User, error) {
+func DecodeUser(token string) (*WechatUser, error) {
 	t := TokenSub{}
-	sub, err := util.DecryptJWT([]byte(globalDB.config.General.TokenKey), token)
+	sub, err := util.DecryptJWT([]byte(globalDB.config.WebToken.Key), token)
 	log.Info("sub", sub)
 	if err != nil {
 		return nil, err
@@ -162,5 +159,5 @@ func DecodeUser(token string) (*User, error) {
 			return nil, err
 		}
 	}
-	return &User{}, nil
+	return &WechatUser{}, nil
 }
