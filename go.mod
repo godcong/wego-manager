@@ -11,13 +11,14 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/go-xorm/core v0.6.2
 	github.com/go-xorm/xorm v0.7.1
+	github.com/godcong/elogrus v0.0.0-20190221184041-50f4af3b780e
 	github.com/godcong/wego v0.0.0-20190219162036-195e92b517c3
 	github.com/google/uuid v1.1.0
 	github.com/jackc/pgx v3.3.0+incompatible // indirect
 	github.com/json-iterator/go v1.1.5
 	github.com/mattn/go-isatty v0.0.4 // indirect
+	github.com/olivere/elastic v6.2.16+incompatible
 	github.com/pelletier/go-toml v1.2.0
-	github.com/pkg/errors v0.8.1 // indirect
 	github.com/sirupsen/logrus v1.3.0
 	github.com/swaggo/gin-swagger v1.0.0
 	github.com/swaggo/swag v1.4.0
@@ -28,5 +29,6 @@ require (
 	golang.org/x/xerrors v0.0.0-20190212162355-a5947ffaace3
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
+	gopkg.in/olivere/elastic.v5 v5.0.79 // indirect
 	gopkg.in/square/go-jose.v2 v2.2.2
 )

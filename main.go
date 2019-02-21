@@ -11,6 +11,7 @@ import (
 	"github.com/godcong/wego-auth-manager/service"
 	log "github.com/sirupsen/logrus"
 	"io"
+
 	"os"
 	"os/signal"
 	"syscall"
@@ -37,13 +38,14 @@ var sync = flag.Bool("sync", false, "open to sync the model")
 // @host localhost:8080
 // @BasePath /v0
 func main() {
+	var e error
 	flag.Parse()
 	file, err := os.OpenFile(*logPath, os.O_SYNC|os.O_RDWR|os.O_CREATE|os.O_APPEND, os.ModePerm)
 	if err != nil {
 		panic(err)
 	}
 	log.SetOutput(io.MultiWriter(file, os.Stdout))
-	log.SetFormatter(&log.JSONFormatter{})
+	//log.InitLog()
 
 	sigs := make(chan os.Signal, 1)
 	done := make(chan bool, 1)
@@ -53,9 +55,9 @@ func main() {
 	model.InitDB(cfg)
 
 	if *sync {
-		err = database.Migrate()
-		if err != nil {
-			panic(err)
+		e = database.Migrate()
+		if e != nil {
+			panic(e)
 		}
 	}
 
