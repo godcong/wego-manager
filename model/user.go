@@ -129,17 +129,24 @@ func (obj *User) Validate(u *Login, key string) bool {
 	return true
 }
 
-// Property ...
-func (obj *User) Property() (*Property, error) {
-	var property Property
-	b, err := DB().Where("user_property.user_id = ?", obj.ID).Get(&property)
+// Properties ...
+func (obj *User) Properties() ([]*Property, error) {
+	var properties []*Property
+	err := DB().Where("property.user_id = ?", obj.ID).Find(&properties)
 	if err != nil {
-		return nil, xerrors.Errorf("find user property error : %w", err)
+		return nil, xerrors.Errorf("find user properties error : %w", err)
 	}
-	if !b {
-		return nil, xerrors.New("find user property null")
+	return properties, nil
+}
+
+// UserActivities ...
+func (obj *User) UserActivities() ([]*UserActivity, error) {
+	var activities []*UserActivity
+	err := DB().Where("user_activity.user_id = ?", obj.ID).Find(&activities)
+	if err != nil {
+		return nil, xerrors.Errorf("find user properties error : %w", err)
 	}
-	return &property, nil
+	return activities, nil
 }
 
 // MustUser ...
@@ -150,7 +157,7 @@ func MustUser(user interface{}, b bool) *User {
 			return v0
 		}
 	}
-	return nil
+	return &User{}
 }
 
 // GetUser ...

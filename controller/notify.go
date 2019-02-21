@@ -14,7 +14,7 @@ import (
 
 // Notify ...
 type Notify struct {
-	//property  *wego.Property
+	//property  *wego.Properties
 	payment   *wego.Payment
 	RefundKey string
 }

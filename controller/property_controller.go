@@ -16,7 +16,7 @@ import (
 // @Param current query string false "paginate:current"
 // @Param limit query string false "paginate:limit"
 // @Param order query string false "paginate:order"
-// @success 200 {array} model.Property
+// @success 200 {array} model.Properties
 // @Failure 400 {object} controller.CodeMessage
 // @Router /admin/property [get]
 func PropertyList(ver string) gin.HandlerFunc {
@@ -39,8 +39,8 @@ func PropertyList(ver string) gin.HandlerFunc {
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
-// @Param account body Property true "property update info"
-// @success 200 {object} model.Property
+// @Param account body Properties true "property update info"
+// @success 200 {object} model.Properties
 // @Failure 400 {object} controller.CodeMessage
 // @Router /admin/property [post]
 func PropertyAdd(ver string) gin.HandlerFunc {
@@ -67,9 +67,9 @@ func PropertyAdd(ver string) gin.HandlerFunc {
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
-// @Param id path string true "Property ID"
-// @Param account body Property true "property update info"
-// @success 200 {object} model.Property
+// @Param id path string true "Properties ID"
+// @Param account body Properties true "property update info"
+// @success 200 {object} model.Properties
 // @Failure 400 {object} controller.CodeMessage
 // @Router /admin/property/{id} [post]
 func PropertyUpdate(ver string) gin.HandlerFunc {
@@ -103,8 +103,8 @@ func PropertyUpdate(ver string) gin.HandlerFunc {
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
-// @Param id path string true "Property ID"
-// @success 200 {object} model.Property
+// @Param id path string true "Properties ID"
+// @success 200 {object} model.Properties
 // @Failure 400 {object} controller.CodeMessage
 // @Router /admin/property/{id} [get]
 func PropertyShow(ver string) gin.HandlerFunc {
@@ -127,8 +127,8 @@ func PropertyShow(ver string) gin.HandlerFunc {
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
-// @Param id path string true "Property ID"
-// @success 200 {object} model.Property
+// @Param id path string true "Properties ID"
+// @success 200 {object} model.Properties
 // @Failure 400 {object} controller.CodeMessage
 // @Router /admin/property/{id} [delete]
 func PropertyDelete(ver string) gin.HandlerFunc {

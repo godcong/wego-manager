@@ -39,7 +39,7 @@ func UserMenuList(ver string) gin.HandlerFunc {
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
-// @Param account body Property true "menu update info"
+// @Param account body Properties true "menu update info"
 // @success 200 {object} model.Menu
 // @Failure 400 {object} controller.CodeMessage
 // @Router /user/menu [post]
@@ -67,8 +67,8 @@ func UserMenuAdd(ver string) gin.HandlerFunc {
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
-// @Param id path string true "Property ID"
-// @Param account body Property true "menu update info"
+// @Param id path string true "Properties ID"
+// @Param account body Properties true "menu update info"
 // @success 200 {object} model.Menu
 // @Failure 400 {object} controller.CodeMessage
 // @Router /user/menu/{id} [post]
@@ -103,7 +103,7 @@ func UserMenuUpdate(ver string) gin.HandlerFunc {
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
-// @Param id path string true "Property ID"
+// @Param id path string true "Properties ID"
 // @success 200 {object} model.Menu
 // @Failure 400 {object} controller.CodeMessage
 // @Router /user/menu/{id} [get]
@@ -127,7 +127,7 @@ func UserMenuShow(ver string) gin.HandlerFunc {
 // @Accept  json
 // @Produce  json
 // @Param token header string true "login token"
-// @Param id path string true "Property ID"
+// @Param id path string true "Properties ID"
 // @success 200 {object} model.Menu
 // @Failure 400 {object} controller.CodeMessage
 // @Router /user/menu/{id} [delete]

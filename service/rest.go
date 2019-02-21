@@ -19,10 +19,10 @@ type RestServer struct {
 // NewRestServer ...
 func NewRestServer(cfg *config.Configure) *RestServer {
 	s := &RestServer{
-		Engine: gin.Default(),
 		config: cfg,
-		Port:   config.MustString(cfg.REST.Port, ":8080"),
 		loader: NewRouteLoader("v0"),
+		Engine: gin.Default(),
+		Port:   config.MustString(cfg.REST.Port, ":8080"),
 	}
 	return s
 }

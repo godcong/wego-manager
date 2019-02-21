@@ -34,6 +34,11 @@ type Modeler interface {
 	Count() (int64, error)
 }
 
+// Table ...
+func Table(m interface{}) *xorm.Session {
+	return DB().Table(m)
+}
+
 // Count ...
 func Count(session *xorm.Session, obj Modeler) (int64, error) {
 	return MustSession(session).Count(obj)

@@ -117,7 +117,7 @@ func MustString(v, def string) string {
 // MustInt ...
 func MustInt(v string, def int) int {
 	i, err := strconv.Atoi(v)
-	if err == nil {
+	if err == nil || i != 0 {
 		return i
 	}
 	return def

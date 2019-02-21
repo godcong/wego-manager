@@ -9,7 +9,7 @@ require (
 	github.com/go-openapi/jsonreference v0.18.0 // indirect
 	github.com/go-openapi/spec v0.18.0 // indirect
 	github.com/go-sql-driver/mysql v1.4.1
-	github.com/go-xorm/core v0.6.2 // indirect
+	github.com/go-xorm/core v0.6.2
 	github.com/go-xorm/xorm v0.7.1
 	github.com/godcong/wego v0.0.0-20190219162036-195e92b517c3
 	github.com/google/uuid v1.1.0
