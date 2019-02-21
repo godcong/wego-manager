@@ -91,6 +91,7 @@ func DefaultConfig() *Configure {
 		},
 		Database: Database{
 			ShowSQL:  true,
+			UseCache: true,
 			Type:     "mysql",
 			Addr:     "localhost",
 			Port:     "3306",
@@ -99,6 +100,7 @@ func DefaultConfig() *Configure {
 			Schema:   "auth",
 			Location: url.QueryEscape("Asia/Shanghai"),
 			Charset:  "utf8mb4",
+			Prefix:   "",
 		},
 		REST: REST{},
 	}
