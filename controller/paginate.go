@@ -1,4 +1,4 @@
-package model
+package controller
 
 import (
 	"github.com/godcong/wego-auth-manager/config"

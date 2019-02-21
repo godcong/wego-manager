@@ -15,6 +15,11 @@ var migrateionTable = []model.Modeler{
 	&model.RoleUser{},
 	&model.Property{},
 	&model.Notify{},
+	&model.Spread{},
+	&model.Activity{},
+	&model.UserActivity{},
+	&model.Menu{},
+	&model.Notify{},
 }
 
 // Migrate ...
