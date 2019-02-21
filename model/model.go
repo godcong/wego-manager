@@ -1,6 +1,7 @@
 package model
 
 import (
+	"github.com/go-xorm/core"
 	"github.com/go-xorm/xorm"
 	"github.com/godcong/wego-auth-manager/config"
 	"github.com/godcong/wego-auth-manager/util"
@@ -125,11 +126,16 @@ func InitDB(cfg *config.Configure) *DataBase {
 		panic(err)
 	}
 	//use lru cache
-	cacher := xorm.NewLRUCacher(xorm.NewMemoryStore(), 2048)
-	engine.SetDefaultCacher(cacher)
+	if cfg.Database.UseCache {
+		cacher := xorm.NewLRUCacher(xorm.NewMemoryStore(), 2048)
+		engine.SetDefaultCacher(cacher)
+	}
 
 	if cfg.Database.ShowSQL {
 		engine.ShowSQL(true)
+	}
+	if cfg.Database.Prefix != "" {
+		engine.SetTableMapper(core.NewPrefixMapper(core.SnakeMapper{}, cfg.Database.Prefix))
 	}
 	globalDB = &DataBase{
 		config: cfg,

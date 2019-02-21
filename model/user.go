@@ -5,7 +5,6 @@ import (
 	"github.com/godcong/wego-auth-manager/util"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
-	"net/url"
 )
 
 // UserTypeAdmin ...
@@ -53,11 +52,6 @@ func (obj *User) Get() (bool, error) {
 // Update ...
 func (obj *User) Update(cols ...string) (int64, error) {
 	return Update(nil, obj.ID, obj)
-}
-
-// Paginate ...
-func (obj *User) Paginate(v url.Values) (*Paginate, error) {
-	return &Paginate{}, nil
 }
 
 // Users ...

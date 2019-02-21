@@ -28,6 +28,7 @@ type HTTP struct {
 // Database ...
 type Database struct {
 	ShowSQL  bool   `toml:"show_sql"`
+	UseCache bool   `json:"use_cache"`
 	Type     string `toml:"type"`
 	Addr     string `toml:"addr"`
 	Port     string `toml:"port"`
@@ -36,6 +37,7 @@ type Database struct {
 	Schema   string `toml:"schema"`
 	Location string `toml:"location"`
 	Charset  string `toml:"charset"`
+	Prefix   string `toml:"prefix"`
 }
 
 // Config ...

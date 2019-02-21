@@ -20,6 +20,8 @@ var migrateionTable = []model.Modeler{
 	&model.UserActivity{},
 	&model.Menu{},
 	&model.Notify{},
+	&model.Turnover{},
+	&model.UserInformation{},
 }
 
 // Migrate ...
