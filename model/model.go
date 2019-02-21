@@ -31,7 +31,7 @@ type Modeler interface {
 	GetID() string
 	Get() (bool, error)
 	Update(cols ...string) (int64, error)
-	Count() (int64, error)
+	//Count() (int64, error)
 }
 
 // Table ...
@@ -52,6 +52,11 @@ func FindByID(id string, obj Modeler) error {
 // Find ...
 func Find(session *xorm.Session, obj Modeler) error {
 	return MustSession(session).Find(obj)
+}
+
+// Exist ...
+func Exist(session *xorm.Session, obj Modeler) (bool, error) {
+	return MustSession(session).Exist(obj)
 }
 
 // Get ...
@@ -96,6 +101,11 @@ type Model struct {
 	Version   int    `json:"-" xorm:"version comment(版本)"`
 }
 
+// Exist ...
+func (m *Model) Exist() (bool, error) {
+	return Exist(nil, m)
+}
+
 // Get ...
 func (m *Model) Get() (bool, error) {
 	return Get(nil, m)
@@ -112,11 +122,6 @@ func (m *Model) Update(cols ...string) (int64, error) {
 // BeforeInsert ...
 func (m *Model) BeforeInsert() {
 	m.ID = uuid.Must(uuid.NewUUID()).String()
-}
-
-// Count ...
-func (m *Model) Count() (int64, error) {
-	return Count(nil, m)
 }
 
 // GetID ...

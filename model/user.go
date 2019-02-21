@@ -22,19 +22,18 @@ type Login struct {
 // User ...
 type User struct {
 	Model       `xorm:"extends" json:",inline"`
-	Block       bool   `json:"block" xorm:"notnull default(false) comment(禁止访问)"`    //禁止访问
-	UserType    string `json:"user_type" xorm:"user_type"`                           //用户类型
-	Nickname    string `json:"nickname" xorm:"nickname"`                             //名称
-	Username    string `json:"username" xorm:"username notnull default('') unique"`  //用户名
-	Email       string `json:"email" xorm:"email notnull default('')"`               //邮件
-	Mobile      string `json:"mobile" xorm:"mobile notnull default('')"`             //移动电话
-	Password    string `json:"password" xorm:"password"`                             //密码
-	Certificate string `json:"certificate" xorm:"certificate"`                       //证书
-	PrivateKey  string `json:"private_key" xorm:"private_key"`                       //私钥
-	LoginIP     string `json:"login_ip" xorm:"login_ip"`                             //本次登录IP
-	Sign        string `json:"sign" xorm:"notnull unique default('')  comment(分享码)"` //分享码
-	Token       string `json:"-" xorm:"varchar(1024) token"`                         //Token
-	Salt        string `json:"-" xorm:"slat"`                                        //盐值
+	Block       bool   `json:"block" xorm:"notnull default(false) comment(禁止访问)"`   //禁止访问
+	UserType    string `json:"user_type" xorm:"user_type"`                          //用户类型
+	Nickname    string `json:"nickname" xorm:"nickname"`                            //名称
+	Username    string `json:"username" xorm:"username notnull default('') unique"` //用户名
+	Email       string `json:"email" xorm:"email notnull default('')"`              //邮件
+	Mobile      string `json:"mobile" xorm:"mobile notnull default('')"`            //移动电话
+	Password    string `json:"password" xorm:"password"`                            //密码
+	Certificate string `json:"certificate" xorm:"certificate"`                      //证书
+	PrivateKey  string `json:"private_key" xorm:"private_key"`                      //私钥
+	LoginIP     string `json:"login_ip" xorm:"login_ip"`                            //本次登录IP
+	Token       string `json:"-" xorm:"varchar(1024) token"`                        //Token
+	Salt        string `json:"-" xorm:"slat"`                                       //盐值
 }
 
 // NewUser ...
