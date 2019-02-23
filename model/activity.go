@@ -32,7 +32,7 @@ func (obj *Activity) CodeProperty() (*Property, error) {
 		Activity Activity `xorm:"extends"`
 		Property Property `xorm:"extends"`
 	}
-	b, e := DB().Table(obj).Join("left", info.Property, "activity.property_id = property.id").
+	b, e := Table(obj).Join("left", info.Property, "activity.property_id = property.id").
 		Where("activity.code = ?", obj.Code).Get(&info)
 	if e != nil {
 		return nil, e
@@ -51,7 +51,7 @@ func (obj *Activity) Property() (*Property, error) {
 		Activity Activity `xorm:"extends"`
 		Property Property `xorm:"extends"`
 	}
-	b, e := DB().Table(obj).Join("left", info.Property, "activity.property_id = property.id").
+	b, e := Table(obj).Join("left", info.Property, "activity.property_id = property.id").
 		Where("activity.id = ?", obj.ID).Get(&info)
 	if e != nil {
 		return nil, e

@@ -17,7 +17,7 @@ func (obj *PermissionUser) Relate() (*Permission, *User, error) {
 		Permission Permission `xorm:"extends"`
 		User       User       `xorm:"extends"`
 	}
-	session := DB().Table(&info.Permission).Select("permission.*, user.*").
+	session := Table(&info.Permission).Select("permission.*, user.*").
 		Join("left", obj, "permission_user.permission_id = permission.id").
 		Join("left", &info.User, "permission_user.user_id = user.id")
 

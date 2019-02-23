@@ -56,7 +56,7 @@ func (obj *User) Update(cols ...string) (int64, error) {
 // Users ...
 func (obj *User) Users() ([]*User, error) {
 	var users []*User
-	err := DB().Table(obj).Find(&users)
+	err := Table(obj).Find(&users)
 	if err != nil {
 		return nil, xerrors.Errorf("find: %w", err)
 	}
@@ -66,7 +66,7 @@ func (obj *User) Users() ([]*User, error) {
 // Permissions ...
 func (obj *User) Permissions() ([]*Permission, error) {
 	var permissions []*Permission
-	session := DB().Table(&Permission{}).Select("permission.*").
+	session := Table(&Permission{}).Select("permission.*").
 		Join("left", &PermissionUser{}, "permission_user.permission_id = permission.id")
 
 	if obj.ID != "" {
@@ -84,7 +84,7 @@ func (obj *User) Permissions() ([]*Permission, error) {
 // CheckPermission ...
 func (obj *User) CheckPermission(funcName string) bool {
 	var permissions []*Permission
-	session := DB().Table(&Permission{}).Select("permission.*").
+	session := Table(&Permission{}).Select("permission.*").
 		Join("left", &PermissionUser{}, "permission_user.permission_id = permission.id").
 		Where("permission.slug = ?", funcName)
 	if obj.ID != "" {
@@ -101,7 +101,7 @@ func (obj *User) CheckPermission(funcName string) bool {
 // Roles ...
 func (obj *User) Roles() ([]*Role, error) {
 	var roles []*Role
-	session := DB().Table(&Role{}).Select("role.*").
+	session := Table(&Role{}).Select("role.*").
 		Join("left", &RoleUser{}, "role_user.role_id = role.id")
 
 	if obj.ID != "" {
@@ -119,7 +119,7 @@ func (obj *User) Roles() ([]*Role, error) {
 // Validate ...
 func (obj *User) Validate(u *Login, key string) bool {
 	u.Password = util.SHA256(u.Password, key, obj.Salt)
-	session := DB().Table(obj).Where("username = ?", u.Username).And("password = ?", u.Password)
+	session := Table(obj).Where("username = ?", u.Username).And("password = ?", u.Password)
 
 	b, err := session.Exist()
 	if err != nil || !b {

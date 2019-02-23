@@ -17,7 +17,7 @@ func (obj *RoleUser) Relate() (*Role, *User, error) {
 		Role Role `xorm:"extends"`
 		User User `xorm:"extends"`
 	}
-	session := DB().Table(&info.Role).Select("role.*, user.*").
+	session := Table(&info.Role).Select("role.*, user.*").
 		Join("left", obj, "role_user.role_id = role.id").
 		Join("left", &info.User, "role_user.user_id = user.id")
 

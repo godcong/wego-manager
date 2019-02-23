@@ -35,7 +35,7 @@ func (obj *Notify) Get() (bool, error) {
 // Notifies ...
 func (obj *Notify) Notifies() ([]*Notify, error) {
 	var backs []*Notify
-	err := DB().Table(obj).Find(&backs)
+	err := Table(obj).Find(&backs)
 	if err != nil {
 		return nil, xerrors.Errorf("find: %w", err)
 	}

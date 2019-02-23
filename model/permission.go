@@ -33,7 +33,7 @@ func (obj *Permission) Update(cols ...string) (int64, error) {
 // Permissions ...
 func (obj *Permission) Permissions() ([]*Permission, error) {
 	var permissions []*Permission
-	err := DB().Table(obj).Find(&permissions)
+	err := Table(obj).Find(&permissions)
 	if err != nil {
 		return nil, xerrors.Errorf("find: %w", err)
 	}
@@ -43,7 +43,7 @@ func (obj *Permission) Permissions() ([]*Permission, error) {
 // Roles ...
 func (obj *Permission) Roles() ([]*Role, error) {
 	var roles []*Role
-	session := DB().Table(&Role{}).Select("role.*").
+	session := Table(&Role{}).Select("role.*").
 		Join("left", &PermissionRole{}, "permission_role.role_id = role.id")
 
 	if obj.ID != "" {
@@ -61,7 +61,7 @@ func (obj *Permission) Roles() ([]*Role, error) {
 // Users ...
 func (obj *Permission) Users() ([]*User, error) {
 	var users []*User
-	session := DB().Table(User{}).Select("user.*").
+	session := Table(User{}).Select("user.*").
 		Join("left", &RoleUser{}, "permission_user.user_id = user.id")
 
 	if obj.ID != "" {

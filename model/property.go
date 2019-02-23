@@ -52,7 +52,7 @@ func (obj *Property) Get() (bool, error) {
 // Properties ...
 func (obj *Property) Properties() ([]*Property, error) {
 	var properties []*Property
-	err := DB().Table(obj).Find(&properties)
+	err := Table(obj).Find(&properties)
 	if err != nil {
 		return nil, xerrors.Errorf("find: %w", err)
 	}

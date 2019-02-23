@@ -32,7 +32,7 @@ func (obj *Menu) Get() (bool, error) {
 // Menus ...
 func (obj *Menu) Menus() ([]*Menu, error) {
 	var menus []*Menu
-	err := DB().Table(obj).Find(&menus)
+	err := Table(obj).Find(&menus)
 	if err != nil {
 		return nil, xerrors.Errorf("find: %w", err)
 	}
