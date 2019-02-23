@@ -11,6 +11,15 @@ type UserActivity struct {
 	SpreadNumber int64  `xorm:"notnull default(0) comment(推广数) spread_number" json:"spread_number"`
 }
 
+// NewUserActivity ...
+func NewUserActivity(id string) *UserActivity {
+	return &UserActivity{
+		Model: Model{
+			ID: id,
+		},
+	}
+}
+
 // Get ...
 func (obj *UserActivity) Get() (bool, error) {
 	return Get(nil, obj)
