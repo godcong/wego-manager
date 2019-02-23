@@ -18,6 +18,7 @@ type Property struct {
 	UserID      string   `xorm:"notnull unique user_id" json:"user_id"`
 	Sign        string   `xorm:"notnull unique sign" json:"sign"` //配置唯一识别码
 	AppID       string   `xorm:"notnull unique app_id " json:"app_id"`
+	Host        string   `xorm:"host" json:"host"`
 	MchID       string   `xorm:"mch_id" json:"mch_id"`
 	MchKey      string   `xorm:"mch_key" json:"mch_key"`
 	PemCert     string   `xorm:"varchar(2048) pem_cert" json:"pem_cert"`
