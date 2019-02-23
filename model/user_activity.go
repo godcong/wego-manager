@@ -12,7 +12,7 @@ type UserActivity struct {
 	ActivityID   string `xorm:"notnull unique(user_activity) default('') comment(活动ID) activity_id" json:"activity_id"`
 	UserID       string `xorm:"notnull unique(user_activity) default('') comment(参加活动的用户ID) user_id" json:"user_id"`
 	SpreadCode   string `xorm:"notnull unique default('') comment(参加活动的用户推广码) spread_code"  json:"spread_code"`
-	Verified     bool   `xorm:"notnull default('')  comment(校验通过) verified" json:"verified"`
+	Verified     bool   `xorm:"notnull default(false)  comment(校验通过) verified" json:"verified"`
 	SpreadNumber int64  `xorm:"notnull default(0) comment(推广数) spread_number" json:"spread_number"`
 }
 
@@ -37,7 +37,9 @@ func (obj *UserActivity) CodeSpread() (*Spread, error) {
 		Spread       Spread       `xorm:"extends"`
 	}
 	b, e := Table(obj).Join("left", info.Spread, "user_activity.user_id = spread_code.user_id").
-		Where("user_activity.spread_code = ?", obj.SpreadCode).Get(&info)
+		Where("user_activity.spread_code = ?", obj.SpreadCode).
+		Where("user_activity.user_id = ?", obj.UserID).
+		Get(&info)
 	if e != nil {
 		return nil, e
 	}
