@@ -36,7 +36,7 @@ func (obj *UserActivity) CodeSpread() (*Spread, error) {
 		UserActivity UserActivity `xorm:"extends"`
 		Spread       Spread       `xorm:"extends"`
 	}
-	b, e := Table(obj).Join("left", info.Spread, "user_activity.user_id = spread_code.user_id").
+	b, e := Table(obj).Join("left", info.Spread, "user_activity.user_id = spread.user_id").
 		Where("user_activity.spread_code = ?", obj.SpreadCode).
 		Where("user_activity.user_id = ?", obj.UserID).
 		Get(&info)
