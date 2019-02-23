@@ -32,8 +32,7 @@ func AuthCheck(ver string) gin.HandlerFunc {
 		}
 		log.Printf("%+v", t)
 
-		user := model.User{}
-		user.ID = t.UID
+		user := model.NewUser(t.UID)
 		b, err := user.Get()
 		if err != nil {
 			return
