@@ -22,6 +22,7 @@ var migrateionTable = []model.Modeler{
 	&model.Notify{},
 	&model.Turnover{},
 	&model.UserInformation{},
+	&model.WechatUser{},
 }
 
 // Migrate ...
