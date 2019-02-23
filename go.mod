@@ -12,7 +12,7 @@ require (
 	github.com/go-xorm/core v0.6.2
 	github.com/go-xorm/xorm v0.7.1
 	github.com/godcong/elogrus v0.0.0-20190221184041-50f4af3b780e
-	github.com/godcong/wego v0.0.0-20190219162036-195e92b517c3
+	github.com/godcong/wego v0.0.0-20190223165654-4ef4b4f4455c
 	github.com/google/uuid v1.1.0
 	github.com/jackc/pgx v3.3.0+incompatible // indirect
 	github.com/json-iterator/go v1.1.5

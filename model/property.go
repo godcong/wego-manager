@@ -56,30 +56,48 @@ func (obj *Property) Properties() ([]*Property, error) {
 
 // Config ...
 func (obj *Property) Config() *wego.Config {
-	log.Debug(*obj)
+	log.Infof("%+v", *obj)
 	var config wego.Config
+	config.AccessToken = &wego.AccessTokenConfig{
+		GrantType: wego.GrantTypeClient,
+		AppID:     obj.AppID,
+		AppSecret: obj.AppSecret,
+	}
+
+	config.OAuth = &wego.OAuthConfig{
+		Scopes:      obj.Scopes,
+		RedirectURI: obj.RedirectURI,
+	}
+
+	config.SafeCert = &wego.SafeCertConfig{
+		Cert:   []byte(obj.PemCert),
+		Key:    []byte(obj.PemKEY),
+		RootCA: []byte(obj.RootCA),
+	}
+
+	config.JSSDK = &wego.JSSDKConfig{
+		AppID:       obj.AppID,
+		MchID:       obj.MchID,
+		Key:         obj.MchKey,
+		AccessToken: config.AccessToken,
+	}
+
 	config.Payment = &wego.PaymentConfig{
 		AppID:     obj.AppID,
 		AppSecret: obj.AppSecret,
 		MchID:     obj.MchID,
 		Key:       obj.MchKey,
-		SafeCert: &wego.SafeCertConfig{
-			Cert:   []byte(obj.PemCert),
-			Key:    []byte(obj.PemKEY),
-			RootCA: []byte(obj.RootCA),
-		},
+		SafeCert:  config.SafeCert,
 	}
-	config.OAuth = &wego.OAuthConfig{
-		Scopes:      obj.Scopes,
-		RedirectURI: obj.RedirectURI,
-	}
+
 	config.OfficialAccount = &wego.OfficialAccountConfig{
 		AppID:       obj.AppID,
 		AppSecret:   obj.AppSecret,
 		Token:       obj.Token,
 		AesKey:      obj.AesKey,
-		AccessToken: nil,
+		AccessToken: config.AccessToken,
 		OAuth:       config.OAuth,
 	}
+
 	return &config
 }
