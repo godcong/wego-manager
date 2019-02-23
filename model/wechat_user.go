@@ -13,32 +13,31 @@ const WechatTypeProgram = "program"
 
 // WechatUserInfo ...
 type WechatUserInfo struct {
-	City           string   `json:"city"`
-	Country        string   `json:"country"`
-	HeadImgURL     string   `json:"headimgurl"`
-	Language       string   `json:"language"`
-	Nickname       string   `json:"nickname"`
-	OpenID         string   `json:"openid"`
-	Privilege      []string `json:"privilege"`
-	Province       string   `json:"province"`
-	Sex            uint     `json:"sex"`
-	Subscribe      int      `json:"subscribe"`
-	SubscribeTime  uint32   `json:"subscribe_time"`
-	UnionID        string   `json:"unionid"`
-	Remark         string   `json:"remark"`
-	GroupID        int      `json:"groupid"`
-	TagIDList      []int    `json:"tagid_list"`
-	SubscribeScene string   `json:"subscribe_scene"`
-	QrScene        int      `json:"qr_scene"`
-	QrSceneStr     string   `json:"qr_scene_str"`
+	City           string   `xorm:"notnull default('0') city" json:"city"`
+	Country        string   `xorm:"notnull default('0') country" json:"country"`
+	HeadImgURL     string   `xorm:"notnull default('0') head_img_url" json:"headimgurl"`
+	Language       string   `xorm:"notnull default('0') language" json:"language"`
+	Nickname       string   `xorm:"notnull default('0') nickname" json:"nickname"`
+	OpenID         string   `xorm:"notnull default('0') open_id" json:"openid"`
+	Privilege      []string `xorm:"notnull privilege" json:"privilege"`
+	Province       string   `xorm:"notnull default('0') province" json:"province"`
+	Sex            uint     `xorm:"notnull default(0) sex" json:"sex"`
+	Subscribe      int      `xorm:"notnull default(0) subscribe" json:"subscribe"`
+	SubscribeTime  uint32   `xorm:"notnull default(0) subscribe_time" json:"subscribe_time"`
+	UnionID        string   `xorm:"notnull default('0') union_id" json:"unionid"`
+	Remark         string   `xorm:"notnull default('0') remark" json:"remark"`
+	GroupID        int      `xorm:"notnull default(0) group_id" json:"groupid"`
+	TagIDList      []int    `xorm:"notnull tag_id_list" json:"tagid_list"`
+	SubscribeScene string   `xorm:"notnull default('') subscribe_scene" json:"subscribe_scene"`
+	QrScene        int      `xorm:"notnull default(0) qr_scene" json:"qr_scene"`
+	QrSceneStr     string   `xorm:"notnull default('0') qr_scene_str" json:"qr_scene_str"`
 }
 
 // WechatUser ...
 type WechatUser struct {
 	Model           `xorm:"extends" json:",inline"`
-	UserID          string `xorm:"notnull unique default('') user_id"`
-	AppID           string `xorm:"notnull default('') comment(appid)" json:"appid,omitempty"`                        //appid
-	WechatType      string `xorm:"notnull default(0) comment(微信or小程序用户标识) wechat_type" json:"wechat_type,omitempty"` //WechatType
+	AppID           string `xorm:"notnull default('') comment(appid)" json:"appid,omitempty"`                         //appid
+	WechatType      string `xorm:"notnull default('') comment(微信or小程序用户标识) wechat_type" json:"wechat_type,omitempty"` //WechatType
 	*WechatUserInfo `xorm:"extends" json:",inline"`
 }
 
@@ -48,12 +47,10 @@ func (obj *WechatUser) Get() (bool, error) {
 }
 
 // UserFromHook ...
-func UserFromHook(info *WechatUserInfo, id string, typ int) *WechatUser {
+func UserFromHook(info *WechatUserInfo, id string, wtype string) *WechatUser {
 	return &WechatUser{
-		Model:          Model{},
-		UserID:         "",
 		AppID:          id,
-		WechatType:     "",
+		WechatType:     wtype,
 		WechatUserInfo: info,
 	}
 }
