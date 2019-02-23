@@ -31,20 +31,19 @@ func (obj *UserActivity) Get() (bool, error) {
 }
 
 // CodeSpread ...
-func (obj *UserActivity) CodeSpread() (*Spread, error) {
+func (obj *UserActivity) CodeSpread(session *xorm.Session) (*Spread, error) {
 	var info struct {
 		UserActivity UserActivity `xorm:"extends"`
 		Spread       Spread       `xorm:"extends"`
 	}
-	b, e := Table(obj).Join("left", info.Spread, "user_activity.user_id = spread.user_id").
+	b, e := MustSession(session).Table(obj).Join("left", info.Spread, "user_activity.user_id = spread.user_id").
 		Where("user_activity.spread_code = ?", obj.SpreadCode).
-		Where("user_activity.user_id = ?", obj.UserID).
 		Get(&info)
 	if e != nil {
 		return nil, e
 	}
 	if !b {
-		e = xerrors.New("property not found")
+		e = xerrors.New("spread not found")
 		return nil, e
 	}
 	*obj = info.UserActivity
@@ -58,10 +57,7 @@ func (obj *UserActivity) Property(session *xorm.Session) (*Property, error) {
 		UserActivity UserActivity `xorm:"extends"`
 		Property     Property     `xorm:"extends"`
 	}
-	if session == nil {
-		session = DB().NewSession()
-	}
-	b, e := session.Table(obj).Join("left", info.Property, "user_activity.property_id = property.id").
+	b, e := MustSession(session).Table(obj).Join("left", info.Property, "user_activity.property_id = property.id").
 		Where("user_activity.id = ?", obj.ID).
 		Get(&info)
 	if e != nil {

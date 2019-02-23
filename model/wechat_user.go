@@ -18,7 +18,7 @@ type WechatUserInfo struct {
 	HeadImgURL     string   `xorm:"notnull default('0') head_img_url" json:"headimgurl"`
 	Language       string   `xorm:"notnull default('0') language" json:"language"`
 	Nickname       string   `xorm:"notnull default('0') nickname" json:"nickname"`
-	OpenID         string   `xorm:"notnull default('0') open_id" json:"openid"`
+	OpenID         string   `xorm:"notnull default('0') unique open_id" json:"openid"`
 	Privilege      []string `xorm:"notnull privilege" json:"privilege"`
 	Province       string   `xorm:"notnull default('0') province" json:"province"`
 	Sex            uint     `xorm:"notnull default(0) sex" json:"sex"`
