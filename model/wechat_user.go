@@ -36,7 +36,7 @@ type WechatUserInfo struct {
 // WechatUser ...
 type WechatUser struct {
 	Model           `xorm:"extends" json:",inline"`
-	AppID           string `xorm:"notnull default('') comment(appid)" json:"appid,omitempty"`                         //appid
+	AppID           string `xorm:"notnull default('') comment(appid) app_id" json:"appid,omitempty"`                  //appid
 	WechatType      string `xorm:"notnull default('') comment(微信or小程序用户标识) wechat_type" json:"wechat_type,omitempty"` //WechatType
 	*WechatUserInfo `xorm:"extends" json:",inline"`
 }
