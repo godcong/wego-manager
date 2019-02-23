@@ -128,10 +128,20 @@ func (obj *User) Validate(u *Login, key string) bool {
 	return true
 }
 
+// Spreads ...
+func (obj *User) Spreads() ([]*Spread, error) {
+	var spreads []*Spread
+	err := Where("user_id = ?", obj.ID).Find(&spreads)
+	if err != nil {
+		return nil, xerrors.Errorf("find: %w", err)
+	}
+	return spreads, nil
+}
+
 // Properties ...
 func (obj *User) Properties() ([]*Property, error) {
 	var properties []*Property
-	err := DB().Where("property.user_id = ?", obj.ID).Find(&properties)
+	err := Where("user_id = ?", obj.ID).Find(&properties)
 	if err != nil {
 		return nil, xerrors.Errorf("find user properties error : %w", err)
 	}
@@ -141,7 +151,7 @@ func (obj *User) Properties() ([]*Property, error) {
 // UserActivities ...
 func (obj *User) UserActivities() ([]*UserActivity, error) {
 	var activities []*UserActivity
-	err := DB().Where("user_activity.user_id = ?", obj.ID).Find(&activities)
+	err := Where("user_id = ?", obj.ID).Find(&activities)
 	if err != nil {
 		return nil, xerrors.Errorf("find user properties error : %w", err)
 	}
