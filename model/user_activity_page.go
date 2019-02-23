@@ -1,5 +1,7 @@
 package model
 
+import "github.com/go-xorm/xorm"
+
 // UserActivityPaginate ...
 type UserActivityPaginate struct {
 	*Paginate `json:",inline"`
@@ -12,16 +14,16 @@ func (obj *UserActivityPaginate) Page() error {
 	if e != nil {
 		return e
 	}
-	return obj.Count(&UserActivity{})
+	return obj.Count(nil, &UserActivity{})
 }
 
 // PageWhere ...
-func (obj *UserActivityPaginate) PageWhere(m Modeler) error {
-	e := obj.FindWhere(m, &obj.Detail)
+func (obj *UserActivityPaginate) PageWhere(session *xorm.Session) error {
+	e := obj.FindWhere(session.Clone(), &obj.Detail)
 	if e != nil {
 		return e
 	}
-	return obj.Count(m)
+	return obj.Count(session, &UserActivity{})
 }
 
 // PageUserActivity ...

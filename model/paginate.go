@@ -11,9 +11,9 @@ import (
 
 // Paginator ...
 type Paginator interface {
-	Find(*xorm.Session, interface{}) error
+	Find(interface{}) error
 	FindWhere(*xorm.Session, interface{}) error
-	Count(Modeler) error
+	Count(*xorm.Session, Modeler) error
 	Page() error
 	PageWhere(m Modeler) error
 }
@@ -27,9 +27,31 @@ type Paginate struct {
 	Desc      bool
 }
 
+// Start ...
+func (obj *Paginate) Start() int {
+	if obj.Current == 0 || obj.Limit == 0 {
+		return obj.Current
+	}
+	return obj.Current * obj.Limit
+}
+
 // FindWhere ...
-func (obj *Paginate) FindWhere(m Modeler, detail interface{}) error {
-	session := DB().Where(m).Limit(obj.Limit, obj.Current)
+func (obj *Paginate) FindWhere(session *xorm.Session, detail interface{}) error {
+	session = MustSession(session).Limit(obj.Limit, obj.Start())
+	if obj.Desc {
+		session = session.Desc("created_at")
+	}
+	e := session.Find(detail)
+	if e != nil {
+		log.Error(e)
+		return e
+	}
+	return nil
+}
+
+// FindWhere2 ...
+func (obj *Paginate) FindWhere2(m Modeler, detail interface{}) error {
+	session := DB().Table(m).Limit(obj.Limit, obj.Start())
 	if obj.Desc {
 		session = session.Desc("created_at")
 	}
@@ -42,17 +64,17 @@ func (obj *Paginate) FindWhere(m Modeler, detail interface{}) error {
 }
 
 // Count ...
-func (obj *Paginate) Count(m Modeler) (e error) {
-	obj.Total, e = Count(nil, m)
+func (obj *Paginate) Count(session *xorm.Session, m Modeler) (e error) {
+	obj.Total, e = Count(session, m)
 	obj.TotalPage = PageNumber(float64(obj.Total), float64(obj.Limit))
 	return
 }
 
 // Find ...
 func (obj *Paginate) Find(detail interface{}) error {
-	session := DB().Limit(obj.Limit, obj.Current)
+	session := DB().Limit(obj.Limit, obj.Start())
 	if obj.Desc {
-		session = DB().Desc("created_at")
+		session = session.Desc("created_at")
 	}
 	e := session.Find(detail)
 	if e != nil {
