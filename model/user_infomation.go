@@ -13,3 +13,8 @@ type UserInformation struct {
 	IDCardFacade  string `json:"id_card_facade" xorm:"id_card_facade"`   //身份证(正)
 	IDCardObverse string `json:"id_card_obverse" xorm:"id_card_obverse"` //身份证(反)
 }
+
+// Get ...
+func (obj *UserInformation) Get() (bool, error) {
+	return Get(nil, obj)
+}

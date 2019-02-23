@@ -13,9 +13,7 @@ import (
 // @Tags admin
 // @Accept  json
 // @Produce  json
-// @Param current query string false "paginate:current"
-// @Param limit query string false "paginate:limit"
-// @Param order query string false "paginate:order"
+// @Param token header string true "login token"
 // @success 200 {array} model.Property
 // @Failure 400 {object} controller.CodeMessage
 // @Router /admin/property [get]

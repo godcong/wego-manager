@@ -27,6 +27,11 @@ func NewNotify(id string) *Notify {
 	}}
 }
 
+// Get ...
+func (obj *Notify) Get() (bool, error) {
+	return Get(nil, obj)
+}
+
 // Notifies ...
 func (obj *Notify) Notifies() ([]*Notify, error) {
 	var backs []*Notify

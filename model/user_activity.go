@@ -11,6 +11,11 @@ type UserActivity struct {
 	SpreadNumber int64  `xorm:"notnull default(0) comment(推广数) spread_number" json:"spread_number"`
 }
 
+// Get ...
+func (obj *UserActivity) Get() (bool, error) {
+	return Get(nil, obj)
+}
+
 // CodeSpread ...
 func (obj *UserActivity) CodeSpread() (*Spread, error) {
 	var info struct {

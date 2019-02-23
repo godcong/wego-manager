@@ -24,6 +24,11 @@ func NewMenu(id string) *Menu {
 	}
 }
 
+// Get ...
+func (obj *Menu) Get() (bool, error) {
+	return Get(nil, obj)
+}
+
 // Menus ...
 func (obj *Menu) Menus() ([]*Menu, error) {
 	var menus []*Menu

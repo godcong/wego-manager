@@ -21,6 +21,11 @@ type WechatUser struct {
 	*core.WechatUserInfo `xorm:"extends" json:",inline"`
 }
 
+// Get ...
+func (obj *WechatUser) Get() (bool, error) {
+	return Get(nil, obj)
+}
+
 // UserFromHook ...
 func UserFromHook(info *core.WechatUserInfo, id string, typ int) *WechatUser {
 	return &WechatUser{

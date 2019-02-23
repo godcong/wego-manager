@@ -21,6 +21,11 @@ func NewActivity(id string) *Activity {
 	}
 }
 
+// Get ...
+func (obj *Activity) Get() (bool, error) {
+	return Get(nil, obj)
+}
+
 // CodeProperty ...
 func (obj *Activity) CodeProperty() (*Property, error) {
 	var info struct {

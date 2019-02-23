@@ -44,6 +44,11 @@ func NewProperty(id string) *Property {
 	}}
 }
 
+// Get ...
+func (obj *Property) Get() (bool, error) {
+	return Get(nil, obj)
+}
+
 // Properties ...
 func (obj *Property) Properties() ([]*Property, error) {
 	var properties []*Property

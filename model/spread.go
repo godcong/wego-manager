@@ -16,3 +16,8 @@ type Spread struct {
 	ParentUserID8 string `json:"parent_user_id_8 comment(上8级)"`
 	ParentUserID9 string `json:"parent_user_id_9 comment(上9级)"`
 }
+
+// Get ...
+func (obj *Spread) Get() (bool, error) {
+	return Get(nil, obj)
+}
