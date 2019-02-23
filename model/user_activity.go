@@ -53,7 +53,9 @@ func (obj *UserActivity) Property() (*Property, error) {
 		Property     Property     `xorm:"extends"`
 	}
 	b, e := DB().Table(obj).Join("left", info.Property, "user_activity.property_id = property.id").
-		Where("user_activity.id = ?", obj.ID).Get(&info)
+		Where("user_activity.id = ?", obj.ID).
+		Where("user_activity.user_id", obj.UserID).
+		Get(&info)
 	if e != nil {
 		return nil, e
 	}
@@ -62,6 +64,5 @@ func (obj *UserActivity) Property() (*Property, error) {
 		return nil, e
 	}
 	*obj = info.UserActivity
-
 	return &info.Property, nil
 }
