@@ -29,7 +29,6 @@ func PermissionCheck(ver string) gin.HandlerFunc {
 		log.Debug(strings.Split(ctx.Request.URL.Path, "/"))
 		var err error
 		user := User(ctx)
-		roles, err := user.Roles()
 		defer func() {
 			if err != nil {
 				Error(ctx, err)
@@ -37,6 +36,7 @@ func PermissionCheck(ver string) gin.HandlerFunc {
 				return
 			}
 		}()
+		roles, err := user.Roles()
 		log.Printf("%+v", roles)
 		if err == nil {
 			//超级管理员拥有所有权限

@@ -7,8 +7,8 @@ import (
 // PermissionUser ...
 type PermissionUser struct {
 	Model        `xorm:"-"`
-	PermissionID string `json:"permission_id" xorm:"permission_id notnull uuid"`
-	UserID       string `json:"user_id" xorm:"user_id notnull uuid"`
+	PermissionID string `json:"permission_id" xorm:"permission_id notnull unique(permission_user) uuid"`
+	UserID       string `json:"user_id" xorm:"user_id notnull unique(permission_user) uuid"`
 }
 
 // Relate ...

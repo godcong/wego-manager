@@ -51,6 +51,8 @@ func UserPropertyAdd(ver string) gin.HandlerFunc {
 			Error(ctx, err)
 			return
 		}
+		user := model.GetUser(ctx)
+		property.UserID = user.ID
 		_, err = model.Insert(nil, &property)
 		if err != nil {
 			Error(ctx, err)

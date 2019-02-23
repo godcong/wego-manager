@@ -5,9 +5,9 @@ import "golang.org/x/xerrors"
 // RoleUser ...
 type RoleUser struct {
 	Model  `xorm:"-"`
-	RoleID string `json:"-" xorm:"role_id notnull uuid"`
+	RoleID string `json:"-" xorm:"role_id notnull unique(role_user) uuid"`
 	Role   *Role  `json:"role" xorm:"-"`
-	UserID string `json:"-" xorm:"user_id notnull uuid"`
+	UserID string `json:"-" xorm:"user_id notnull unique(role_user) uuid"`
 	User   *User  `json:"user" xorm:"-"`
 }
 

@@ -48,7 +48,7 @@ func AuthCheck(ver string) gin.HandlerFunc {
 			return
 		}
 
-		ctx.Set("user", &user)
+		ctx.Set("user", user)
 		ctx.Next()
 	}
 }
