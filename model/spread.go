@@ -17,7 +17,7 @@ type Spread struct {
 	ParentUserID9 string `json:"parent_user_id_9 comment(上9级)"`
 }
 
-// Spread ...
+// NewSpread ...
 func NewSpread(id string) *Spread {
 	return &Spread{
 		Model: Model{
