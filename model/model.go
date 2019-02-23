@@ -39,6 +39,11 @@ func Table(m interface{}) *xorm.Session {
 	return DB().Table(m)
 }
 
+// Where ...
+func Where(query interface{}, args ...interface{}) *xorm.Session {
+	return DB().Where(query, args...)
+}
+
 // Count ...
 func Count(session *xorm.Session, obj Modeler) (int64, error) {
 	return MustSession(session).Count(obj)
