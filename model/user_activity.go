@@ -1,6 +1,9 @@
 package model
 
-import "golang.org/x/xerrors"
+import (
+	"github.com/go-xorm/xorm"
+	"golang.org/x/xerrors"
+)
 
 // UserActivity ...
 type UserActivity struct {
@@ -48,14 +51,16 @@ func (obj *UserActivity) CodeSpread() (*Spread, error) {
 }
 
 // Property ...
-func (obj *UserActivity) Property() (*Property, error) {
+func (obj *UserActivity) Property(session *xorm.Session) (*Property, error) {
 	var info struct {
 		UserActivity UserActivity `xorm:"extends"`
 		Property     Property     `xorm:"extends"`
 	}
-	b, e := DB().Table(obj).Join("left", info.Property, "user_activity.property_id = property.id").
+	if session == nil {
+		session = DB().NewSession()
+	}
+	b, e := session.Table(obj).Join("left", info.Property, "user_activity.property_id = property.id").
 		Where("user_activity.id = ?", obj.ID).
-		Where("user_activity.user_id = ?", obj.UserID).
 		Get(&info)
 	if e != nil {
 		return nil, e
