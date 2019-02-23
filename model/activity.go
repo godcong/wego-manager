@@ -40,6 +40,25 @@ func (obj *Activity) CodeProperty() (*Property, error) {
 	return &info.Property, nil
 }
 
+// Property ...
+func (obj *Activity) Property() (*Property, error) {
+	var info struct {
+		Activity Activity `xorm:"extends"`
+		Property Property `xorm:"extends"`
+	}
+	b, e := DB().Table(obj).Join("left", info.Property, "activity.property_id = property.id").
+		Where("activity.id = ?", obj.ID).Get(&info)
+	if e != nil {
+		return nil, e
+	}
+	if !b {
+		e = xerrors.New("property not found")
+		return nil, e
+	}
+	*obj = info.Activity
+	return &info.Property, nil
+}
+
 // Activities ...
 func (obj *Activity) Activities() ([]*Activity, error) {
 	return nil, nil
