@@ -17,6 +17,15 @@ type Spread struct {
 	ParentUserID9 string `json:"parent_user_id_9 comment(上9级)"`
 }
 
+// Spread ...
+func NewSpread(id string) *Spread {
+	return &Spread{
+		Model: Model{
+			ID: id,
+		},
+	}
+}
+
 // Get ...
 func (obj *Spread) Get() (bool, error) {
 	return Get(nil, obj)
