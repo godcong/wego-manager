@@ -2,9 +2,11 @@ package model
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/godcong/wego-auth-manager/config"
 	"github.com/godcong/wego-auth-manager/util"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
+	"strings"
 )
 
 // UserTypeAdmin ...
@@ -48,6 +50,26 @@ func NewUser(id string) *User {
 // Get ...
 func (obj *User) Get() (bool, error) {
 	return Get(nil, obj)
+}
+
+// Login ...
+func (obj *User) Login() (*util.WebToken, error) {
+	token := util.NewWebToken(obj.ID)
+	token.Username = obj.Username
+	token.Nickname = obj.Nickname
+	t, e := util.ToToken(config.Config().WebToken.Key, token)
+	if e != nil {
+		return nil, xerrors.New("username password is not correct")
+	}
+
+	ts := strings.Split(t, ".")
+	obj.Token = ts[2]
+	i, e := obj.Update("token")
+	if e != nil || i != 1 {
+		log.Error(e, i)
+		return nil, xerrors.New("unknown login error")
+	}
+	return token, nil
 }
 
 // Update ...

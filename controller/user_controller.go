@@ -7,7 +7,6 @@ import (
 	"github.com/godcong/wego-auth-manager/util"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
-	"strings"
 )
 
 // UserLogin godoc
@@ -34,44 +33,24 @@ func UserLogin(ver string) gin.HandlerFunc {
 		}
 
 		b, e := user.Get()
-		if e != nil {
-			log.Info("get error1")
-			Error(ctx, e)
-			return
-		}
-
-		if !b {
-			log.Info("get error2")
-			Error(ctx, xerrors.New("username password is not correct"))
+		if e != nil || !b {
+			log.Error(e, b)
+			Error(ctx, xerrors.New("user not found"))
 			return
 		}
 
 		b = user.Validate(&u, config.Config().WebToken.Key)
 		if !b {
-			log.Info("validate error")
 			Error(ctx, xerrors.New("username password is not correct"))
 			return
 		}
-		token := util.NewWebToken(user.ID)
-		token.Username = user.Username
-		token.Nickname = user.Nickname
-		t, e := util.ToToken(config.Config().WebToken.Key, token)
+		token, e := user.Login()
 		if e != nil {
-			log.Info(e)
-			Error(ctx, xerrors.New("username password is not correct"))
-			return
-		}
-
-		ts := strings.Split(t, ".")
-		user.Token = ts[2]
-		i, e := user.Update("token")
-		if e != nil || i != 1 {
-			log.Info(e, i)
-			Error(ctx, xerrors.New("unknown login error"))
+			Error(ctx, e)
 			return
 		}
 		Success(ctx, gin.H{
-			"token": t,
+			"token": token,
 		})
 		return
 	}

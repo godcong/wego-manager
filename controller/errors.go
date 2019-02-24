@@ -14,7 +14,7 @@ type CodeMessage struct {
 
 // Error ...
 func Error(ctx *gin.Context, err error) {
-	log.Info(err)
+	log.Error(err)
 	ctx.JSON(http.StatusBadRequest, CodeMessage{
 		Code:    -1,
 		Message: err.Error(),
