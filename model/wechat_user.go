@@ -47,12 +47,13 @@ func (obj *WechatUser) Get() (bool, error) {
 }
 
 // UserFromHook ...
-func UserFromHook(info *WechatUserInfo, id string, wtype string) *WechatUser {
-	return &WechatUser{
-		AppID:          id,
-		WechatType:     wtype,
-		WechatUserInfo: info,
+func UserFromHook(user *WechatUser, info *WechatUserInfo, id string, wtype string) {
+	if user == nil {
+		return
 	}
+	user.WechatUserInfo = info
+	user.AppID = id
+	user.WechatType = wtype
 }
 
 // GetWechatUser ...

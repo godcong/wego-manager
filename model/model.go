@@ -84,15 +84,6 @@ func Insert(session *xorm.Session, obj Modeler) (int64, error) {
 	return MustSession(session).InsertOne(obj)
 }
 
-// InsertOrUpdate ...
-func InsertOrUpdate(session *xorm.Session, obj Modeler) (int64, error) {
-	session = MustSession(session)
-	if b, e := session.Clone().Table(obj).Get(obj); e != nil || !b {
-		return DB().Insert(obj)
-	}
-	return session.Update(obj)
-}
-
 // Delete ...
 func Delete(session *xorm.Session, obj Modeler) (int64, error) {
 	return MustSession(session).Delete(obj)
