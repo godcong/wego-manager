@@ -59,16 +59,11 @@ func (obj *User) Login() (*util.WebToken, error) {
 	token.Nickname = obj.Nickname
 	t, e := util.ToToken(config.Config().WebToken.Key, token)
 	if e != nil {
-		return nil, xerrors.New("username password is not correct")
+		return nil, xerrors.New("login error")
 	}
 
 	ts := strings.Split(t, ".")
 	obj.Token = ts[2]
-	i, e := obj.Update("token")
-	if e != nil || i != 1 {
-		log.Error(e, i)
-		return nil, xerrors.New("unknown login error")
-	}
 	return token, nil
 }
 
