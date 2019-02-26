@@ -33,7 +33,7 @@ func NewRouteLoader(version string) *RouteLoader {
 }
 
 func (l *RouteLoader) router(eng *gin.Engine) {
-	eng.Use(middleware.VisitLog(l.Version))
+	eng.Use(middleware.Install(version), middleware.VisitLog(l.Version))
 	eng.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	v0 := eng.Group(l.Version)

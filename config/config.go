@@ -64,10 +64,19 @@ type WebToken struct {
 
 // Configure ...
 type Configure struct {
-	WebToken WebToken `toml:"web_token"`
-	Database Database `toml:"database"`
-	REST     REST     `toml:"rest"`
-	HTTP     HTTP     `toml:"rest"`
+	Initialized bool     `toml:"initialized"`
+	WebToken    WebToken `toml:"web_token"`
+	Database    Database `toml:"database"`
+	REST        REST     `toml:"rest"`
+	HTTP        HTTP     `toml:"rest"`
+}
+
+// IsInitialized ...
+func IsInitialized() bool {
+	if globalConfig == nil {
+		return false
+	}
+	return globalConfig.Initialized
 }
 
 func initLoader(path string) (cfg *Configure) {

@@ -2,9 +2,10 @@ package model
 
 // Module ...
 type Module struct {
-	Model `xorm:"extends" json:",inline"`
-	Name  string `xorm:"name" json:"name"`
-	URL   string `xorm:"url" json:"url"`
+	Model  `xorm:"extends" json:",inline"`
+	Name   string `xorm:"name" json:"name"`
+	Site   string `xorm:"site" json:"site"`
+	Deploy string `xorm:"deploy" json:"deploy"`
 }
 
 // NewModule ...
