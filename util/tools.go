@@ -4,6 +4,8 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"fmt"
+	"github.com/godcong/wego/util"
+	"github.com/google/uuid"
 	"github.com/json-iterator/go"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/square/go-jose.v2"
@@ -126,16 +128,20 @@ func DecryptJWT(key []byte, token string) (string, error) {
 }
 
 // EncryptJWT ...
-func EncryptJWT(key []byte, sub []byte) (string, error) {
+func EncryptJWT(key []byte, sub []byte, expiry ...time.Duration) (string, error) {
 	sig, err := jose.NewSigner(jose.SigningKey{Algorithm: jose.HS256, Key: key}, (&jose.SignerOptions{}).WithType("JWT"))
 	if err != nil {
 		return "", nil
 	}
+	if expiry == nil {
+		expiry = []time.Duration{time.Hour * 14 * 24}
+	}
+
 	cl := jwt.Claims{
 		Subject:   string(sub),
 		Issuer:    "godcong",
 		IssuedAt:  jwt.NewNumericDate(time.Now()),
-		Expiry:    jwt.NewNumericDate(time.Now().Add(time.Hour * 24 * 14)),
+		Expiry:    jwt.NewNumericDate(time.Now().Add(expiry[0])),
 		NotBefore: jwt.NewNumericDate(time.Now()),
 		ID:        GenerateRandomString(16),
 	}
@@ -156,4 +162,9 @@ func SHA256(v, key, salt string) string {
 // StructureName ...
 func StructureName(s interface{}) string {
 	return reflect.Indirect(reflect.ValueOf(s)).Type().Name()
+}
+
+// GenSpreadSign ...
+func GenSpreadSign() string {
+	return util.GenMD5(uuid.New().String())
 }

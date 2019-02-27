@@ -17,3 +17,16 @@ func MenuSeeders() {
 	})
 
 }
+
+func ModuleSeeders() {
+	var modules []*model.Module
+	modules = append(modules, &model.Module{
+		Name:    "spread",
+		Alias:   "spread",
+		Site:    "https://github.com/godcong/wego-spread-service",
+		OS:      "",
+		Deploy:  "",
+		Log:     "http://localhost:9200",
+		Depends: []string{"manager"},
+	})
+}
