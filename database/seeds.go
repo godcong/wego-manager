@@ -18,6 +18,7 @@ func MenuSeeders() {
 
 }
 
+// ModuleSeeders ...
 func ModuleSeeders() {
 	var modules []*model.Module
 	modules = append(modules, &model.Module{
