@@ -6,6 +6,7 @@ type Module struct {
 	Name   string `xorm:"name" json:"name"`
 	Site   string `xorm:"site" json:"site"`
 	Deploy string `xorm:"deploy" json:"deploy"`
+	Log    string `xorm:"log" json:"log"`
 }
 
 // NewModule ...
