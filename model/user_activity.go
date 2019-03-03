@@ -13,7 +13,7 @@ type UserActivity struct {
 	UserID       string `xorm:"notnull unique(user_activity) default('') comment(参加活动的用户ID) user_id" json:"user_id"`
 	IsStar       bool   `xorm:"notnull default(false) comment(是否收藏) is_star" json:"is_star"`
 	SpreadCode   string `xorm:"notnull unique default('') comment(参加活动的用户推广码) spread_code"  json:"spread_code"`
-	Verified     bool   `xorm:"notnull default(false)  comment(校验通过) verified" json:"verified"`
+	IsPass       bool   `xorm:"notnull default(false)  comment(校验通过) is_pass" json:"is_pass"`
 	SpreadNumber int64  `xorm:"notnull default(0) comment(推广数) spread_number" json:"spread_number"`
 }
 
