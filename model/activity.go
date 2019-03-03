@@ -68,7 +68,12 @@ func (obj *Activity) Property() (*Property, error) {
 
 // Activities ...
 func (obj *Activity) Activities() ([]*Activity, error) {
-	return nil, nil
+	var activities []*Activity
+	e := DB().Find(&activities)
+	if e != nil {
+		return nil, e
+	}
+	return activities, e
 }
 
 // User ...
