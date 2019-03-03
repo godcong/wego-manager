@@ -54,8 +54,7 @@ func (obj *User) Get() (bool, error) {
 
 // Login ...
 func (obj *User) Login() (*util.WebToken, error) {
-	token := util.NewWebToken(obj.ID)
-	token.Username = obj.Username
+	token := util.NewWebToken(obj.ID, obj.Username)
 	token.Nickname = obj.Nickname
 	t, e := util.ToToken(config.Config().WebToken.Key, token)
 	if e != nil {
