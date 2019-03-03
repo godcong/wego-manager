@@ -11,7 +11,7 @@ type UserActivity struct {
 	PropertyID   string `xorm:"notnull default('') comment(配置ID) property_id" json:"property_id"`
 	ActivityID   string `xorm:"notnull unique(user_activity) default('') comment(活动ID) activity_id" json:"activity_id"`
 	UserID       string `xorm:"notnull unique(user_activity) default('') comment(参加活动的用户ID) user_id" json:"user_id"`
-	Star         string `xorm:"notnull default('') comment(收藏) star" json:"star"`
+	IsStar       bool   `xorm:"notnull default(false) comment(是否收藏) is_star" json:"is_star"`
 	SpreadCode   string `xorm:"notnull unique default('') comment(参加活动的用户推广码) spread_code"  json:"spread_code"`
 	Verified     bool   `xorm:"notnull default(false)  comment(校验通过) verified" json:"verified"`
 	SpreadNumber int64  `xorm:"notnull default(0) comment(推广数) spread_number" json:"spread_number"`
