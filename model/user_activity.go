@@ -71,3 +71,13 @@ func (obj *UserActivity) Property(session *xorm.Session) (*Property, error) {
 	*obj = info.UserActivity
 	return &info.Property, nil
 }
+
+// Activities ...
+func (obj *UserActivity) Activities() ([]*Activity, error) {
+	var activities []*Activity
+	e := Where("user_id = ?", obj.UserID).Find(&activities)
+	if e != nil {
+		return nil, e
+	}
+	return activities, e
+}

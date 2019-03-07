@@ -53,17 +53,17 @@ func (obj *User) Get() (bool, error) {
 }
 
 // Login ...
-func (obj *User) Login() (*util.WebToken, error) {
+func (obj *User) Login() (string, error) {
 	token := util.NewWebToken(obj.ID, obj.Username)
 	token.Nickname = obj.Nickname
 	t, e := util.ToToken(config.Config().WebToken.Key, token)
 	if e != nil {
-		return nil, xerrors.New("login error")
+		return "", xerrors.New("login error")
 	}
 
 	ts := strings.Split(t, ".")
 	obj.Token = ts[2]
-	return token, nil
+	return t, nil
 }
 
 // Update ...

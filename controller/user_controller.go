@@ -49,6 +49,12 @@ func UserLogin(ver string) gin.HandlerFunc {
 			Error(ctx, e)
 			return
 		}
+		i, e := user.Update("token")
+		if e != nil || i == 0 {
+			log.Error(e, i)
+			Error(ctx, xerrors.New("token invalided"))
+			return
+		}
 		Success(ctx, gin.H{
 			"token": token,
 		})
