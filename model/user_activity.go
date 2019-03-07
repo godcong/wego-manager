@@ -72,12 +72,20 @@ func (obj *UserActivity) Property(session *xorm.Session) (*Property, error) {
 	return &info.Property, nil
 }
 
+// UserActivityActivity ...
+type UserActivityActivity struct {
+	UserActivity UserActivity `xorm:"extends"`
+	Activity     Activity     `xorm:"extends"`
+}
+
 // Activities ...
-func (obj *UserActivity) Activities() ([]*Activity, error) {
-	var activities []*Activity
-	e := Where("user_id = ?", obj.UserID).Find(&activities)
+func (obj *UserActivity) Activities(session *xorm.Session) ([]*UserActivityActivity, error) {
+	var activities []*UserActivityActivity
+	e := MustSession(session).Table(obj).Join("left", &Activity{}, "user_activity.activity_id = activity.id").
+		Where("user_activity.user_id = ?", obj.UserID).
+		Find(&activities)
 	if e != nil {
 		return nil, e
 	}
-	return activities, e
+	return activities, nil
 }
