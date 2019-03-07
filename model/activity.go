@@ -13,6 +13,7 @@ type Activity struct {
 	Code       string `xorm:"notnull unique default('') comment(活动码) code" json:"code"`        //活动码
 	IsPublic   bool   `xorm:"notnull default(false) comment(公开) is_public" json:"is_public"`   //是否公开
 	IsVerify   bool   `xorm:"notnull default(false) comment(是否校验) is_verify" json:"is_verify"` //是否校验
+	Comment    string `xorm:"varchat(2048) comment(活动介绍) comment" json:"comment"`
 	Mode       string `xorm:"notnull default('') comment(活动模式) mode" json:"mode"`              //活动模式
 }
 
