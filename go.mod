@@ -11,7 +11,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/go-xorm/core v0.6.2
 	github.com/go-xorm/xorm v0.7.1
-	github.com/godcong/go-trait v0.0.0-20190222073043-5e5d5d384ce4
+	github.com/godcong/go-trait v0.0.0-20190308094246-c2aaaec3a01c
 	github.com/godcong/wego v0.0.0-20190223165654-4ef4b4f4455c
 	github.com/google/uuid v1.1.0
 	github.com/jackc/pgx v3.3.0+incompatible // indirect
@@ -28,5 +28,6 @@ require (
 	golang.org/x/xerrors v0.0.0-20190212162355-a5947ffaace3
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
+	gopkg.in/olivere/elastic.v5 v5.0.79 // indirect
 	gopkg.in/square/go-jose.v2 v2.2.2
 )

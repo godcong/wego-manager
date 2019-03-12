@@ -16,7 +16,7 @@ import (
 )
 
 var configPath = flag.String("config", "config.toml", "load config from path")
-var logPath = flag.String("log", "manager.log", "set log name")
+var logPath = flag.String("log", "logs/manager.log", "set log path")
 var sync = flag.Bool("sync", false, "open to sync the model")
 var elk = flag.Bool("elk", true, "set to open the elk")
 
@@ -42,6 +42,8 @@ func main() {
 
 	if *elk {
 		trait.InitElasticLog("wego-auth-manager", nil)
+	} else {
+		trait.InitRotateLog(*logPath, nil)
 	}
 
 	sigs := make(chan os.Signal, 1)
