@@ -176,6 +176,21 @@ func (obj *User) UserActivities() ([]*UserActivity, error) {
 	return activities, nil
 }
 
+// WechatUser ...
+func (obj *User) WechatUser() (*WechatUser, error) {
+	var info struct {
+		User       User       `xorm:"extends"`
+		WechatUser WechatUser `xorm:"extends"`
+	}
+	err := Table(obj).Join("left", info.WechatUser, "user.wechat_user_id = wechat_user.id").
+		Where("user.id = ?", obj.ID).Find(&info)
+	if err != nil {
+		return nil, xerrors.Errorf("find user properties error : %w", err)
+	}
+	*obj = info.User
+	return &info.WechatUser, nil
+}
+
 // MustUser ...
 func MustUser(user interface{}, b bool) *User {
 	if b {
