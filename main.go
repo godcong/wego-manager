@@ -18,7 +18,7 @@ import (
 var configPath = flag.String("config", "config.toml", "load config from path")
 var logPath = flag.String("log", "logs/manager.log", "set log path")
 var sync = flag.Bool("sync", false, "open to sync the model")
-var elk = flag.Bool("elk", true, "set to open the elk")
+var elk = flag.Bool("elk", false, "set to open the elk")
 
 // @title Swagger Example API
 // @version 1.0

@@ -182,10 +182,14 @@ func (obj *User) WechatUser() (*WechatUser, error) {
 		User       User       `xorm:"extends"`
 		WechatUser WechatUser `xorm:"extends"`
 	}
-	err := Table(obj).Join("left", info.WechatUser, "user.wechat_user_id = wechat_user.id").
-		Where("user.id = ?", obj.ID).Find(&info)
-	if err != nil {
-		return nil, xerrors.Errorf("find user properties error : %w", err)
+	b, e := Table(obj).Join("left", info.WechatUser, "user.wechat_user_id = wechat_user.id").
+		Where("user.id = ?", obj.ID).Get(&info)
+	if e != nil {
+		return nil, e
+	}
+	if !b {
+		e = xerrors.New("property not found")
+		return nil, e
 	}
 	*obj = info.User
 	return &info.WechatUser, nil
