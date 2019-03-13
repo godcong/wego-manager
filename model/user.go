@@ -149,7 +149,7 @@ func (obj *User) Validate(u *Login, key string) bool {
 // Spreads ...
 func (obj *User) Spreads() ([]*Spread, error) {
 	var spreads []*Spread
-	err := Where("user_id = ?", obj.ID).Find(&spreads)
+	err := Where("parent_user_id_1 = ?", obj.ID).Find(&spreads)
 	if err != nil {
 		return nil, xerrors.Errorf("find: %w", err)
 	}
