@@ -1,5 +1,7 @@
 package model
 
+import "github.com/go-xorm/xorm"
+
 // Spread ...
 type Spread struct {
 	Model         `xorm:"extends"`
@@ -29,4 +31,22 @@ func NewSpread(id string) *Spread {
 // Get ...
 func (obj *Spread) Get() (bool, error) {
 	return Get(nil, obj)
+}
+
+// SpreadActivity ...
+type SpreadActivity struct {
+	Spread   Spread   `xorm:"extends"`
+	Activity Activity `xorm:"extends"`
+}
+
+// SpreadActivity ...
+func (obj *Spread) SpreadActivity(session *xorm.Session) ([]*SpreadActivity, error) {
+	var info []*SpreadActivity
+	e := MustSession(session).Table(obj).
+		Join("left", &Activity{}, "activity.id = spread.activity_id").
+		Find(&info)
+	if e != nil {
+		return nil, e
+	}
+	return info, e
 }
