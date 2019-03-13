@@ -12,7 +12,7 @@ type Activity struct {
 	Name       string `xorm:"notnull default('') comment(名称) name" json:"name"`                        //活动名称
 	Code       string `xorm:"notnull unique default('') comment(活动码) code" json:"code"`                //活动码
 	IsPublic   bool   `xorm:"notnull default(false) comment(公开) is_public" json:"is_public"`           //是否公开
-	IsVerify   bool   `xorm:"notnull default(false) comment(是否校验) is_verify" json:"is_verify"`         //是否校验
+	NeedVerify bool   `xorm:"notnull default(false) comment(是否需要校验) need_verify" json:"need_verify"`   //是否需要校验
 	Comment    string `xorm:"notnull default('')  comment(活动介绍) varchar(2048) comment" json:"comment"` //活动介绍
 	Mode       string `xorm:"notnull default('') comment(活动模式) mode" json:"mode"`                      //活动模式
 }
