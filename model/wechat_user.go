@@ -13,24 +13,24 @@ const WechatTypeProgram = "program"
 
 // WechatUserInfo ...
 type WechatUserInfo struct {
-	City           string   `xorm:"notnull default('0') city" json:"city"`
-	Country        string   `xorm:"notnull default('0') country" json:"country"`
-	HeadImgURL     string   `xorm:"notnull default('0') head_img_url" json:"headimgurl"`
-	Language       string   `xorm:"notnull default('0') language" json:"language"`
-	Nickname       string   `xorm:"notnull default('0') nickname" json:"nickname"`
-	OpenID         string   `xorm:"notnull default('0') unique open_id" json:"openid"`
+	City           string   `xorm:"notnull default('') city" json:"city"`
+	Country        string   `xorm:"notnull default('') country" json:"country"`
+	HeadImgURL     string   `xorm:"notnull default('') head_img_url" json:"headimgurl"`
+	Language       string   `xorm:"notnull default('') language" json:"language"`
+	Nickname       string   `xorm:"notnull default('') nickname" json:"nickname"`
+	OpenID         string   `xorm:"notnull default('') unique open_id" json:"openid"`
 	Privilege      []string `xorm:"notnull privilege" json:"privilege"`
-	Province       string   `xorm:"notnull default('0') province" json:"province"`
+	Province       string   `xorm:"notnull default('') province" json:"province"`
 	Sex            uint     `xorm:"notnull default(0) sex" json:"sex"`
 	Subscribe      int      `xorm:"notnull default(0) subscribe" json:"subscribe"`
 	SubscribeTime  uint32   `xorm:"notnull default(0) subscribe_time" json:"subscribe_time"`
-	UnionID        string   `xorm:"notnull default('0') union_id" json:"unionid"`
-	Remark         string   `xorm:"notnull default('0') remark" json:"remark"`
+	UnionID        string   `xorm:"notnull default('') union_id" json:"unionid"`
+	Remark         string   `xorm:"notnull default('') remark" json:"remark"`
 	GroupID        int      `xorm:"notnull default(0) group_id" json:"groupid"`
 	TagIDList      []int    `xorm:"notnull tag_id_list" json:"tagid_list"`
 	SubscribeScene string   `xorm:"notnull default('') subscribe_scene" json:"subscribe_scene"`
 	QrScene        int      `xorm:"notnull default(0) qr_scene" json:"qr_scene"`
-	QrSceneStr     string   `xorm:"notnull default('0') qr_scene_str" json:"qr_scene_str"`
+	QrSceneStr     string   `xorm:"notnull default('') qr_scene_str" json:"qr_scene_str"`
 }
 
 // WechatUser ...

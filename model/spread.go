@@ -6,6 +6,7 @@ import "github.com/go-xorm/xorm"
 type Spread struct {
 	Model         `xorm:"extends"`
 	UserID        string `xorm:"notnull default('') user_id" json:"user_id"`
+	Nickname      string `xorm:"notnull default('') nickname" json:"nickname"`
 	Code          string `xorm:"notnull default('') code" json:"code"`
 	ActivityID    string `xorm:"notnull default('') activity_id" json:"activity_id"`
 	ParentUserID1 string `xorm:"notnull default('') parent_user_id_1" json:"parent_user_id_1 comment(上1级)"`
