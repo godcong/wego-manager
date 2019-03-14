@@ -29,6 +29,11 @@ func (obj *Activity) Get() (bool, error) {
 	return Get(nil, obj)
 }
 
+// Update ...
+func (obj *Activity) Update(cols ...string) (int64, error) {
+	return Update(nil, obj.ID, obj)
+}
+
 // CodeProperty ...
 func (obj *Activity) CodeProperty() (*Property, error) {
 	var info struct {

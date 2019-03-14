@@ -31,6 +31,11 @@ func (obj *UserActivity) Get() (bool, error) {
 	return Get(nil, obj)
 }
 
+// Update ...
+func (obj *UserActivity) Update(cols ...string) (int64, error) {
+	return Update(nil, obj.ID, obj)
+}
+
 // CodeSpread ...
 func (obj *UserActivity) CodeSpread(session *xorm.Session) (*Spread, error) {
 	var info struct {
