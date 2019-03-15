@@ -89,6 +89,7 @@ func initLoader(path string) (cfg *Configure) {
 	if err != nil {
 		return
 	}
+	cfg.Database.Location = url.QueryEscape(cfg.Database.Location)
 	return
 }
 
