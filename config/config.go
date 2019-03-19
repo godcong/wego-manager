@@ -9,12 +9,11 @@ import (
 
 var globalConfig *Configure
 
-// REST ...
-type REST struct {
-	Enable bool   `toml:"enable"`
-	Type   string `toml:"type"`
-	Path   string `toml:"path"`
-	Port   string `toml:"port"`
+// Service ...
+type Service struct {
+	EnableHTTP bool   `toml:"enable_http"`
+	HostPort   string `toml:"host_port"`
+	Type       string `toml:"type"`
 }
 
 // HTTP ...
@@ -67,8 +66,7 @@ type Configure struct {
 	Initialized bool     `toml:"initialized"`
 	WebToken    WebToken `toml:"web_token"`
 	Database    Database `toml:"database"`
-	REST        REST     `toml:"rest"`
-	HTTP        HTTP     `toml:"rest"`
+	Service     Service  `toml:"service"`
 }
 
 // IsInitialized ...
@@ -79,18 +77,37 @@ func IsInitialized() bool {
 	return globalConfig.Initialized
 }
 
-func initLoader(path string) (cfg *Configure) {
-	cfg = DefaultConfig()
+func initLoader(path string) *Configure {
+	var cfg Configure
+	def := DefaultConfig()
 	tree, err := toml.LoadFile(path)
 	if err != nil {
-		return
+		return def
 	}
 	err = tree.Unmarshal(cfg)
 	if err != nil {
-		return
+		return def
 	}
+	//url escape
 	cfg.Database.Location = url.QueryEscape(cfg.Database.Location)
-	return
+	return cfg.ParseDefault(def)
+}
+
+// ParseDefault ...
+func (cfg *Configure) ParseDefault(def *Configure) *Configure {
+	cfg.WebToken.Key = MustString(cfg.WebToken.Key, def.WebToken.Key)
+	cfg.Database.Type = MustString(cfg.Database.Type, def.Database.Type)
+	cfg.Database.Addr = MustString(cfg.Database.Addr, def.Database.Addr)
+	cfg.Database.Port = MustString(cfg.Database.Port, def.Database.Port)
+	cfg.Database.Username = MustString(cfg.Database.Username, def.Database.Username)
+	cfg.Database.Password = MustString(cfg.Database.Password, def.Database.Password)
+	cfg.Database.Schema = MustString(cfg.Database.Schema, def.Database.Schema)
+	cfg.Database.Location = MustString(cfg.Database.Location, def.Database.Location)
+	cfg.Database.Charset = MustString(cfg.Database.Charset, def.Database.Charset)
+	cfg.Database.Prefix = MustString(cfg.Database.Prefix, def.Database.Prefix)
+	cfg.Service.HostPort = MustString(cfg.Service.HostPort, def.Service.HostPort)
+	cfg.Service.Type = MustString(cfg.Service.Type, def.Service.Type)
+	return cfg
 }
 
 // DefaultConfig ...
@@ -112,7 +129,11 @@ func DefaultConfig() *Configure {
 			Charset:  "utf8mb4",
 			Prefix:   "",
 		},
-		REST: REST{},
+		Service: Service{
+			EnableHTTP: true,
+			HostPort:   "8080",
+			Type:       "tcp",
+		},
 	}
 }
 

@@ -9,9 +9,9 @@ import (
 
 // RestServer ...
 type RestServer struct {
+	config *config.Configure
 	*gin.Engine
 	loader *RouteLoader
-	config *config.Configure
 	server *http.Server
 	Port   string
 }
@@ -22,7 +22,7 @@ func NewRestServer(cfg *config.Configure) *RestServer {
 		config: cfg,
 		loader: NewRouteLoader("v0"),
 		Engine: gin.Default(),
-		Port:   config.MustString(cfg.REST.Port, ":8080"),
+		Port:   cfg.Service.HostPort,
 	}
 	return s
 }
