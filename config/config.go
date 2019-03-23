@@ -84,10 +84,12 @@ func initLoader(path string) *Configure {
 	def := DefaultConfig()
 	tree, err := toml.LoadFile(path)
 	if err != nil {
+		log.Error(err)
 		return def
 	}
-	err = tree.Unmarshal(cfg)
+	err = tree.Unmarshal(&cfg)
 	if err != nil {
+		log.Error(err)
 		return def
 	}
 	//url escape
