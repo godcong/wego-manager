@@ -11,7 +11,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/go-xorm/core v0.6.2
 	github.com/go-xorm/xorm v0.7.1
-	github.com/godcong/go-trait v0.0.0-20190308094246-c2aaaec3a01c
+	github.com/godcong/go-trait v0.0.0-20190314091618-0985e279eaf8
 	github.com/godcong/wego v0.0.0-20190223165654-4ef4b4f4455c
 	github.com/google/uuid v1.1.0
 	github.com/jackc/pgx v3.3.0+incompatible // indirect

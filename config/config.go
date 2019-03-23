@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"github.com/pelletier/go-toml"
+	log "github.com/sirupsen/logrus"
 	"net/url"
 	"strconv"
 )
@@ -47,6 +48,7 @@ func Config() *Configure {
 // InitConfig ...
 func InitConfig(path string) *Configure {
 	globalConfig = initLoader(path)
+	log.Infof("%+v", globalConfig)
 	return globalConfig
 }
 
@@ -131,7 +133,7 @@ func DefaultConfig() *Configure {
 		},
 		Service: Service{
 			EnableHTTP: true,
-			HostPort:   "8080",
+			HostPort:   ":8080",
 			Type:       "tcp",
 		},
 	}

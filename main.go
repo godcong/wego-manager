@@ -41,9 +41,9 @@ func main() {
 	flag.Parse()
 
 	if *elk {
-		trait.InitElasticLog("wego-auth-manager", nil)
+		trait.InitElasticLog("wego-auth-manager")
 	} else {
-		trait.InitRotateLog(*logPath, nil)
+		trait.InitRotateLog(*logPath)
 	}
 
 	sigs := make(chan os.Signal, 1)
