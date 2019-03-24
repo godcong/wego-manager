@@ -63,11 +63,19 @@ type WebToken struct {
 	Key string `toml:"key"`
 }
 
+// Redis ...
+type Redis struct {
+	Addr     string `toml:"addr"`
+	Password string `toml:"password"`
+	DB       string `toml:"db"`
+}
+
 // Configure ...
 type Configure struct {
 	Initialized bool     `toml:"initialized"`
 	WebToken    WebToken `toml:"web_token"`
 	Database    Database `toml:"database"`
+	Redis       Redis    `toml:"redis"`
 	Service     Service  `toml:"service"`
 }
 
