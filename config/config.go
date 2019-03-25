@@ -67,7 +67,7 @@ type WebToken struct {
 type Redis struct {
 	Addr     string `toml:"addr"`
 	Password string `toml:"password"`
-	DB       string `toml:"db"`
+	DB       int    `toml:"db"`
 }
 
 // Configure ...
