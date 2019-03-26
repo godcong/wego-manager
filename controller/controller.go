@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/godcong/wego-auth-manager/model"
+	"github.com/godcong/wego-manager/model"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )

@@ -2,7 +2,7 @@ package service
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/godcong/wego-auth-manager/config"
+	"github.com/godcong/wego-manager/config"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )

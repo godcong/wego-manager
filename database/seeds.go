@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/godcong/wego-auth-manager/model"
+	"github.com/godcong/wego-manager/model"
 )
 
 // MenuSeeders ...

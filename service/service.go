@@ -1,6 +1,6 @@
 package service
 
-import "github.com/godcong/wego-auth-manager/config"
+import "github.com/godcong/wego-manager/config"
 
 // Service ...
 type Service struct {

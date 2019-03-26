@@ -2,8 +2,8 @@ package model
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/godcong/wego-auth-manager/config"
-	"github.com/godcong/wego-auth-manager/util"
+	"github.com/godcong/wego-manager/config"
+	"github.com/godcong/wego-manager/util"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
 	"strings"

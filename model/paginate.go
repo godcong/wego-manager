@@ -2,7 +2,7 @@ package model
 
 import (
 	"github.com/go-xorm/xorm"
-	"github.com/godcong/wego-auth-manager/config"
+	"github.com/godcong/wego-manager/config"
 	log "github.com/sirupsen/logrus"
 	"math"
 	"net/url"

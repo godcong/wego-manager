@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/godcong/wego-auth-manager/model"
-	"github.com/godcong/wego-auth-manager/util"
+	"github.com/godcong/wego-manager/model"
+	"github.com/godcong/wego-manager/util"
 	log "github.com/sirupsen/logrus"
 )
 

@@ -1,4 +1,4 @@
-module github.com/godcong/wego-auth-manager
+module github.com/godcong/wego-manager
 
 require (
 	github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc

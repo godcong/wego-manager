@@ -2,8 +2,8 @@ package service
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/godcong/wego-auth-manager/controller"
-	"github.com/godcong/wego-auth-manager/middleware"
+	"github.com/godcong/wego-manager/controller"
+	"github.com/godcong/wego-manager/middleware"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
