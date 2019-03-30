@@ -3,6 +3,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-manager/model"
+	"github.com/godcong/wego-manager/permission"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
 	"strings"
@@ -10,17 +11,25 @@ import (
 
 func handleFuncName(ctx *gin.Context) string {
 	hn := strings.Split(ctx.HandlerName(), ".")
-	size := len(hn)
-	if size < 2 {
-		return ""
+	if size := len(hn); size > 2 {
+		return hn[size-2]
 	}
-	return hn[size-2]
+	return ""
 }
 
 // Permission ...
 type Permission struct {
-	Version string
-	Menu    string
+	FuncName  string
+	CRUD      string
+	Dashboard string
+	Method    string
+	Model     string
+	Version   string
+	Prefix    string
+}
+
+func (p *Permission) Slug() string {
+	return strings.Join([]string{p.Dashboard, p.Model, p.CRUD}, ".")
 }
 
 // PermissionCheck ...
@@ -81,4 +90,26 @@ func ParseCRUD(funcName string) string {
 		return "list"
 	}
 	return ""
+}
+
+func URI(uri string) []string {
+	s := make([]string, 6)
+	tmp := strings.Split(uri, "/")
+	copy(s, tmp)
+	return s
+}
+
+func ParseContext(ctx *gin.Context) permission.Permission {
+	p := &Permission{}
+	method := ctx.Request.Method
+
+	uri := URI(ctx.Request.RequestURI)
+	p.FuncName = handleFuncName(ctx)
+	p.Version = strings.ToLower(uri[1])
+	p.Dashboard = strings.ToLower(uri[2])
+	p.Model = strings.ToLower(uri[3])
+	p.Method = strings.ToLower(method)
+	p.CRUD = strings.ToLower(ParseCRUD(p.FuncName))
+	log.Infof("%+v", p)
+	return p
 }
