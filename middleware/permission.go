@@ -62,3 +62,23 @@ func PermissionCheck(ver string) gin.HandlerFunc {
 		ctx.Next()
 	}
 }
+
+// ParseCRUD ...
+func ParseCRUD(funcName string) string {
+	n := len(funcName)
+	switch {
+	case strings.LastIndex(funcName, "List") == (n - 4):
+		return "list"
+	case strings.LastIndex(funcName, "Get") == (n - 3):
+		return "list"
+	case strings.LastIndex(funcName, "Add") == (n - 3):
+		return "add"
+	case strings.LastIndex(funcName, "Delete") == (n - 6):
+		return "delete"
+	case strings.LastIndex(funcName, "Update") == (n - 6):
+		return "update"
+	case strings.LastIndex(funcName, "Show") == (n - 6):
+		return "list"
+	}
+	return ""
+}
