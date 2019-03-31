@@ -28,6 +28,7 @@ type Permission struct {
 	Prefix    string
 }
 
+// Slug ...
 func (p *Permission) Slug() string {
 	return strings.Join([]string{p.Dashboard, p.Model, p.CRUD}, ".")
 }
@@ -92,6 +93,7 @@ func ParseCRUD(funcName string) string {
 	return ""
 }
 
+// URI ...
 func URI(uri string) []string {
 	s := make([]string, 6)
 	tmp := strings.Split(uri, "/")
@@ -99,7 +101,8 @@ func URI(uri string) []string {
 	return s
 }
 
-func ParseContext(ctx *gin.Context) permission.Permission {
+// ParsePermission ...
+func ParsePermission(ctx *gin.Context) permission.Permission {
 	p := &Permission{}
 	method := ctx.Request.Method
 
