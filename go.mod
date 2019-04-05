@@ -18,6 +18,7 @@ require (
 	github.com/json-iterator/go v1.1.5
 	github.com/mattn/go-isatty v0.0.4 // indirect
 	github.com/pelletier/go-toml v1.2.0
+	github.com/rakyll/statik v0.1.6
 	github.com/sirupsen/logrus v1.3.0
 	github.com/swaggo/gin-swagger v1.0.0
 	github.com/swaggo/swag v1.4.0
@@ -28,6 +29,5 @@ require (
 	golang.org/x/xerrors v0.0.0-20190212162355-a5947ffaace3
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
-	gopkg.in/olivere/elastic.v5 v5.0.79 // indirect
 	gopkg.in/square/go-jose.v2 v2.2.2
 )

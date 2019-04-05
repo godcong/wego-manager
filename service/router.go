@@ -4,8 +4,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-manager/controller"
 	"github.com/godcong/wego-manager/middleware"
+	"github.com/rakyll/statik/fs"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
+	"log"
 )
 
 // Handle ...
@@ -37,6 +39,11 @@ func (l *RouteLoader) router(eng *gin.Engine) {
 	eng.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	v0 := eng.Group(l.Version)
+	st, err := fs.New()
+	if err != nil {
+		log.Fatal(err)
+	}
+	eng.StaticFS("/webui", st)
 
 	notify := v0.Group("notify")
 	notify.POST("/:sign/:backType/*uri", controller.NotifyServer(l.Version))
